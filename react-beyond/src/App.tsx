@@ -1,7 +1,8 @@
 import * as React from 'react';
 import ReactAnimate from './components/Animate';
 
-const Animate = ReactAnimate.Animate
+// const Animate = ReactAnimate.Animate
+const AnimateGroup = ReactAnimate.AnimateGroup
 
 class App extends React.Component {
 
@@ -20,9 +21,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <button onClick={this.handleClick}>button</button>
-        <Animate animate={this.state.animate} keep={true}>
+        {/* <Animate animate={this.state.animate}>
           <div>123</div>
-        </Animate>
+        </Animate> */}
+        <AnimateGroup animate={this.state.animate}>
+          <div>123</div>
+          <div>123</div>
+          <div>123</div>
+        </AnimateGroup>
       </div>
     );
   }
