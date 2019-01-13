@@ -30,7 +30,7 @@ class Animate extends React.Component<InterfaceAnimateProps, InterfaceAnimateSta
   }
 
   public componentDidMount (): void {
-    this.handleAnimate()
+    setTimeout(() => this.handleAnimate())
   }
 
   public componentDidUpdate (prevProps: InterfaceAnimateProps): void {
@@ -41,7 +41,7 @@ class Animate extends React.Component<InterfaceAnimateProps, InterfaceAnimateSta
 
   public handleAnimate = (): void => {
     const { animate } = this.props
-    setTimeout(() => this.setState({ animate }))
+    this.setState({ animate })
   }
 
   public render () {
@@ -65,7 +65,7 @@ class Animate extends React.Component<InterfaceAnimateProps, InterfaceAnimateSta
 
 interface InterfaceAnimateGroupState {
   current: number,
-  timer: number | undefined
+  timer?: number | undefined
 }
 
 interface InterfaceAnimateGroupProps {
@@ -103,7 +103,7 @@ class AnimateGroup extends React.Component<InterfaceAnimateGroupProps & Interfac
   }
   
   public handleAnimate = (): void => {
-    const { interval, children, animate } = this.props
+    const { interval, children, animate, onAnimateEnd } = this.props
     const { timer } = this.state
     const MAX_LEN = children ? children.length : 0
     let { current } = this.state
@@ -112,8 +112,14 @@ class AnimateGroup extends React.Component<InterfaceAnimateGroupProps & Interfac
       // 指针依次向前移动
       if (!animate && current <= 0) {
         this.setState({ current: 0 })
+        if (onAnimateEnd) {
+          onAnimateEnd()
+        }
       } else if (animate && current >= MAX_LEN) {
         this.setState({ current: MAX_LEN })
+        if (onAnimateEnd) {
+          onAnimateEnd()
+        }
       } else {
         current = current + (animate ? 1 : -1)
         this.setState({
@@ -147,11 +153,59 @@ class AnimateGroup extends React.Component<InterfaceAnimateGroupProps & Interfac
   }
 }
 
-class AnimateGroups extends React.Component {
-}
+// class AnimateGroups extends React.Component<InterfaceAnimateGroupProps & InterfaceAnimateProps, InterfaceAnimateGroupState> {
+
+//   public static defaultProps: InterfaceAnimateGroupProps & InterfaceAnimateProps = {
+//     interval: 200,
+//     animate: true
+//   }
+
+//   public constructor (props: InterfaceAnimateGroupProps & InterfaceAnimateProps) {
+//     super(props)
+//     this.state = {
+//       current: 0
+//     }
+//   }
+
+//   public UNSAFE_componentWillMount (): void {
+//     this.handleAnimateEnd()
+//   }
+
+//   public componentDidUpdate (prevProps: InterfaceAnimateGroupProps & InterfaceAnimateProps): void {
+//     if (prevProps.animate !== this.props.animate) {
+//       this.handleAnimateEnd()
+//     }
+//   }
+
+//   public handleAnimateEnd = (): void => {
+//     const { children, animate } = this.props
+//     const MAX_LEN = children ? children.length : 0
+//     let { current } = this.state
+//     if (!animate && current <= 0) {
+//       this.setState({ current: 0 })
+//     } else if (animate && current >= MAX_LEN) {
+//       this.setState({ current: MAX_LEN })
+//     } else {
+//       current = current + (animate ? 1 : -1)
+//       this.setState({ current })
+//     }
+//   }
+
+//   public render () {
+//     const { children, animate, ...rest } = this.props
+//     const { current } = this.state
+//     return React.Children.map(children, (item: any, index: number) => {
+//       return React.cloneElement(item, {
+//         animate: index < current,
+//         ...rest,
+//         onAnimateEnd: this.handleAnimateEnd
+//       })
+//     })
+//   }
+// }
 
 export default {
   Animate,
   AnimateGroup,
-  AnimateGroups
+  // AnimateGroups
 }
