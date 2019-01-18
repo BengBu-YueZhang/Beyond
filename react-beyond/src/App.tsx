@@ -1,12 +1,7 @@
 import * as React from 'react';
 import RowCol from './components/RowCol'
-// import ReactAnimate from './components/Animate';
 
-// const Animate = ReactAnimate.Animate
-// const AnimateGroup = ReactAnimate.AnimateGroup
-// const AnimateGroups = ReactAnimate.AnimateGroups
-
-// const Col = RowCol.Col
+const Col = RowCol.Col
 const Row = RowCol.Row
 
 class App extends React.Component {
@@ -14,7 +9,10 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <Row/>
+        <Row gutter={20}>
+          <Col span={1}>1</Col>
+          <Col span={2}>1</Col>
+        </Row>
       </div>
     );
   }

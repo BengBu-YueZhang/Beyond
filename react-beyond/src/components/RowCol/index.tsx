@@ -6,7 +6,8 @@ interface InterfaceRowProps {
 }
 
 interface InterfaceColProps {
-  span?: number
+  span?: number,
+  style?: object
 }
 
 class Col extends React.PureComponent<InterfaceColProps> {
@@ -16,17 +17,38 @@ class Col extends React.PureComponent<InterfaceColProps> {
   }
 
   public render () {
-    return <div/>
+    const { span, style } = this.props
+    return (
+      <div className={styles[`col-${span}`]} style={style}>
+        {
+          this.props.children
+        }
+      </div>
+    )
   }
 }
 
 class Row extends React.PureComponent<InterfaceRowProps> {
+
+  public static defaultProps: InterfaceRowProps =  {
+    gutter: 0
+  }
+
   public render () {
-    console.log('row', styles)
+    const { gutter = 0 } = this.props
+    let { children } = this.props
+    children = gutter > 0 ? React.Children.map(children, (item: any) => {
+      return React.cloneElement(item, {
+        style: {
+          'paddingLeft': `${gutter/2}px`,
+          'paddingRight': `${gutter/2}px`
+        }
+      })
+    }) : children
     return (
       <div className={styles.row}>
         {
-          this.props.children
+          children
         }
       </div>
     )
