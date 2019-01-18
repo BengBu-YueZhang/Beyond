@@ -1,4 +1,5 @@
 export const row: string
+export const col: string
 export const col1: string
 export const col2: string
 export const col3: string

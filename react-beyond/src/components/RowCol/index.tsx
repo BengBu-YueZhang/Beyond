@@ -19,7 +19,7 @@ class Col extends React.PureComponent<InterfaceColProps> {
   public render () {
     const { span, style } = this.props
     return (
-      <div className={styles[`col-${span}`]} style={style}>
+      <div className={`${styles[`col-${span}`]} ${styles.col}`} style={style}>
         {
           this.props.children
         }
