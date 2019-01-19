@@ -51,7 +51,7 @@ class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectSt
     }
   }
 
-  public handleSelectChange (value: InterfaceSelectOptions): void {
+  public handleSelectChange = (value: InterfaceSelectOptions): void => {
     if (this.props.onChange) {
       this.props.onChange(value.value)
     }
