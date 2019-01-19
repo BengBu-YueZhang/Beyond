@@ -9,8 +9,7 @@ interface InterfaceCascaderProps {
 }
 
 interface InterfaceCascaderState {
-  cascaderOptions: InterfaceSelectOptions[][],
-  cascaderValue: string[]
+  cascaderOptions: InterfaceSelectOptions[][]
 }
 
 class Cascader extends React.PureComponent<InterfaceCascaderProps, InterfaceCascaderState> {
@@ -23,8 +22,7 @@ class Cascader extends React.PureComponent<InterfaceCascaderProps, InterfaceCasc
   constructor (props: InterfaceCascaderProps) {
     super(props)
     this.state = {
-      cascaderOptions: [],
-      cascaderValue: []
+      cascaderOptions: []
     }
   }
 
@@ -43,11 +41,12 @@ class Cascader extends React.PureComponent<InterfaceCascaderProps, InterfaceCasc
    * @param {String} select 当前选择器选择的内容
    */
   public handleCascaderChange = (level: number, select: string): void => {
-    let { cascaderOptions, cascaderValue } = this.state
+    let { cascaderOptions } = this.state
+    let { value = [] } = this.props
     const { onChange } = this.props
     cascaderOptions = cascaderOptions.filter((co: InterfaceSelectOptions[], index: number) => index <= level)
-    cascaderValue = cascaderValue.filter((v: string, index: number) => index <= level)
-    cascaderValue.push(select)
+    value = value.filter((v: string, index: number) => index < level)
+    value.push(select)
     if (cascaderOptions[cascaderOptions.length - 1]) {
       cascaderOptions[cascaderOptions.length - 1].forEach((co: InterfaceSelectOptions) => {
         if (co.value === select && co.children) {
@@ -57,24 +56,24 @@ class Cascader extends React.PureComponent<InterfaceCascaderProps, InterfaceCasc
     }
     this.setState({
       cascaderOptions,
-      cascaderValue
     })
     if (onChange) {
-      onChange(cascaderValue)
+      onChange(value)
     }
   }
 
   public render () {
-    const { cascaderOptions, cascaderValue } = this.state
+    const { cascaderOptions } = this.state
+    const { value = [] } = this.props
     return cascaderOptions.map((co: InterfaceSelectOptions[], index: number) => {
       return (
         <Select
-          value={cascaderValue[index]}
+          value={value[index]}
           options={co}
           key={index}
           onChange={
-            (value: string) => {
-              this.handleCascaderChange(index, value)
+            (val: string) => {
+              this.handleCascaderChange(index, val)
             }
           }
         />
