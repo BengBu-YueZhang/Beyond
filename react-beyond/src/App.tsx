@@ -1,9 +1,5 @@
 import * as React from 'react';
 import Cascader from './components/Cascader'
-import RowCol from './components/RowCol'
-
-const Col = RowCol.Col
-const Row = RowCol.Row
 
 const region = [
   {
@@ -72,10 +68,6 @@ class App extends React.Component<any, InterfaceAppState> {
     const { cascaderValue } = this.state
     return (
       <div className="App">
-        <Row gutter={20}>
-          <Col span={1}>1</Col>
-          <Col span={2}>1</Col>
-        </Row>
         <Cascader
           value={cascaderValue}
           onChange={this.handleCascaderChange}

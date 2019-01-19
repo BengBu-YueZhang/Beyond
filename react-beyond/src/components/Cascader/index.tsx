@@ -2,6 +2,15 @@ import * as React from 'react'
 import Select from '../Select'
 import { InterfaceSelectOptions } from '../Select'
 
+const customStyles = {
+  container: () => {
+    return {
+      display: 'inline-block',
+      minWidth: '200px'
+    }
+  }
+}
+
 interface InterfaceCascaderProps {
   value?: string[],
   options?: InterfaceSelectOptions[],
@@ -69,6 +78,7 @@ class Cascader extends React.PureComponent<InterfaceCascaderProps, InterfaceCasc
     return cascaderOptions.map((co: InterfaceSelectOptions[], index: number) => {
       return (
         <Select
+          styles={customStyles}
           value={value[index]}
           options={co}
           key={index}

@@ -24,7 +24,8 @@ interface InterfaceSelectProps {
   value?: string,
   defaultValue?: string,
   onChange?: (value: string) => void,
-  placeholder: string
+  placeholder: string,
+  styles?: object
 }
 
 interface InterfaceSelectState {
@@ -41,7 +42,8 @@ class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectSt
     options: [],
     value: '',
     defaultValue: '',
-    placeholder: ''
+    placeholder: '',
+    styles: {}
   }
 
   constructor (props: InterfaceSelectProps) {
@@ -70,6 +72,10 @@ class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectSt
       placeholder
     } = this.props
 
+    let { styles } = this.props
+
+    styles = styles ? styles : {}
+
     let option = null
 
     options.forEach(opt => {
@@ -81,7 +87,12 @@ class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectSt
     return (
       <React.Fragment>
         <ReactSelect
-          styles={customStyles}
+          styles={
+            {
+              ...customStyles,
+              ...styles
+            }
+          }
           isClearable={isClearable}
           isSearchable={isSearchable}
           isDisabled={isDisabled}
