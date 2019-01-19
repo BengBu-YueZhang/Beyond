@@ -3,10 +3,12 @@ import Select from '../Select'
 import { InterfaceSelectOptions } from '../Select'
 
 const customStyles = {
-  container: () => {
+  container: (provided: any) => {
     return {
+      ...provided,
       display: 'inline-block',
-      minWidth: '200px'
+      minWidth: '200px',
+      padding: '0 5px'
     }
   }
 }
