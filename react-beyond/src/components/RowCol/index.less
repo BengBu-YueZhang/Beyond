@@ -2,11 +2,23 @@
 
 .row {
   position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  height: auto;
+  zoom: 1;
+  display: block;
 }
 
 .row::before, .row::after {
+  content: "";
   display: table;
-  content: '';
+}
+
+.row::after {
+  clear: both;
+  visibility: hidden;
+  font-size: 0;
+  height: 0;
 }
 
 .col {
