@@ -12,7 +12,7 @@ const customStyles = {
 interface InterfaceSelectOptions {
   label: string,
   value: string,
-  cities?: InterfaceSelectOptions[]
+  children?: InterfaceSelectOptions[]
 }
 
 interface InterfaceSelectProps {
