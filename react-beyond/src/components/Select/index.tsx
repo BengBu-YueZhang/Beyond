@@ -1,6 +1,14 @@
 import * as React from 'react'
 import ReactSelect from 'react-select'
 
+const customStyles = {
+  indicatorSeparator: () => {
+    return {
+      backgroundColor: '#fff'
+    }
+  }
+}
+
 interface InterfaceSelectOptions {
   label: string,
   value: string,
@@ -73,6 +81,7 @@ class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectSt
     return (
       <React.Fragment>
         <ReactSelect
+          styles={customStyles}
           isClearable={isClearable}
           isSearchable={isSearchable}
           isDisabled={isDisabled}
