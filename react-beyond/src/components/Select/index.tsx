@@ -8,10 +8,15 @@ interface InterfaceSelectOptions {
 }
 
 interface InterfaceSelectProps {
-  options?: InterfaceSelectOptions[],
+  isClearable?: boolean,
+  isSearchable?: boolean,
+  isDisabled?: boolean,
+  isLoading?: boolean,
+  options: InterfaceSelectOptions[],
   value?: string,
   defaultValue?: string,
-  onChange?: () => string
+  onChange?: (value: string) => void,
+  placeholder: string
 }
 
 interface InterfaceSelectState {
@@ -20,6 +25,17 @@ interface InterfaceSelectState {
 
 class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectState> {
 
+  public static defaultProps: InterfaceSelectProps = {
+    isClearable: false,
+    isSearchable: false,
+    isDisabled: false,
+    isLoading: false,
+    options: [],
+    value: '',
+    defaultValue: '',
+    placeholder: ''
+  }
+
   constructor (props: InterfaceSelectProps) {
     super(props)
     this.state = {
@@ -27,8 +43,48 @@ class Select extends React.PureComponent<InterfaceSelectProps, InterfaceSelectSt
     }
   }
 
+  public handleSelectChange (value: InterfaceSelectOptions): void {
+    if (this.props.onChange) {
+      this.props.onChange(value.value)
+    }
+  }
+
   public render () {
-    return null
+
+    const {
+      isClearable,
+      isSearchable,
+      isDisabled,
+      isLoading,
+      options ,
+      defaultValue,
+      value,
+      placeholder
+    } = this.props
+
+    let option = null
+
+    options.forEach(opt => {
+      if (opt.value === value || opt.value === defaultValue) {
+        option = opt
+      }
+    })
+
+    return (
+      <React.Fragment>
+        <ReactSelect
+          isClearable={isClearable}
+          isSearchable={isSearchable}
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          options={options}
+          placeholder={placeholder}
+          defaultValue={option}
+          value={option}
+          onChange={this.handleSelectChange}
+        />
+      </React.Fragment>
+    )
   }
 }
 
