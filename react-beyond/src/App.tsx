@@ -45,12 +45,32 @@ const region = [
   }
 ]
 
-class App extends React.Component {
+interface InterfaceAppState {
+  cascaderValue: string[]
+}
+
+class App extends React.Component<any, InterfaceAppState> {
+
+  constructor (props: any) {
+    super(props)
+    this.state = {
+      cascaderValue: []
+    }
+  }
+
+  public handleCascaderChange = (value: string[]) => {
+    this.setState({
+      cascaderValue: value
+    })
+  }
 
   public render() {
+    const { cascaderValue } = this.state
     return (
       <div className="App">
         <Cascader
+          value={cascaderValue}
+          onChange={this.handleCascaderChange}
           options={region}
         />
       </div>

@@ -63,8 +63,9 @@ class Cascader extends React.PureComponent<InterfaceCascaderProps, InterfaceCasc
   }
 
   public render () {
-    const { cascaderOptions } = this.state
+    let { cascaderOptions } = this.state
     const { value = [] } = this.props
+    cascaderOptions = cascaderOptions.filter((co: InterfaceSelectOptions[], index: number) => index < value.length + 1)
     return cascaderOptions.map((co: InterfaceSelectOptions[], index: number) => {
       return (
         <Select
