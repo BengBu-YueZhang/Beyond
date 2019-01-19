@@ -9,7 +9,7 @@ const customStyles = {
   }
 }
 
-interface InterfaceSelectOptions {
+export interface InterfaceSelectOptions {
   label: string,
   value: string,
   children?: InterfaceSelectOptions[]
