@@ -7,7 +7,7 @@
       <List
         @change="(value) => { handleListChange(index, value) }"
         :options="co"
-        :value="currentValue[index]"
+        :value="[currentValue[index]]"
         class="cascader__menu"
       />
     </div>
@@ -76,7 +76,7 @@ export default {
     handleListChange (level, value) {
       this.cascaderOptions = this.cascaderOptions.filter((co, index) => index <= level)
       this.currentValue = this.currentValue.filter((value, index) => index < level)
-      this.value.push(value[0])
+      this.currentValue.push(value[0])
       if (this.cascaderOptions[this.cascaderOptions.length - 1]) {
         this.cascaderOptions[this.cascaderOptions.length - 1].forEach((co) => {
           if (co.value === value[0] && co.children) {
