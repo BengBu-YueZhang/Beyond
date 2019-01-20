@@ -9,11 +9,11 @@
     <span
       class="ignore"
       :aria-checked="checked">
-      <div>
+      <!-- <div>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-xuanze"></use>
         </svg>
-      </div>
+      </div> -->
     </span>
     <slot/>
   </label>
@@ -49,6 +49,12 @@ export default {
 
 <style lang="less" scoped>
 .checkbox__wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 0px;
+  flex: 0 0 auto;
+  transition: all 0.3s ease 0s;
   & .checkbox__input {
     position: absolute;
     width: 0;
@@ -61,17 +67,21 @@ export default {
     margin: 0;
     padding: 0;
   }
-  & .ignore {
+  .ignore {
     position: relative;
     width: 16px;
     height: 16px;
     box-sizing: border-box;
     flex: 0 0 16px;
-    border-width: 1px;
+    border-width: 2px;
     border-style: solid;
     border-color: rgb(221, 221, 221);
     border-image: initial;
     transition: all 0.15s ease-in 0s;
+  }
+  .ignore[aria-checked="true"] {
+    border-color: rgb(234, 67, 53);
+    background: rgb(234, 67, 53);
   }
 }
 </style>
