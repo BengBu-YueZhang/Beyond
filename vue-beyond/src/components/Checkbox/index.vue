@@ -1,7 +1,7 @@
 <template>
   <label class="checkbox__wrapper">
     <input
-      :checked="checked"
+      :checked="currentValue"
       :value="label"
       type="checkbox"
       class="checkbox__input"
@@ -9,8 +9,8 @@
     />
     <span
       class="ignore"
-      :aria-checked="checked">
-      <svg aria-hidden="true" :aria-checked="checked" class="checked__icon">
+      :aria-checked="currentValue">
+      <svg aria-hidden="true" :aria-checked="currentValue" class="checked__icon">
         <use class="checked__icon-use" xlink:href="#icon-xuanze"></use>
       </svg>
     </span>
@@ -40,14 +40,27 @@ export default {
     }
   },
 
+  data () {
+    return {
+      currentValue: this.checked
+    }
+  },
+  
+  watch: {
+    checked: {
+      handle (val) {
+        this.currentValue = val
+      }
+    }
+  },
+
   methods: {
     /**
      * checkbox变化
      */
     handleCheckboxChange ($event) {
-      if (this.props.label !== undefined) {
-        this.$emit('change', $event.target.value)
-      } else {
+      if (this.label !== undefined) {
+        this.currentValue = $event.target.checked
         this.$emit('change', $event.target.checked)
       }
     }

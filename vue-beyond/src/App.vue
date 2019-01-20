@@ -1,39 +1,34 @@
 <template>
   <div id="app">
-    <!-- <List
-      :isMultiple="true"
-      :options="['stg44', 'm1a1', 'ppsh']"
-    /> -->
-    <Checkbox v-model="checked">
-      123
-    </Checkbox>
+    <CheckboxGroup v-model="value">
+      <Checkbox label="stg44">stg44</Checkbox>
+      <Checkbox label="m1a1">m1a1</Checkbox>
+    </CheckboxGroup>
   </div>
 </template>
 
 <script>
-// import List from '@/components/List'
 import Checkbox from '@/components/Checkbox'
+import CheckboxGroup from '@/components/CheckboxGroup'
 
 export default {
   name: 'app',
 
   data () {
     return {
-      checked: false
+      value: []
     }
   },
 
-  watch: {
-    checked () {
-      console.log(this.checked)
-    }
+  created () {
+    setTimeout(() => {
+      this.value = ['stg44', 'm1a1']
+    }, 2000);
   },
 
   components: {
-    Checkbox
-  },
-
-  methods: {
+    Checkbox,
+    CheckboxGroup
   }
 }
 </script>
