@@ -88,6 +88,7 @@ export default {
 <style lang="less" scoped>
 @import url('../../styles/variable.less');
 @import url('../../styles/border.less');
+@import url('../../styles/ellipsis.less');
 
 .list__wrapper {
   width: 100%;
@@ -113,6 +114,7 @@ export default {
     padding: 0 40px;
     & .list__list-item-text {
       padding-left: 15px;
+      .ellipsis()
     }
     & .checkbox__wrapper {
       width: 100%;

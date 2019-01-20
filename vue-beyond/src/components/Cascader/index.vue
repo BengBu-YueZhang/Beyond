@@ -125,6 +125,7 @@ export default {
   align-items: flex-start;
   & .cascader__list {
     flex: 1;
+    min-width: 0;
     .scale-1px-right(@grey600);
   }
   & .cascader__list:nth-last-child(1)::before {

@@ -27,7 +27,13 @@ export default {
               children: [
                 {
                   label: "龙子湖区",
-                  value: "龙子湖区"
+                  value: "龙子湖区",
+                  children: [
+                    {
+                      label: "解放街道",
+                      value: "解放街道",
+                    }
+                  ]
                 },
                 {
                   label: "淮上区",
@@ -68,9 +74,9 @@ export default {
   },
   
   created () {
-    setTimeout(() => {
-      this.value =  ['安徽', '蚌埠'] 
-    }, 3000);
+    // setTimeout(() => {
+    //   this.value =  ['安徽', '蚌埠'] 
+    // }, 3000);
   },
 
   components: {
