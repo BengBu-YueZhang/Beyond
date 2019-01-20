@@ -9,11 +9,9 @@
     <span
       class="ignore"
       :aria-checked="checked">
-      <!-- <div>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xuanze"></use>
-        </svg>
-      </div> -->
+      <svg aria-hidden="true" :aria-checked="checked" class="checked__icon">
+        <use class="checked__icon-use" xlink:href="#icon-xuanze"></use>
+      </svg>
     </span>
     <slot/>
   </label>
@@ -82,6 +80,23 @@ export default {
   .ignore[aria-checked="true"] {
     border-color: rgb(234, 67, 53);
     background: rgb(234, 67, 53);
+  }
+  .checked__icon {
+    display: none;
+  }
+  .checked__icon[aria-checked="true"] {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    fill: currentcolor;
+    & .checked__icon-use {
+      color: #fff;
+    }
   }
 }
 </style>
