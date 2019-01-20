@@ -6,8 +6,14 @@
       class="checkbox__input"
       @change="handleCheckboxChange"
     />
-    <span class="ignore">
-      <div v-if="checked"></div>
+    <span
+      class="ignore"
+      :aria-checked="checked">
+      <div>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-xuanze"></use>
+        </svg>
+      </div>
     </span>
     <slot/>
   </label>
