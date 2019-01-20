@@ -6,17 +6,31 @@
         :key="index"
         @click="handleListClick(item)"
         class="list__list-item"
-        :class="{'list__list-item-active': item === value}"
+        :class="{'list__list-item-active': isActive(item)}"
       >
-        {{ item }}
+        <Checkbox class="list__checkbox">
+          <p class="list__checkbox-text">{{ item }}</p>
+        </Checkbox>
+        <!-- <label :for="item" class="">
+          {{ item }}
+          <span v-if="isMultiple">
+            <input type="checkbox" class="checkbox" :id="item"/>
+          </span>
+        </label>         -->
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Checkbox from '@/components/Checkbox'
+
 export default {
   name: 'List',
+
+  components: {
+    Checkbox
+  },
 
   props: {
     // 是否显示多选
@@ -42,13 +56,27 @@ export default {
     },
 
     value: {
-      type: String,
+      type: [String, Array],
       required: false,
-      default: ''
+      default () {
+        if (this.isMultiple) {
+          return []
+        } else {
+          return ''
+        }
+      }
     }
   },
 
   methods: {
+    isActive (item) {
+      if (this.isMultiple) {
+        return this.value.indexOf(item) > -1
+      } else {
+        return item === this.value
+      }
+    },
+
     handleListClick (item) {
       this.$emit('click', item)
     }
@@ -71,17 +99,32 @@ export default {
   width: 100%;
   height: auto;
   background-color: @white;
-}
+  & .list__list-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 28px;
+    line-height: 80px;
+    color: @grey500;
+    text-align: center;
+    .scale-1px-bottom(@grey600);
+    box-sizing: border-box;
+    padding: 0 40px;
+  }
 
-.list__list-item {
-  font-size: 28px;
-  line-height: 80px;
-  color: @grey500;
-  text-align: center;
-  .scale-1px-bottom(@grey600);
-}
+  & .list__list-item-active {
+    color: @green500;
+  }
 
-.list__list-item-active {
-  color: @green500;
+  & .list__checkbox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    & .list__checkbox-text {
+      padding-left: 40px;
+    }
+  }
 }
 </style>
