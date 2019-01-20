@@ -35,7 +35,7 @@ export default {
     },
 
     label: {
-      type: [String, Number],
+      type: String,
       required: false
     }
   },

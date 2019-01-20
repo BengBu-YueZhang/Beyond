@@ -1,6 +1,10 @@
 <template>
   <div class="list__wrapper">
-    <CheckboxGroup :isMultiple="isMultiple" v-model="currentValue">
+    <CheckboxGroup
+      :value="currentValue"
+      :isMultiple="isMultiple"
+      @change="handleCheckboxGroupChange"
+    >
       <ul class="list__list">
         <li
           v-for="(item, index) in options"
@@ -22,6 +26,11 @@ import CheckboxGroup from '@/components/CheckboxGroup'
 
 export default {
   name: 'List',
+
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
 
   components: {
     Checkbox,
@@ -60,10 +69,17 @@ export default {
   },
 
   watch: {
-    currentValue: {
+    value: {
       handler (val) {
-        console.log(val)
+        this.currentValue = val
       }
+    }
+  },
+
+  methods: {
+    handleCheckboxGroupChange (values) {
+      this.currentValue = values
+      this.$emit('change', values)
     }
   }
 }
@@ -97,6 +113,9 @@ export default {
     padding: 0 40px;
     & .list__list-item-text {
       padding-left: 15px;
+    }
+    & .checkbox__wrapper {
+      width: 100%;
     }
   }
 }

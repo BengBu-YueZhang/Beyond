@@ -40,8 +40,7 @@ export default {
       handler (val) {
         this.modle = new Set(val)
         this.updateChildren()
-      },
-      immediate: true
+      }
     }
   },
 
