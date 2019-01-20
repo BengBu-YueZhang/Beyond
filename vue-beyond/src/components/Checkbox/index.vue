@@ -35,7 +35,7 @@ export default {
     },
 
     label: {
-      type: String,
+      type: [String, Number],
       required: false
     }
   },
@@ -69,6 +69,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url('../../styles/variable.less');
+
 .checkbox__wrapper {
   display: inline-flex;
   align-items: center;
@@ -96,13 +98,13 @@ export default {
     flex: 0 0 16px;
     border-width: 2px;
     border-style: solid;
-    border-color: rgb(221, 221, 221);
+    border-color: @grey300;
     border-image: initial;
     transition: all 0.15s ease-in 0s;
   }
   .ignore[aria-checked="true"] {
-    border-color: rgb(234, 67, 53);
-    background: rgb(234, 67, 53);
+    border-color: @lightBlue500;
+    background: @lightBlue500;
   }
   .checked__icon {
     display: none;

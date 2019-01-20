@@ -20,6 +20,12 @@ export default {
       default () {
         return []
       }
+    },
+
+    isMultiple: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
 
@@ -46,10 +52,18 @@ export default {
   methods: {
     handleCheckboxGroupChange (event) {
       const { checked, value } = event.target
-      if (checked) {
-        this.modle.add(value)
+      if (this.isMultiple) {
+        if (checked) {
+          this.modle.add(value)
+        } else {
+          this.modle.delete(value)
+        }
       } else {
-        this.modle.delete(value)
+        if (checked) {
+          this.modle = new Set([value])
+        } else {
+          this.modle.clear()
+        }
       }
       this.$emit('change', [...this.modle])
       this.updateChildren()
