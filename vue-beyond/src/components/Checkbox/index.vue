@@ -2,6 +2,7 @@
   <label class="checkbox__wrapper">
     <input
       :checked="checked"
+      :value="label"
       type="checkbox"
       class="checkbox__input"
       @change="handleCheckboxChange"
@@ -31,6 +32,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    label: {
+      type: String,
+      required: false
     }
   },
 
@@ -39,7 +45,11 @@ export default {
      * checkbox变化
      */
     handleCheckboxChange ($event) {
-      this.$emit('change', $event.target.checked)
+      if (this.props.label !== undefined) {
+        this.$emit('change', $event.target.value)
+      } else {
+        this.$emit('change', $event.target.checked)
+      }
     }
   }
 }
