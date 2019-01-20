@@ -2,7 +2,7 @@
   <div id="app">
     <Cascader
       :options="options"
-      :value="value"
+      v-model="value"
     />
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 
   data() {
     return {
-      value: ['安徽', '蚌埠'],
+      value: ['安徽', '蚌埠', '龙子湖区', '解放街道'],
       options: [
         {
           label: "安徽",
@@ -49,7 +49,13 @@ export default {
           children: [
             {
               label: "顺义区",
-              value: "顺义区"
+              value: "顺义区",
+              children: [
+                {
+                  label: "天竺街道",
+                  value: "天竺街道"
+                }
+              ]
             }
           ]
         },
@@ -71,12 +77,6 @@ export default {
     value() {
       console.log(this.value);
     }
-  },
-  
-  created () {
-    // setTimeout(() => {
-    //   this.value =  ['安徽', '蚌埠'] 
-    // }, 3000);
   },
 
   components: {

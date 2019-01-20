@@ -113,7 +113,7 @@ export default {
     box-sizing: border-box;
     padding: 0 40px;
     & .list__list-item-text {
-      padding-left: 15px;
+      padding-left: 10px;
       .ellipsis()
     }
     & .checkbox__wrapper {
