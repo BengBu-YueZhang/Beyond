@@ -72,13 +72,15 @@ export default {
      * 更新子组件
      */
     updateChildren () {
-      for (let i = 0; i < this.$children.length; i++) {
-        if (this.modle.has(this.$children[i].label)) {
-          this.$children[i].currentValue = true
-        } else {
-          this.$children[i].currentValue = false
+      this.$nextTick(() => {
+        for (let i = 0; i < this.$children.length; i++) {
+          if (this.modle.has(this.$children[i].label)) {
+            this.$children[i].currentValue = true
+          } else {
+            this.$children[i].currentValue = false
+          }
         }
-      }
+      })
     }
   }
 }

@@ -66,6 +66,12 @@ export default {
       console.log(this.value);
     }
   },
+  
+  created () {
+    setTimeout(() => {
+      this.value =  ['安徽', '蚌埠'] 
+    }, 3000);
+  },
 
   components: {
     Cascader

@@ -61,18 +61,43 @@ export default {
   },
 
   mounted () {
-    this.cascaderOptions = [this.options]
+    this.initCascaderMenu()
   },
 
   watch: {
     value: {
       handler (val) {
         this.currentValue = val
+        this.initCascaderMenu()
       }
     }
   },
 
   methods: {
+    /**
+     * 初始化菜单
+     */
+    initCascaderMenu () {
+      this.cascaderOptions = []
+      const init = (index, options) => {
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].value === this.currentValue[index]) {
+            this.cascaderOptions.push(options)
+            if (this.currentValue[index + 1]) {
+              init(index + 1, options[i].children)
+            } else {
+              if (options[i].children) {
+                // 多排入一列
+                this.cascaderOptions.push(options[i].children)
+              }
+            }
+            continue;
+          }
+        }
+      }
+      init(0, this.options)
+    },
+
     handleListChange (level, value) {
       this.cascaderOptions = this.cascaderOptions.filter((co, index) => index <= level)
       this.currentValue = this.currentValue.filter((value, index) => index < level)
