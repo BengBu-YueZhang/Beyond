@@ -50,7 +50,6 @@ export default {
 
   methods: {
     handleListClick (item) {
-      console.log(item)
       this.$emit('click', item)
     }
   }
@@ -75,8 +74,8 @@ export default {
 }
 
 .list__list-item {
-  font-size: 14px;
-  line-height: 30px;
+  font-size: 28px;
+  line-height: 80px;
   color: @grey500;
   text-align: center;
   .scale-1px-bottom(@grey600);
