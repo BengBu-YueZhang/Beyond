@@ -96,12 +96,17 @@ export default {
         }
       }
       init(0, this.options)
+      if (!this.cascaderOptions.length) {
+        this.cascaderOptions = [this.options]
+      }
     },
 
     handleListChange (level, value) {
       this.cascaderOptions = this.cascaderOptions.filter((co, index) => index <= level)
       this.currentValue = this.currentValue.filter((value, index) => index < level)
-      this.currentValue.push(value[0])
+      if (value[0]) {
+        this.currentValue.push(value[0])
+      }
       if (this.cascaderOptions[this.cascaderOptions.length - 1]) {
         this.cascaderOptions[this.cascaderOptions.length - 1].forEach((co) => {
           if (co.value === value[0] && co.children) {

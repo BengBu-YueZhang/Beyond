@@ -40,6 +40,10 @@ export default {
                   value: "淮上区"
                 }
               ]
+            },
+            {
+              label: "淮南",
+              value: "淮南"
             }
           ]
         },
@@ -68,6 +72,22 @@ export default {
               value: "罗湖区"
             }
           ]
+        },
+        {
+          label: "上海",
+          value: "上海",
+          children: [
+            {
+              label: "松江区",
+              value: "松江区",
+              children: [
+                {
+                  label: "方松街道",
+                  value: "方松街道"
+                }
+              ]
+            }
+          ]
         }
       ]
     };
@@ -75,7 +95,7 @@ export default {
 
   watch: {
     value() {
-      console.log(this.value);
+      // console.log(this.value);
     }
   },
 
