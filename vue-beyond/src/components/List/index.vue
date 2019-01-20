@@ -5,6 +5,7 @@
         v-for="(item, index) in options"
         :key="index"
         @click="handleListClick(item)"
+        class="list__list-item"
         :class="{'list__list-item-active': item === value}"
       >
         {{ item }}
@@ -35,7 +36,9 @@ export default {
     options: {
       type: Array,
       required: false,
-      default: false
+      default () {
+        return []
+      }
     },
 
     value: {
@@ -45,8 +48,9 @@ export default {
     }
   },
 
-  metation: {
+  methods: {
     handleListClick (item) {
+      console.log(item)
       this.$emit('click', item)
     }
   }
@@ -55,6 +59,7 @@ export default {
 
 <style lang="less" scoped>
 @import url('../../styles/variable.less');
+@import url('../../styles/border.less');
 
 .list__wrapper {
   width: 100%;
@@ -74,6 +79,7 @@ export default {
   line-height: 30px;
   color: @grey500;
   text-align: center;
+  .scale-1px-bottom(@grey600);
 }
 
 .list__list-item-active {
