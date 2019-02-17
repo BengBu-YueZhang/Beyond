@@ -24,11 +24,7 @@
   background: #39f;
 }
 
-.text-field__content-focus::after {
-  width: 50%;
-}
-
-.text-field__content-focus::before {
+.text-field__content-focus::after, .text-field__content-focus::before {
   width: 50%;
 }
 
@@ -38,6 +34,11 @@
 
 .text-field__content::before {
   left: 50%;
+}
+
+.text-field__content-error::after, .text-field__content-error::before {
+  background: #e53935;
+  width: 50%;
 }
 
 .text-field__label {
@@ -52,6 +53,10 @@
   font-size: 12px;
   bottom: 30px;
   color: #39f;
+}
+
+.text-field__content-error .text-field__label {
+  color: #e53935;
 }
 
 .text-field {

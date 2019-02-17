@@ -2,8 +2,6 @@ import * as React from 'react'
 import * as styles from './index.less'
 import { isFunc, isStr } from '../../util'
 
-console.log(styles)
-
 function hasValue (value: string): boolean {
   if (isStr(value)) {
     if (value !== '') {
@@ -90,7 +88,7 @@ class TextField extends React.PureComponent<InterfaceTextFieldProps, InterfaceTe
   }
 
   public render () {
-    const { placeholder, label = '' } = this.props
+    const { placeholder = '', label = '', error } = this.props
     const { focus } = this.state
     return (
       <div
@@ -99,7 +97,10 @@ class TextField extends React.PureComponent<InterfaceTextFieldProps, InterfaceTe
         }>
         <div
           className={
-            `${focus ? styles['text-field__content-focus']: ''} ${styles['text-field__content']}`
+            `${focus ? styles['text-field__content-focus'] : ''}
+             ${styles['text-field__content']}
+             ${error ? styles['text-field__content-error'] : ''}
+            `
           }
         >
           {

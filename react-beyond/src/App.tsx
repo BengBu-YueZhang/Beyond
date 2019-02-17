@@ -71,6 +71,7 @@ class App extends React.Component<any, InterfaceAppState> {
       <div className="App">
         <TextField
           label={'Name'}
+          error={true}
         />
         {/* <Cascader
           value={cascaderValue}

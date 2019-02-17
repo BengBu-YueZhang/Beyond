@@ -4,3 +4,4 @@ export const textField: string;
 export const textFieldContent: string;
 export const textFieldContentFocus: string;
 export const textFieldLabel: string;
+export const textFieldContentError: string;
