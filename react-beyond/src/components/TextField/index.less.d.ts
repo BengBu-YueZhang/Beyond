@@ -5,3 +5,5 @@ export const textFieldContent: string;
 export const textFieldContentFocus: string;
 export const textFieldLabel: string;
 export const textFieldContentError: string;
+export const textFieldLabelWrapperFull: string;
+export const textFieldLabelDisabled: string;

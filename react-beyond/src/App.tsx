@@ -69,10 +69,29 @@ class App extends React.Component<any, InterfaceAppState> {
     // const { cascaderValue } = this.state
     return (
       <div className="App">
-        <TextField
-          label={'Name'}
-          error={true}
-        />
+        <div>
+          <TextField
+            label={'Name'}
+          />
+        </div>
+        <div>
+          <TextField
+            label={'Age'}
+            error={true}
+          />
+        </div>
+        <div>
+          <TextField
+            label={'Sex'}
+            fullWidth={true}
+          />
+        </div>
+        <div>
+          <TextField
+            label={'Score'}
+            disabled={true}
+          />
+        </div>
         {/* <Cascader
           value={cascaderValue}
           onChange={this.handleCascaderChange}

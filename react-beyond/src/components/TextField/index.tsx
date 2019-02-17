@@ -88,31 +88,30 @@ class TextField extends React.PureComponent<InterfaceTextFieldProps, InterfaceTe
   }
 
   public render () {
-    const { placeholder = '', label = '', error } = this.props
+    const { placeholder = '', label = '', error, fullWidth, disabled } = this.props
     const { focus } = this.state
+    console.log('disabled', disabled)
     return (
       <div
         className={
-          `${styles['text-field__wrapper']} ${hasValue(label) ? styles['text-field-label__wrapper'] : ''}`
+          `${styles['text-field__wrapper']} ${hasValue(label) ? styles['text-field-label__wrapper'] : ''} ${fullWidth ? styles['text-field-label__wrapper-full'] : ''}`
         }>
         <div
           className={
-            `${focus ? styles['text-field__content-focus'] : ''}
-             ${styles['text-field__content']}
-             ${error ? styles['text-field__content-error'] : ''}
-            `
+            `${focus ? styles['text-field__content-focus'] : ''} ${styles['text-field__content']} ${error ? styles['text-field__content-error'] : ''}`
           }
         >
           {
-            hasValue(label) && <label className={styles['text-field__label']}>{ label }</label>
+            hasValue(label) && <label className={`${styles['text-field__label']} ${disabled ? styles['text-field-label__disabled'] : ''}`}>{ label }</label>
           }
           <input
-            className={styles['text-field']}
+            className={`${styles['text-field']} ${disabled ? styles['text-field-label__disabled'] : ''}`}
             placeholder={placeholder}
             onBlur={this.handleBlur}
             onChange={this.handleChange}
             onFocus={this.handleFocus}
             onError={this.handleError}
+            disabled={disabled}
           />
         </div>
       </div>
