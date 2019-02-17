@@ -1,0 +1,70 @@
+.text-field__wrapper {
+  display: inline-block;
+  width: 250px;
+}
+
+.text-field-label__wrapper {
+  padding-top: 20px;
+}
+
+.text-field__content {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+.text-field__content::after, .text-field__content::before {
+  content: "";
+  display: block;
+  width: 0;
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  transition: all .3s ease;
+  background: #39f;
+}
+
+.text-field__content-focus::after {
+  width: 50%;
+}
+
+.text-field__content-focus::before {
+  width: 50%;
+}
+
+.text-field__content::after {
+  right: 50%;
+}
+
+.text-field__content::before {
+  left: 50%;
+}
+
+.text-field__label {
+  position: absolute;
+  bottom: 8px;
+  color: #777;
+  transition: all .3s ease;
+}
+
+.text-field__content-focus .text-field__label {
+  position: absolute;
+  font-size: 12px;
+  bottom: 30px;
+  color: #39f;
+}
+
+.text-field {
+  width: 100%;
+  height: 24px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  line-height: 24px;
+  color: #212121;
+  padding: 8px 0;
+}
+
+.text-field:focus {
+  outline: none;
+}
