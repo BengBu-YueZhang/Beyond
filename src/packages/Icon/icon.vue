@@ -14,7 +14,7 @@ interface Style {
 }
 
 @Component
-export default class Icons extends Vue {
+export default class Icon extends Vue {
   @Prop() private size!: string | number;
   @Prop() private color!: string;
 
