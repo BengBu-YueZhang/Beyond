@@ -44,18 +44,24 @@ export default {
 
 <style lang="less" scoped>
 .icons {
-  font-family: "Material Icons";
+  font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
+  font-size: 24px;  /* Preferred icon size */
   display: inline-block;
-  white-space: nowrap;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
   word-wrap: normal;
+  white-space: nowrap;
   direction: ltr;
-  -webkit-font-feature-settings: "liga";
+  /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
 </style>

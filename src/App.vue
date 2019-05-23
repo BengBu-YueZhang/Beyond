@@ -1,23 +1,38 @@
 <template>
   <div id="app">
-    <i class="icons">add_circle</i>
+    <div class="content">
+      <h1>Icon 图标</h1>
+      <div>
+        <Icon>add_circle</Icon>
+        <Icon color="red">add_circle</Icon>
+        <Icon size="15">add_circle</Icon>
+      </div>
+      <div>
+        <Icon>assignment</Icon>
+        <Icon color="green">assignment</Icon>
+        <Icon size="15">assignment</Icon>
+      </div>
+      <div>
+        <Icon>face</Icon>
+        <Icon color="blue">face</Icon>
+        <Icon size="15">face</Icon>
+      </div>
+      <div></div>
+    </div>
+    <div class="content">
+    </div>
   </div>
 </template>
 
+<script>
+import Icon from './packages/Icon';
+
+export default {
+  components: {
+    Icon,
+  },
+};
+</script>
+
 <style lang="less">
-.icons {
-  font-family: "Material Icons";
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: "liga";
-  -webkit-font-smoothing: antialiased;
-}
 </style>
