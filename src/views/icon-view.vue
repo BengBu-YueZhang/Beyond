@@ -13,8 +13,8 @@ import Icon from '../packages/Icon';
 
 @Component({
   components: {
-    Icon
-  }
+    Icon,
+  },
 })
 export default class IconView extends Vue {
 }
