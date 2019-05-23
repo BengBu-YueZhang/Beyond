@@ -4,42 +4,35 @@
   </i>
 </template>
 
-<script>
-export default {
-  name: 'Icons',
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
 
-  props: {
-    size: {
-      type: [Number, String],
-    },
+interface Style {
+  'font-size'?: string | number;
+  color?: string;
+}
 
-    color: {
-      type: String,
-    },
-  },
+@Component
+export default class Icons extends Vue {
+  @Prop() private size!: string | number;
+  @Prop() private color!: string;
 
-  computed: {
-    styles() {
-      const style = {};
+  get styles() {
+    const style: Style = {};
+    if (this.size) {
+      style['font-size'] = `${this.size}px`;
+    }
+    if (this.color) {
+      style.color = `${this.color}`;
+    }
+    return style;
+  }
 
-      if (this.size) {
-        style['font-size'] = `${this.size}px`;
-      }
-
-      if (this.color) {
-        style.color = `${this.color}`;
-      }
-
-      return style;
-    },
-  },
-
-  methods: {
-    handleClick(event) {
-      this.$emit('click', event);
-    },
-  },
-};
+  private handleClick(event: any) {
+    this.$emit('click', event);
+  }
+}
 </script>
 
 <style lang="less" scoped>
