@@ -6,39 +6,39 @@
 
 <script>
 export default {
-  name: "Icons",
+  name: 'Icons',
 
   props: {
     size: {
-      type: [Number, String] 
+      type: [Number, String],
     },
 
     color: {
-      type: String
-    }
+      type: String,
+    },
   },
 
   computed: {
-    styles () {
-      let style = {}
+    styles() {
+      const style = {};
 
       if (this.size) {
-        style['font-size'] = `${this.size}px`
+        style['font-size'] = `${this.size}px`;
       }
 
       if (this.color) {
-        style['color'] = `${this.color}`
+        style.color = `${this.color}`;
       }
 
-      return style
-    }
+      return style;
+    },
   },
 
   methods: {
-    handleClick (event) {
-      this.$emit('click', event)
-    }
-  }
+    handleClick(event) {
+      this.$emit('click', event);
+    },
+  },
 };
 </script>
 
