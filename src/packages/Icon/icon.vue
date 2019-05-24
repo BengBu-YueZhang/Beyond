@@ -18,7 +18,7 @@ export default class Icon extends Vue {
   @Prop() private size!: string | number;
   @Prop() private color!: string;
 
-  get styles() {
+  get styles(): Style {
     const style: Style = {};
     if (this.size) {
       style['font-size'] = `${this.size}px`;
