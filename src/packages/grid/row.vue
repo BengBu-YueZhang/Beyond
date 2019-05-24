@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <div :style="styles">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
-import { findChildComponent, findBrotherComponent } from '../../utils/find';
+import { Component, Prop, Watch } from 'vue-property-decorator';
+
+const prefixClass = 'dlz-row'
 
 enum Type {
   flex = 'flex',
@@ -34,6 +35,8 @@ interface Style {
 
 @Component
 export default class Row extends Vue {
+  private name: string = 'row';
+
   @Prop({ default: 0 }) private gutter!: number;
 
   @Prop() private type!: Type;
@@ -54,8 +57,13 @@ export default class Row extends Vue {
     }
     return style;
   }
+
+  @Watch('gutter')
+  private onGutterChange(newGutter: number) {
+    this.handleGutterChange(newGutter);
+  }
+
+  private handleGutterChange(gutter: number) {
+  }
 }
 </script>
-
-<style lang="less" scoped>
-</style>

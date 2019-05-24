@@ -7,6 +7,8 @@ import { Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Col extends Vue {
+  private name: string = 'col';
+
   @Prop() private span!: number | string;
 
   @Prop() private offset!: number | string;
@@ -16,6 +18,3 @@ export default class Col extends Vue {
   @Prop({ default: '' }) private 'custom-class'!: string;
 }
 </script>
-
-<style lang="less" scoped>
-</style>
