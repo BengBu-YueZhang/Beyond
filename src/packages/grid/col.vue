@@ -27,7 +27,7 @@ export default class Col extends Vue {
   private gutter!: number;
 
   get classes(): object {
-    let classes = {
+    const classes = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-span-${this.span}`]: !!this.span,
       [`${prefixClass}-order-${this.order}`]: !!this.order,

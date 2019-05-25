@@ -60,14 +60,14 @@ export default class Row extends Vue {
   }
 
   get classes(): object {
-    let classes = {
+    const classes = {
       [`${prefixClass}`]: !this.isFlexType,
       [`${prefixClass}-${this.type}`]: this.isFlexType,
       [`${prefixClass}-${this.type}-${this.align}`]: this.isFlexType,
       [`${prefixClass}-${this.type}-${this.justify}`]: this.isFlexType,
       [`${this['custom-class']}`]: !!this['custom-class'],
     };
-    return classes
+    return classes;
   }
 
   @Watch('gutter', { immediate: true })
