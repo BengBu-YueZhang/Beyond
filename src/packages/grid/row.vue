@@ -55,23 +55,32 @@ export default class Row extends Vue {
     return style;
   }
 
+  get isFlexType(): boolean {
+    return this.type === 'flex';
+  }
+
   get classes(): object {
-    let classes = {};
+    let classes = {
+      [`${prefixClass}`]: !this.isFlexType,
+      [`${prefixClass}-${this.type}`]: this.isFlexType,
+      [`${prefixClass}-${this.type}-${this.align}`]: this.isFlexType,
+      [`${prefixClass}-${this.type}-${this.justify}`]: this.isFlexType,
+      [`${this['custom-class']}`]: !!this['custom-class'],
+    };
     return classes
   }
 
-  @Watch('gutter')
+  @Watch('gutter', { immediate: true })
   private onGutterChange(newGutter: number) {
     this.handleGutterChange(newGutter);
   }
 
   private handleGutterChange(gutter: number) {
-    // 第一层的col组件
     const cols = findChildsComponentByFirstLLevel(this, 'Col');
     if (cols.length) {
-      cols.forEach(col => {
+      cols.forEach((col) => {
         col.gutter = this.gutter;
-      })
+      });
     }
   }
 }

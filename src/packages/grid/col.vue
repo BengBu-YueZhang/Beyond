@@ -1,4 +1,7 @@
 <template>
+  <div :class="classes" :style="styles">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,5 +25,27 @@ export default class Col extends Vue {
   @Prop({ default: '' }) private 'custom-class'!: string;
 
   private gutter!: number;
+
+  get classes(): object {
+    let classes = {
+      [`${prefixClass}`]: true,
+      [`${prefixClass}-span-${this.span}`]: !!this.span,
+      [`${prefixClass}-order-${this.order}`]: !!this.order,
+      [`${prefixClass}-offset-${this.offset}`]: !!this.offset,
+      [`${this['custom-class']}`]: !!this['custom-class'],
+    };
+    return classes;
+  }
+
+  get styles(): object {
+    let style = {};
+    if (this.gutter !== 0) {
+      style = {
+        paddingLeft: `${this.gutter / 2}px`,
+        paddingRight: `${this.gutter / 2}px`,
+      };
+    }
+    return style;
+  }
 }
 </script>
