@@ -7,7 +7,9 @@ import { Component, Prop } from 'vue-property-decorator';
 
 const prefixClass = 'dlz-col';
 
-@Component
+@Component({
+  name: 'Col',
+})
 export default class Col extends Vue {
   private name: string = 'Col';
 

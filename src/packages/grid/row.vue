@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles">
+  <div :style="styles" :class="classes">
     <slot></slot>
   </div>
 </template>
@@ -30,15 +30,10 @@ enum Justify {
   'space-between' = 'space-between',
 }
 
-interface Style {
-  marginLeft?: string;
-  marginRight?: string;
-}
-
-@Component
+@Component({
+  name: 'Row',
+})
 export default class Row extends Vue {
-  private name: string = 'Row';
-
   @Prop({ default: 0 }) private gutter!: number;
 
   @Prop() private type!: Type;
@@ -49,7 +44,7 @@ export default class Row extends Vue {
 
   @Prop({ default: '' }) private 'custom-class'!: string;
 
-  get styles(): Style {
+  get styles(): object {
     let style = {};
     if (this.gutter !== 0) {
       style = {
@@ -58,6 +53,11 @@ export default class Row extends Vue {
       };
     }
     return style;
+  }
+
+  get classes(): object {
+    let classes = {};
+    return classes
   }
 
   @Watch('gutter')
