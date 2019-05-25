@@ -1,1 +1,44 @@
+/* col, row前缀 */
 @col-prefix: ~"@{@css-prefix}col";
+@row-prefix: ~"@{@css-prefix}row";
+
+.loop-grid(@index) when (@index > 0) {
+  .@{col-prefix}-span-@{index} {
+    display: block;
+    width: percentage((@index / @grid));
+  }
+  .@{col-prefix}-offset-@{index} {
+    margin-left: percentage((@index / @grid));
+  }
+  .@{col-prefix}-order-@{index} {
+    order: @index;
+  }
+  .loop-grid((@index - 1));
+}
+
+.loop-grid(@index) when (@index = 0) {
+  .@{col-prefix}-span-@{index} {
+    display: none;
+  }
+  .@{col-prefix}-offset-@{index} {
+    margin-left: 0;
+  }
+  .@{col-prefix}-order-@{index} {
+    order: 0;
+  }
+}
+
+/* 创建 0 - 24的样式 */
+.loop-grid(@grid);
+
+.@{col-prefix} {
+  position: relative;
+  display: block;
+  float: left;
+}
+
+.@{col-prefix} {
+  display: block;
+  height: auto;
+  .clearfix;
+}
