@@ -31,10 +31,6 @@ enum Justify {
 export default class Row extends Vue {
   @Prop({ default: 0 }) private gutter!: number;
 
-  @Prop() private align!: Align;
-
-  @Prop() private justify!: Justify;
-
   @Prop({ default: '' }) private 'custom-class'!: string;
 
   get styles(): object {

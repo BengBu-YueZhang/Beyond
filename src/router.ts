@@ -12,6 +12,11 @@ const router = new Router({
       name: 'IconView',
       component: () => import(/* webpackChunkName: 'about' */ './views/icon-view.vue'),
     },
+    {
+      path: '/grid',
+      name: 'GridView',
+      component: () => import(/* webpackChunkName: 'about' */ './views/grid.view.vue'),
+    },
   ],
 });
 
