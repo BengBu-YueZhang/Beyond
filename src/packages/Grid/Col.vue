@@ -30,6 +30,7 @@ export default class Col extends Vue {
       [`${prefixClass}`]: true,
       [`${prefixClass}-span-${this.span}`]: !!this.span,
       [`${prefixClass}-offset-${this.offset}`]: !!this.offset,
+      [`${prefixClass}-order-${this.order}`]: !!this.order,
       [`${this['custom-class']}`]: !!this['custom-class'],
     };
     return classes;
