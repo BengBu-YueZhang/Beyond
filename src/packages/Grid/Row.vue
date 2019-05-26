@@ -62,7 +62,6 @@ export default class Row extends Vue {
   }
 
   get classes(): object {
-    console.log(this.align)
     const classes = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-${this.type}`]: this.isFlexType,
