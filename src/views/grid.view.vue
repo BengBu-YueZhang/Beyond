@@ -1,10 +1,28 @@
 <template>
   <section>
-    <Row :gutter="10">
+    <Row>
       <Col :span="2">col-2</Col>
       <Col :span="6">col-6</Col>
       <Col :span="12">col-12</Col>
       <Col :span="4">col-4</Col>
+    </Row>
+    <Row :gutter="50">
+      <Col :span="2">col-2</Col>
+      <Col :span="6">col-6</Col>
+      <Col :span="12">col-12</Col>
+      <Col :span="4">col-4</Col>
+    </Row>
+    <Row type="flex">
+      <Col :span="2" order="4">col-2</Col>
+      <Col :span="6" order="3">col-6</Col>
+      <Col :span="12" order="2">col-12</Col>
+      <Col :span="4" order="1">col-4</Col>
+    </Row>
+    <Row type="flex" justify="end">
+      <Col :span="2">col-2</Col>
+      <Col :span="2">col-6</Col>
+      <Col :span="2">col-12</Col>
+      <Col :span="2">col-4</Col>
     </Row>
   </section>
 </template>
