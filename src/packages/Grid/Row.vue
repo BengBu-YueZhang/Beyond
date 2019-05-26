@@ -11,10 +11,16 @@ import { findChildsComponentByFirstLLevel } from '../../utils/find';
 
 const prefixClass = 'dlz-row';
 
+enum Type {
+  flex = 'flex',
+  default = '',
+}
+
 enum Align {
   top = 'top',
   middle = 'middle',
   bottom = 'bottom',
+  default = '',
 }
 
 enum Justify {
@@ -23,6 +29,7 @@ enum Justify {
   center = 'center',
   'space-around' = 'space-around',
   'space-between' = 'space-between',
+  default = '',
 }
 
 @Component({
@@ -31,7 +38,13 @@ enum Justify {
 export default class Row extends Vue {
   @Prop({ default: 0 }) private gutter!: number;
 
-  @Prop({ default: '' }) private 'custom-class'!: string;
+  @Prop({ default: '' }) private customClass!: string;
+
+  @Prop({ default: Type.default }) private type!: Type;
+
+  @Prop({ default: Align.default }) private align!: Align;
+
+  @Prop({ default: Justify.default }) private justify!: Justify;
 
   get styles(): object {
     let style = {};
@@ -44,10 +57,17 @@ export default class Row extends Vue {
     return style;
   }
 
+  get isFlexType(): boolean {
+    return this.type !== Type.default;
+  }
+
   get classes(): object {
     const classes = {
       [`${prefixClass}`]: true,
-      [`${this['custom-class']}`]: !!this['custom-class'],
+      [`${prefixClass}-${this.type}`]: this.isFlexType,
+      [`${prefixClass}-${this.align}`]: this.isFlexType && this.align,
+      [`${prefixClass}-${this.justify}`]: this.isFlexType && this.justify,
+      [`${this.customClass}`]: !!this.customClass,
     };
     return classes;
   }

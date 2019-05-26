@@ -1,5 +1,5 @@
 <template>
-  <i :style="styles" class="dlz-icons" @click="handleClick">
+  <i :style="styles" :class="classes" @click="handleClick">
     <slot></slot>
   </i>
 </template>
@@ -18,7 +18,10 @@ interface Style {
 @Component
 export default class Icon extends Vue {
   @Prop() private size!: string | number;
+
   @Prop() private color!: string;
+
+  @Prop({ default: '' }) private customClass!: string;
 
   get styles(): Style {
     const style: Style = {};
@@ -29,6 +32,14 @@ export default class Icon extends Vue {
       style.color = `${this.color}`;
     }
     return style;
+  }
+
+  get classes(): object {
+    const classes = {
+      [`${this.customClass}`]: !!this.customClass,
+      'dlz-icons': true,
+    };
+    return classes;
   }
 
   private handleClick(event: any) {
