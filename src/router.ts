@@ -12,6 +12,11 @@ const router = new Router({
       name: 'IconView',
       component: () => import(/* webpackChunkName: 'about' */ './views/icon-view.vue'),
     },
+    {
+      path: '/button',
+      name: 'ButtonView',
+      component: () => import('./views/button-view.vue'),
+    },
   ],
 });
 

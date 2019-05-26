@@ -1,0 +1,95 @@
+@button-color-defalut: #000;
+
+.buttonEventStyle (@className, @eventColor) {
+  &--@{className} {
+    background: @eventColor;
+    border: 1px solid @eventColor;
+    i, span {
+      color: @color-text-white;
+    }
+
+    &:hover, &:focus {
+      background: lighten(@eventColor, 5%);
+      border: 1px solid lighten(@eventColor, 5%);
+    }
+    &:active {
+      background: darken(@eventColor, 5%);
+      border: 1px solid darken(@eventColor, 5%);
+    }
+  }
+}
+
+.bottonSizeStyle (@size) when (@size = big) {
+  &--@{size} {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+}
+
+.bottonSizeStyle (@size) when (@size = medium) {
+  &--@{size} {
+    padding: 9px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+}
+
+.bottonSizeStyle (@size) when (@size = small) {
+  &--@{size} {
+    padding: 9px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+}
+
+.bottonSizeStyle (@size) when (@size = mini) {
+  &--@{size} {
+    padding: 7px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+}
+
+.@{css-prefix}button {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+
+  &-default {
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    &:hover, &:focus {
+      background: #fff;
+      border: 1px solid #dcdfe6;
+    }
+  }
+  .buttonEventStyle(primary, @color-primary);
+  .buttonEventStyle(success, @color-success);
+  .buttonEventStyle(warning, @color-warning);
+  .buttonEventStyle(danger, @color-danger);
+  .buttonEventStyle(info, @color-info);
+
+  .bottonSizeStyle(big);
+  .bottonSizeStyle(medium);
+  .bottonSizeStyle(small);
+  .bottonSizeStyle(mini);
+}
