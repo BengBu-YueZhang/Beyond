@@ -40,11 +40,11 @@ export default class Row extends Vue {
 
   @Prop({ default: '' }) private 'custom-class'!: string;
 
-  @Prop() private type: Type.default;
+  @Prop({ default: Type.default }) private type!: Type;
 
-  @Prop() private align: Align.default;
+  @Prop({ default: Align.default }) private align!: Align;
 
-  @Prop() private justify: Justify.default;
+  @Prop({ default: Justify.default }) private justify!: Justify;
 
   get styles(): object {
     let style = {};
@@ -62,11 +62,12 @@ export default class Row extends Vue {
   }
 
   get classes(): object {
+    console.log(this.align)
     const classes = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-${this.type}`]: this.isFlexType,
-      [`${prefixClass}-${this.type}-${this.align}`]: this.isFlexType,
-      [`${prefixClass}-${this.type}-${this.justify}`]: this.isFlexType,
+      [`${prefixClass}-${this.align}`]: this.isFlexType && this.align,
+      [`${prefixClass}-${this.justify}`]: this.isFlexType && this.justify,
       [`${this['custom-class']}`]: !!this['custom-class'],
     };
     return classes;
