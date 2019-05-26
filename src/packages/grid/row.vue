@@ -1,0 +1,87 @@
+<template>
+  <div :style="styles" :class="classes">
+    <slot></slot>
+  </div>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop, Watch } from 'vue-property-decorator';
+import { findChildsComponentByFirstLLevel } from '../../utils/find';
+import Col from './col.vue';
+
+const prefixClass = 'dlz-row';
+
+enum Type {
+  flex = 'flex',
+}
+
+enum Align {
+  top = 'top',
+  middle = 'middle',
+  bottom = 'bottom',
+}
+
+enum Justify {
+  start = 'start',
+  end = 'end',
+  center = 'center',
+  'space-around' = 'space-around',
+  'space-between' = 'space-between',
+}
+
+@Component({
+  name: 'Row',
+})
+export default class Row extends Vue {
+  @Prop({ default: 0 }) private gutter!: number;
+
+  @Prop() private type!: Type;
+
+  @Prop() private align!: Align;
+
+  @Prop() private justify!: Justify;
+
+  @Prop({ default: '' }) private 'custom-class'!: string;
+
+  get styles(): object {
+    let style = {};
+    if (this.gutter !== 0) {
+      style = {
+        marginLeft: `-${this.gutter}px`,
+        marginRight: `-${this.gutter}px`,
+      };
+    }
+    return style;
+  }
+
+  get isFlexType(): boolean {
+    return this.type === 'flex';
+  }
+
+  get classes(): object {
+    const classes = {
+      [`${prefixClass}`]: !this.isFlexType,
+      [`${prefixClass}-${this.type}`]: this.isFlexType,
+      [`${prefixClass}-${this.type}-${this.align}`]: this.isFlexType,
+      [`${prefixClass}-${this.type}-${this.justify}`]: this.isFlexType,
+      [`${this['custom-class']}`]: !!this['custom-class'],
+    };
+    return classes;
+  }
+
+  @Watch('gutter', { immediate: true })
+  private onGutterChange(newGutter: number) {
+    this.handleGutterChange(newGutter);
+  }
+
+  private handleGutterChange(gutter: number) {
+    const cols = findChildsComponentByFirstLLevel(this, 'Col');
+    if (cols.length) {
+      cols.forEach((col) => {
+        col.gutter = this.gutter;
+      });
+    }
+  }
+}
+</script>
