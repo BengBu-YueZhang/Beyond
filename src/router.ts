@@ -20,7 +20,7 @@ const router = new Router({
     {
       path: '/button',
       name: 'ButtonView',
-      component: () => import('./views/button-view.vue'),
+      component: () => import('./views/button.view.vue'),
     },
   ],
 });
