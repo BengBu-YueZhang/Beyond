@@ -7,6 +7,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
+import { findParentComponent } from '../../utils/find';
 
 const prefixClass = 'dlz-col';
 
@@ -14,8 +15,6 @@ const prefixClass = 'dlz-col';
   name: 'Col',
 })
 export default class Col extends Vue {
-  private name: string = 'Col';
-
   @Prop() private span!: number | string;
 
   @Prop() private offset!: number | string;
@@ -46,6 +45,17 @@ export default class Col extends Vue {
       };
     }
     return style;
+  }
+
+  private mounted(): void {
+    this.handleGutterChange();
+  }
+
+  private handleGutterChange() {
+    const Row = findParentComponent(this, 'Row');
+    if (Row) {
+      Row.handleGutterChange(Row.gutter);
+    }
   }
 }
 </script>

@@ -52,7 +52,7 @@ export default class Row extends Vue {
     return classes;
   }
 
-  @Watch('gutter', { immediate: true })
+  @Watch('gutter')
   private onGutterChange(newGutter: number) {
     this.handleGutterChange(newGutter);
   }
