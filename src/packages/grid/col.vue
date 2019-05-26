@@ -37,7 +37,7 @@ export default class Col extends Vue {
 
   get styles(): object {
     let style = {};
-    if (this.gutter !== 0) {
+    if (typeof this.gutter === 'number' && this.gutter) {
       style = {
         paddingLeft: `${this.gutter / 2}px`,
         paddingRight: `${this.gutter / 2}px`,
