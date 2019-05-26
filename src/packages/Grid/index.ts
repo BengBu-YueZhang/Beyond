@@ -1,7 +1,7 @@
-import col from './col.vue';
-import row from './row.vue';
+import Col from './Col.vue';
+import Row from './Row.vue';
 
 export default {
-  col,
-  row,
+  Col,
+  Row,
 };

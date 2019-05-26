@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import Icon from '../packages/icon';
+import Icon from '../packages/Icon';
 
 @Component({
   components: {

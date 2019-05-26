@@ -12,10 +12,10 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import Grid from '../packages/grid';
+import Grid from '../packages/Grid';
 
-const Row = Grid.row;
-const Col = Grid.col;
+const Row = Grid.Row;
+const Col = Grid.Col;
 
 @Component({
   components: {
