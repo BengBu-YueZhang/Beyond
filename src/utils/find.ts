@@ -26,7 +26,7 @@ export function findChildsComponent(target: Component, name: string): Component[
 }
 
 /**
- * 按照查找子组件
+ * 按照层级查找子组件
  * @param {String} name 组件名
  */
 export function findChildsComponentByLevel(target: Component, name: string, level: number): Component[] {
@@ -57,7 +57,7 @@ export function findChildsComponentByFirstLLevel(target: Component, name: string
 }
 
 /**
- * 查找同极兄弟组件
+ * 查找同级兄弟组件
  * @param {String} name 组件名
  * @param {Boolean} includeMe 是否包含自身
  */
@@ -71,4 +71,25 @@ export function findBrothersComponent(target: Component, name: string, includeMe
     });
   }
   return children;
+}
+
+/**
+ * 查找父组件
+ */
+export function findParentComponent(target: Component, name: string): Component {
+  let parent!: Component;
+  const find = (currentTarget: Component) => {
+    if (!currentTarget) {
+      return;
+    }
+    const parentComponent = currentTarget.$parent;
+    const parentName = parentComponent.$options.name;
+    if (parentName === name) {
+      parent = parentComponent;
+    } else {
+      find(parentComponent);
+    }
+  };
+  find(target);
+  return parent;
 }

@@ -8,13 +8,8 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import { findChildsComponentByFirstLLevel } from '../../utils/find';
-import Col from './col.vue';
 
 const prefixClass = 'dlz-row';
-
-enum Type {
-  flex = 'flex',
-}
 
 enum Align {
   top = 'top',
@@ -36,12 +31,6 @@ enum Justify {
 export default class Row extends Vue {
   @Prop({ default: 0 }) private gutter!: number;
 
-  @Prop() private type!: Type;
-
-  @Prop() private align!: Align;
-
-  @Prop() private justify!: Justify;
-
   @Prop({ default: '' }) private 'custom-class'!: string;
 
   get styles(): object {
@@ -55,22 +44,15 @@ export default class Row extends Vue {
     return style;
   }
 
-  get isFlexType(): boolean {
-    return this.type === 'flex';
-  }
-
   get classes(): object {
     const classes = {
-      [`${prefixClass}`]: !this.isFlexType,
-      [`${prefixClass}-${this.type}`]: this.isFlexType,
-      [`${prefixClass}-${this.type}-${this.align}`]: this.isFlexType,
-      [`${prefixClass}-${this.type}-${this.justify}`]: this.isFlexType,
+      [`${prefixClass}`]: true,
       [`${this['custom-class']}`]: !!this['custom-class'],
     };
     return classes;
   }
 
-  @Watch('gutter', { immediate: true })
+  @Watch('gutter')
   private onGutterChange(newGutter: number) {
     this.handleGutterChange(newGutter);
   }

@@ -7,6 +7,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
+import { findParentComponent } from '../../utils/find';
 
 const prefixClass = 'dlz-col';
 
@@ -14,8 +15,6 @@ const prefixClass = 'dlz-col';
   name: 'Col',
 })
 export default class Col extends Vue {
-  private name: string = 'Col';
-
   @Prop() private span!: number | string;
 
   @Prop() private offset!: number | string;
@@ -24,13 +23,12 @@ export default class Col extends Vue {
 
   @Prop({ default: '' }) private 'custom-class'!: string;
 
-  private gutter!: number;
+  private gutter: number = 0;
 
   get classes(): object {
     const classes = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-span-${this.span}`]: !!this.span,
-      [`${prefixClass}-order-${this.order}`]: !!this.order,
       [`${prefixClass}-offset-${this.offset}`]: !!this.offset,
       [`${this['custom-class']}`]: !!this['custom-class'],
     };
@@ -39,13 +37,24 @@ export default class Col extends Vue {
 
   get styles(): object {
     let style = {};
-    if (this.gutter !== 0) {
+    if (typeof this.gutter === 'number' && this.gutter) {
       style = {
         paddingLeft: `${this.gutter / 2}px`,
         paddingRight: `${this.gutter / 2}px`,
       };
     }
     return style;
+  }
+
+  private mounted(): void {
+    this.handleGutterChange();
+  }
+
+  private handleGutterChange() {
+    const Row = findParentComponent(this, 'Row');
+    if (Row) {
+      Row.handleGutterChange(Row.gutter);
+    }
   }
 }
 </script>
