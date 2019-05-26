@@ -27,19 +27,23 @@
     </section>
 
     <section>
-      <Button size="big">
+      <Button type="primary" size="big">
         1111
       </Button>
 
-      <Button size="medium">
+      <Button type="success" size="medium">
         1111
       </Button>
 
-      <Button size="small">
+      <Button type="warning" size="small">
         1111
       </Button>
 
-      <Button size="mini">
+      <Button type="danger" size="mini">
+        1111
+      </Button>
+
+      <Button type="info" size="mini">
         1111
       </Button>
     </section>
