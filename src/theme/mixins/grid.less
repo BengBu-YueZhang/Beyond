@@ -10,9 +10,6 @@
   .@{col-prefix}-offset-@{index} {
     margin-left: percentage((@index / @grid));
   }
-  .@{col-prefix}-order-@{index} {
-    order: @index;
-  }
   .loop-grid((@index - 1));
 }
 
@@ -22,9 +19,6 @@
   }
   .@{col-prefix}-offset-@{index} {
     margin-left: 0;
-  }
-  .@{col-prefix}-order-@{index} {
-    order: 0;
   }
 }
 

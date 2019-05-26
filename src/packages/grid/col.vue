@@ -29,7 +29,6 @@ export default class Col extends Vue {
     const classes = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-span-${this.span}`]: !!this.span,
-      [`${prefixClass}-order-${this.order}`]: !!this.order,
       [`${prefixClass}-offset-${this.offset}`]: !!this.offset,
       [`${this['custom-class']}`]: !!this['custom-class'],
     };
