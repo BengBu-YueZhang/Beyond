@@ -38,7 +38,7 @@ enum Justify {
 export default class Row extends Vue {
   @Prop({ default: 0 }) private gutter!: number;
 
-  @Prop({ default: '' }) private 'custom-class'!: string;
+  @Prop({ default: '' }) private customClass!: string;
 
   @Prop({ default: Type.default }) private type!: Type;
 
@@ -67,7 +67,7 @@ export default class Row extends Vue {
       [`${prefixClass}-${this.type}`]: this.isFlexType,
       [`${prefixClass}-${this.align}`]: this.isFlexType && this.align,
       [`${prefixClass}-${this.justify}`]: this.isFlexType && this.justify,
-      [`${this['custom-class']}`]: !!this['custom-class'],
+      [`${this.customClass}`]: !!this.customClass,
     };
     return classes;
   }
