@@ -23,7 +23,7 @@ export default class Col extends Vue {
 
   @Prop({ default: '' }) private 'custom-class'!: string;
 
-  private gutter!: number;
+  private gutter: number = 0;
 
   get classes(): object {
     const classes = {
