@@ -1,7 +1,7 @@
 <template>
   <section>
     <section>
-      <Button>
+      <Button @click="btnClick">
         1111
       </Button>
 
@@ -83,23 +83,23 @@
         1111
       </Button>
 
-      <Button type="primary" size="big">
+      <Button type="primary" size="big" plain>
         1111
       </Button>
 
-      <Button type="success" size="medium">
+      <Button type="success" size="medium" plain>
         1111
       </Button>
 
-      <Button type="warning" size="small">
+      <Button type="warning" size="small" plain>
         1111
       </Button>
 
-      <Button type="danger" size="small">
+      <Button type="danger" size="small" plain>
         1111
       </Button>
 
-      <Button type="info" size="mini">
+      <Button type="info" size="mini" plain>
         1111
       </Button>
 
@@ -121,6 +121,9 @@ import Button from '../packages/Button';
   },
 })
 export default class ButtonView extends Vue {
+  private btnClick (): void {
+    alert('btnClick');
+  }
 }
 </script>
 

@@ -8,29 +8,42 @@
     <span v-if="$slots.default"><slot></slot></span>
   </button>
 </template>
-
 <script lang="ts">
+
+enum ButtonType {
+  Default = 'default',
+  Primary = 'primary',
+  Success = 'success',
+  Warning = 'warning',
+  Danger = 'danger',
+  Info = 'info',
+}
+
+enum ButtonSize {
+  Big = 'big',
+  Medium = 'medium',
+  Small = 'small',
+  Mini = 'mini',
+}
+
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-const prefixClass = 'dlz-button'
+const prefixClass = 'dlz-button';
 
 @Component
 export default class Button extends Vue {
   private name: string = 'dlz-button';
 
-  /**
-   * primary / success / warning / danger / info
-   */
-  @Prop() private type!: string;
-
-  /**
-   * big / medium / small / mini
-   */
   @Prop({
     type: String,
-    default: 'big'
-  }) private size!: string;
+    default: ButtonType.Default,
+  }) private type!: ButtonType;
+
+  @Prop({
+    type: String,
+    default: ButtonSize.Big,
+  }) private size!: ButtonSize;
 
   @Prop({
     type: String,
@@ -57,19 +70,25 @@ export default class Button extends Vue {
     default: '',
   }) private icon!: string;
 
-  private handleClick (event: any): void {
+  @Prop({
+    type: Boolean,
+    default: false,
+  }) private plain!: boolean;
+
+  private handleClick(event: any): void {
     this.$emit('click', event);
   }
 
-  get classes (): object {
+  get classes(): object {
     const classes = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-${this.type}`]: !!this.type,
       [`${prefixClass}-${this.size}`]: !!this.size,
       [`is-disabled`]: !!this.disabled,
       [`is-round`]: !!this.round,
-    }
-    return classes
+      [`${prefixClass}-${this.type}-plain`]: !!this.plain && !!this.type,
+    };
+    return classes;
   }
 }
 </script>
