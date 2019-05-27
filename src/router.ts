@@ -17,6 +17,11 @@ const router = new Router({
       name: 'GridView',
       component: () => import(/* webpackChunkName: 'about' */ './views/grid.view.vue'),
     },
+    {
+      path: '/button',
+      name: 'ButtonView',
+      component: () => import('./views/button.view.vue'),
+    },
   ],
 });
 
