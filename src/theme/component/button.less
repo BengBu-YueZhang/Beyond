@@ -1,0 +1,442 @@
+@button-prefix: ~"@{css-prefix}button";
+
+@button-color-defalut-bg: #ffffff;
+@button-color-defalut-color: #606266;
+@button-color-defalut-border: #dcdfe6;
+@button-color-defalut-hover-bg: #f0f9ff;
+@button-color-defalut-hover-color: #33adff;
+@button-color-defalut-hover-border: #c2e7ff;
+@button-color-defalut-active-bg: #f0f9ff;
+@button-color-defalut-active-color: #33adff;
+@button-color-defalut-active-border: #33adff;
+@button-color-defalut-disable-bg: #ffffff;
+@button-color-defalut-disable-color: #75787c;
+@button-color-defalut-disable-border: #eceef1;
+@button-color-defalut-plain-bg: #fff;
+@button-color-primary-plain-border: #dcdfe6;
+
+@button-color-primary-bg: @color-primary;
+@button-color-primary-color: #ffffff;
+@button-color-primary-border: @color-primary;
+@button-color-primary-hover-bg: #66b1ff;
+@button-color-primary-hover-color: #ffffff;
+@button-color-primary-hover-border: #66b1ff;
+@button-color-primary-active-bg: #3a8ee6;
+@button-color-primary-active-color: #ffffff;
+@button-color-primary-active-border: #3a8ee6;
+@button-color-primary-disable-bg: #87bbf3;
+@button-color-primary-disable-color: #ffffff;
+@button-color-primary-disable-border: #87bbf3;
+@button-color-primary-plain-bg: #ecf5ff;
+@button-color-primary-plain-border: #b3d8ff;
+
+@button-color-success-bg: @color-success;
+@button-color-success-color: #ffffff;
+@button-color-success-border: @color-success;
+@button-color-success-hover-bg: #40e0ab;
+@button-color-success-hover-color: #ffffff;
+@button-color-success-hover-border: #40e0ab;
+@button-color-success-active-bg: #0ccf8e;
+@button-color-success-active-color: #ffffff;
+@button-color-success-active-border: #0ccf8e;
+@button-color-success-disable-bg: #7ee4c2;
+@button-color-success-disable-color: #ffffff;
+@button-color-success-disable-border: #7ee4c2;
+@button-color-success-plain-bg: #dff7ef;
+@button-color-success-plain-border: #a1e4ce;
+
+@button-color-warning-bg: @color-warning;
+@button-color-warning-color: #ffffff;
+@button-color-warning-border: @color-warning;
+@button-color-warning-hover-bg: #f7996b;
+@button-color-warning-hover-color: #ffffff;
+@button-color-warning-hover-border: #f7996b;
+@button-color-warning-active-bg: #e77a44;
+@button-color-warning-active-color: #ffffff;
+@button-color-warning-active-border: #e77a44;
+@button-color-warning-disable-bg: #f0b293;
+@button-color-warning-disable-color: #ffffff;
+@button-color-warning-disable-border: #f0b293;
+@button-color-warning-plain-bg: #fff9f6;
+@button-color-warning-plain-border: #f3cfbd;
+
+@button-color-danger-bg: @color-danger;
+@button-color-danger-color: #ffffff;
+@button-color-danger-border: @color-danger;
+@button-color-danger-hover-bg: #f8647d;
+@button-color-danger-hover-color: #ffffff;
+@button-color-danger-hover-border: #f8647d;
+@button-color-danger-active-bg: #ec526b;
+@button-color-danger-active-color: #ffffff;
+@button-color-danger-active-border: #ec526b;
+@button-color-danger-disable-bg: #f3899b;
+@button-color-danger-disable-color: #ffffff;
+@button-color-danger-disable-border: #f3899b;
+@button-color-danger-plain-bg: #fff2f4;
+@button-color-danger-plain-border: #f8c0c9;
+
+@button-color-info-bg: @color-info;
+@button-color-info-color: #ffffff;
+@button-color-info-border: @color-info;
+@button-color-info-hover-bg: #86969e;
+@button-color-info-hover-color: #ffffff;
+@button-color-info-hover-border: #86969e;
+@button-color-info-active-bg: #5f676d;
+@button-color-info-active-color: #ffffff;
+@button-color-info-active-border: #5f676d;
+@button-color-info-disable-bg: #9fabb1;
+@button-color-info-disable-color: #ffffff;
+@button-color-info-disable-border: #9fabb1;
+@button-color-info-plain-bg: #f1f7fa;
+@button-color-info-plain-border: #cdd4d8;
+
+.buttonEventStyleNew (
+  @className,
+  @defaultBg,
+  @defaultColor,
+  @defaultBorder,
+  @hoverBg,
+  @hoverColor,
+  @hoverBorder,
+  @activeBg,
+  @activeColor,
+  @activeBorder,
+  @disableBg,
+  @disableColor,
+  @disableBorder,
+  @plainBg,
+  @plainBorder
+) {
+  &-@{className} {
+    background: @defaultBg;
+    color: @defaultColor;
+    border: 1px solid @defaultBorder;
+    &:hover, &:focus {
+      background: @hoverBg;
+      color: @hoverColor;
+      border: 1px solid @hoverBorder;
+    }
+    &:active {
+      background: @activeBg;
+      color: @activeColor;
+      border: 1px solid @activeBorder;
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      background: @disableBg;
+      border: 1px solid @disableBorder;
+      color: @disableColor;
+      &:hover, &:focus {
+        background: @disableBg;
+        border: 1px solid @disableBorder;
+        color: @disableColor;
+      }
+      &:active {
+        background: @disableBg;
+        border: 1px solid @disableBorder;
+        color: @disableColor;
+      }
+    }
+
+    &-plain {
+      background: @plainBg;
+      color: @hoverBg;
+      border: 1px solid @plainBorder;
+      &:hover, &:focus {
+        background: @defaultBg;
+        border: 1px solid @defaultBorder;
+        color: @defaultColor;
+      }
+      &:active {
+        background: @activeBg;
+        color: @activeColor;
+        border: 1px solid @activeBorder;
+      }
+
+      &.is-disabled {
+        cursor: not-allowed;
+        background: @plainBg;
+        color: @hoverBg;
+        border: 1px solid @plainBorder;
+        &:hover, &:focus {
+          background: @plainBg;
+          color: @hoverBg;
+          border: 1px solid @plainBorder;
+        }
+        &:active {
+          background: @plainBg;
+          color: @hoverBg;
+          border: 1px solid @plainBorder;
+        }
+      }
+    }
+  }
+}
+
+// 点击  hover  对应的交互颜色
+.buttonEventStyle (@className, @eventColor) {
+  &-@{className} {
+    background: @eventColor;
+    border: 1px solid @eventColor;
+    i, span {
+      color: @color-text-white;
+      // vertical-align: middle;
+    }
+
+    &:hover, &:focus {
+      background: lighten(@eventColor, 5%);
+      border: 1px solid lighten(@eventColor, 5%);
+    }
+
+    &:active {
+      background: darken(@eventColor, 5%);
+      border: 1px solid darken(@eventColor, 5%);
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      background: lighten(@eventColor, 15%);
+      border: 1px solid lighten(@eventColor, 15%);
+      i, span {
+        color: #fff;
+      }
+      &:hover, &:focus {
+        background: lighten(@eventColor, 15%);
+        border: 1px solid lighten(@eventColor, 15%);
+      }
+      &:active {
+        background: lighten(@eventColor, 15%);
+        border: 1px solid lighten(@eventColor, 15%);
+      }
+    }
+  }
+}
+
+// 按钮圆角
+.buttonRoundStyle (@roundSize) {
+  &.is-round {
+    border-radius: @roundSize;
+  }
+}
+
+// 按钮字体大小
+.buttonSizeStyle (@size) when (@size = big) {
+  &-@{size} {
+    padding: 11px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+}
+
+.buttonSizeStyle (@size) when (@size = medium) {
+  &-@{size} {
+    padding: 9px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+}
+
+.buttonSizeStyle (@size) when (@size = small) {
+  &-@{size} {
+    padding: 7px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+}
+
+.buttonSizeStyle (@size) when (@size = mini) {
+  &-@{size} {
+    padding: 5px 13px;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+}
+
+.@{button-prefix} {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  color: @button-color-defalut-color;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+
+  [class*=dlz-icon]+span {
+    margin-left: 2px;
+  }
+
+  &:hover, &:focus, &:active {
+    color: @button-color-defalut-hover-color;
+    background: @button-color-defalut-hover-bg;
+    border: 1px solid @button-color-defalut-hover-border;
+  }
+  &:active {
+    background: @button-color-defalut-active-bg;
+    border: 1px solid @button-color-defalut-active-border;
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    background: @button-color-defalut-disable-bg;
+    border: 1px solid @button-color-defalut-disable-border;
+    color: @button-color-defalut-disable-color;
+    &:hover, &:focus {
+      background: @button-color-defalut-disable-bg;
+      border: 1px solid @button-color-defalut-disable-border;
+      color: @button-color-defalut-disable-color;
+    }
+  }
+
+  &.is-loading {
+    pointer-events: none;
+    position: relative;
+    &::before {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      border-radius: inherit;
+      background-color: hsla(0,0%,100%,.35);
+    }
+  }
+
+  .buttonEventStyleNew(
+    primary,
+    @button-color-primary-bg,
+    @button-color-primary-color,
+    @button-color-primary-border,
+    @button-color-primary-hover-bg,
+    @button-color-primary-hover-color,
+    @button-color-primary-hover-border,
+    @button-color-primary-active-bg,
+    @button-color-primary-active-color,
+    @button-color-primary-active-border,
+    @button-color-primary-disable-bg,
+    @button-color-primary-disable-color,
+    @button-color-primary-disable-border,
+    @button-color-primary-plain-bg,
+    @button-color-primary-plain-border
+  );
+
+  .buttonEventStyleNew(
+    success,
+    @button-color-success-bg,
+    @button-color-success-color,
+    @button-color-success-border,
+    @button-color-success-hover-bg,
+    @button-color-success-hover-color,
+    @button-color-success-hover-border,
+    @button-color-success-active-bg,
+    @button-color-success-active-color,
+    @button-color-success-active-border,
+    @button-color-success-disable-bg,
+    @button-color-success-disable-color,
+    @button-color-success-disable-border,
+    @button-color-success-plain-bg,
+    @button-color-success-plain-border
+  );
+
+  .buttonEventStyleNew(
+    warning,
+    @button-color-warning-bg,
+    @button-color-warning-color,
+    @button-color-warning-border,
+    @button-color-warning-hover-bg,
+    @button-color-warning-hover-color,
+    @button-color-warning-hover-border,
+    @button-color-warning-active-bg,
+    @button-color-warning-active-color,
+    @button-color-warning-active-border,
+    @button-color-warning-disable-bg,
+    @button-color-warning-disable-color,
+    @button-color-warning-disable-border,
+    @button-color-warning-plain-bg,
+    @button-color-warning-plain-border
+  );
+
+  .buttonEventStyleNew(
+    danger,
+    @button-color-danger-bg,
+    @button-color-danger-color,
+    @button-color-danger-border,
+    @button-color-danger-hover-bg,
+    @button-color-danger-hover-color,
+    @button-color-danger-hover-border,
+    @button-color-danger-active-bg,
+    @button-color-danger-active-color,
+    @button-color-danger-active-border,
+    @button-color-danger-disable-bg,
+    @button-color-danger-disable-color,
+    @button-color-danger-disable-border,
+    @button-color-danger-plain-bg,
+    @button-color-danger-plain-border
+  );
+
+  .buttonEventStyleNew(
+    info,
+    @button-color-info-bg,
+    @button-color-info-color,
+    @button-color-info-border,
+    @button-color-info-hover-bg,
+    @button-color-info-hover-color,
+    @button-color-info-hover-border,
+    @button-color-info-active-bg,
+    @button-color-info-active-color,
+    @button-color-info-active-border,
+    @button-color-info-disable-bg,
+    @button-color-info-disable-color,
+    @button-color-info-disable-border,
+    @button-color-info-plain-bg,
+    @button-color-info-plain-border
+  );
+
+  .buttonSizeStyle(big);
+  .buttonSizeStyle(medium);
+  .buttonSizeStyle(small);
+  .buttonSizeStyle(mini);
+
+  .buttonRoundStyle(20px);
+
+  .dlz-loading-icon {
+    vertical-align: baseline;
+    display: inline-block;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
