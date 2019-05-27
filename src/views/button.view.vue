@@ -295,6 +295,59 @@
         危险按钮
       </Button>
     </section>
+    <svg>
+      <rect x="0" y="0" width="200" height="150" fill="#FFFF00" stroke="blue" stroke-width="5" />
+      <text x="15" y="45" font-size="24" fill="red">some text</text>	
+    </svg>
+
+    <svg>
+      <rect x="0" y="0" width="200" height="100" fill="red"/>
+      <ellipse cx="100" cy="50" rx="100" ry="50" fill="blue"/>
+    </svg>
+    <hr>
+    <svg>
+      <path d="M 0 0 L 100 100, 200 0, 400 200, 500 500"
+        stroke="black" fill="none" stroke-width="5"/>
+    </svg>
+    <hr>
+    <svg>
+      <path d="M 0 0 L 100 100" stroke="black"
+        stroke-width="12"/>
+        <line x1="0" y1="100" x2="100" y2="0"
+        stroke-width="2" stroke="black" />
+    </svg>
+    <hr>
+    <svg>
+      <path d="M 20 40 C 100 -30 180 90 20 160 L 120 160" stroke="black" fill="none" stroke-width="5"/>
+    </svg>
+    <hr>
+    <svg>
+      <circle r="50" cx="100" cy="100"/>
+      <line x1="5" y1="5" stroke="red" x2="90" y2="90" />
+    </svg>
+
+    <hr>
+    <svg>
+      <circle r="50" cx="100" cy="70" fill="none"  stroke="#579" stroke-width="10" stroke-dasharray="3, 5, 8, 13, 15, 18"/>
+      <line x1="5" y1="5" stroke="red" x2="90" y2="90"/>
+    </svg>
+    <hr>
+    <svg>
+      <path stroke="black" d="M 0 0 L 100 100"/>
+    </svg>
+    <hr>
+    <svg>
+      <path d="M 44 44 L 100 100 0 50" stroke="#579"/>
+      <!-- <path d="M 0 0 L 100 100 0 75"/> -->
+    </svg>
+
+    <hr>
+    <svg style="width: 300px; height: 100px;">
+      <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1"/>
+      <circle cx="0" cy="50" r="15" fill="blue" stroke="black" stroke-width="1">
+          <animate attributeName="r" from="15" to="400" dur="1s" repeatCount="indefinite" />
+      </circle>
+    </svg>
   </section>
 </template>
 
