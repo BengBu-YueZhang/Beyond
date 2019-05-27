@@ -2,11 +2,12 @@
 import Popper from 'popper.js';
 
 class Pop {
+  private pop!: Popper | null;
+
   constructor(
     private reference: Element,
     private popper: Element,
     private placement: Popper.Placement = 'bottom-start',
-    private pop: Popper | null,
   ) {
     this.crated();
   }
