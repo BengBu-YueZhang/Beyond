@@ -29,42 +29,37 @@ export default class Ripple {
 
   public initRipple() {
     // init svg
-    const ripple: any = document.createElementNS('xmlns', 'svg');
-    ripple.setAttribute('class', 'dlz-ripple');
+    this.rippleEle = document.createElementNS('xmlns', 'svg');
+    this.rippleEle.setAttribute('class', 'dlz-ripple');
 
     // init circle
-    const circle: any = document.createElementNS('xmlns', 'circle');
-    circle.setAttribute('cx', this.x);
-    circle.setAttribute('cy', this.y);
-    circle.setAttribute('cr', this.r);
-    circle.setAttribute('fill', this.color);
+    this.circleEle = document.createElementNS('xmlns', 'circle');
+    this.circleEle.setAttribute('cx', this.x);
+    this.circleEle.setAttribute('cy', this.y);
+    this.circleEle.setAttribute('r', 0);
+    this.circleEle.setAttribute('fill', this.color);
 
     // init animate
     console.log(this.duration)
     console.log(this.y)
-    const animate: any = document.createElementNS('xmlns', 'animate');
-    animate.setAttribute('attributeName', 'r');
-    animate.setAttribute('dur', `${this.duration}ms`);
-    animate.setAttribute('fill', 'freeze');
-    animate.setAttribute('begin', 'indefinite');
-    animate.setAttribute('to', this.r);
+    this.animateEle = document.createElementNS('xmlns', 'animate');
+    this.animateEle.setAttribute('attributeName', 'r');
+    this.animateEle.setAttribute('dur', `${this.duration}ms`);
+    this.animateEle.setAttribute('fill', 'freeze');
+    this.animateEle.setAttribute('begin', 'indefinite');
+    this.animateEle.setAttribute('to', this.r);
 
     // init fadeoutAnimate
-    const fadeoutAnimate: any = document.createElementNS('xmlns', 'animate');
-    fadeoutAnimate.setAttribute('attributeName', 'opacity');
-    fadeoutAnimate.setAttribute('dur', `${this.duration}ms`);
-    fadeoutAnimate.setAttribute('fill', 'freeze');
-    fadeoutAnimate.setAttribute('begin', 'indefinite');
-    fadeoutAnimate.setAttribute('to', 0);
+    this.fadeoutAnimateEle = document.createElementNS('xmlns', 'animate');
+    this.fadeoutAnimateEle.setAttribute('attributeName', 'opacity');
+    this.fadeoutAnimateEle.setAttribute('dur', `${this.duration}ms`);
+    this.fadeoutAnimateEle.setAttribute('fill', 'freeze');
+    this.fadeoutAnimateEle.setAttribute('begin', 'indefinite');
+    this.fadeoutAnimateEle.setAttribute('to', 0);
 
     // append svg
-    circle.appendChild(animate);
-    circle.appendChild(fadeoutAnimate);
-    ripple.appendChild(circle);
-
-    this.rippleEle = ripple;
-    this.circleEle = circle;
-    this.animateEle = animate;
-    this.fadeoutAnimateEle = fadeoutAnimate;
+    this.circleEle.appendChild(this.animateEle);
+    this.circleEle.appendChild(this.fadeoutAnimateEle);
+    this.rippleEle.appendChild(this.circleEle);
   }
 }
