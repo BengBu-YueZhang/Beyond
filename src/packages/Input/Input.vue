@@ -1,8 +1,8 @@
 <template>
   <div>
     <input ref="reference"/>
-    <transition>
-      <div ref="popper"></div>
+    <transition name="dropdown">
+      <div v-show="visible" ref="popper"></div>
     </transition>
   </div>
 </template>
@@ -16,9 +16,9 @@ import Pop from '../../lib/popper';
   name: 'Input',
 })
 export default class Input extends Vue {
-  private reference!: Element;
-
   private popper!: Pop;
+
+  private visible!: Boolean;
 
   private mounted(): void {
     this.$nextTick(() => {
