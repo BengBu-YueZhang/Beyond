@@ -18,7 +18,7 @@ import Pop from '../../lib/popper';
 export default class Input extends Vue {
   private popper!: Pop;
 
-  private visible!: boolean;
+  private visible!: boolean = false;
 
   private mounted(): void {
     this.$nextTick(() => {
