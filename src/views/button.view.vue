@@ -291,7 +291,7 @@
         信息按钮
       </Button>
 
-      <Button type="danger" icon="iconfont icon-loading">
+      <Button type="danger" icon="iconfont icon-loading" v-ripple>
         危险按钮
       </Button>
     </section>
@@ -342,10 +342,11 @@
     </svg>
 
     <hr>
-    <svg style="width: 300px; height: 100px;">
+    <svg id="svg" @click="startAnimate" style="width: 300px; height: 100px;">
       <rect x="0" y="0" width="300" height="100" stroke="black" stroke-width="1"/>
       <circle cx="0" cy="50" r="15" fill="blue" stroke="black" stroke-width="1">
-          <animate attributeName="r" from="15" to="400" dur="1s" repeatCount="indefinite" />
+        <animate attributeName="r" ref="animate" from="15" to="400" dur="1s" repeatCount="1" />
+        <animate attributeName="fill" ref="animate1" from="blue" to="red" dur="1s" repeatCount="1" />
       </circle>
     </svg>
   </section>
@@ -364,6 +365,13 @@ import Button from '../packages/Button';
 export default class ButtonView extends Vue {
   private btnClick(): void {
     alert('btnClick');
+  }
+
+  private startAnimate(e: any): void {
+    const ref: any = this.$refs.animate;
+    const ref1: any = this.$refs.animate1;
+    ref.beginElement();
+    ref1.beginElement();
   }
 }
 </script>
