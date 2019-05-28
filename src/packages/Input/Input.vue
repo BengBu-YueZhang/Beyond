@@ -11,7 +11,11 @@
         @click="handleClick"
       />
       <div v-if="visibleAppend"></div>
-      <Icon @click="handleClear" custom-class="iconfont icon-close-circle-fill"/>
+      <Icon
+        v-if="clearable"
+        @click="handleClear"
+        custom-class="iconfont icon-close-circle-fill"
+      />
       <!-- 自动完成 -->
       <transition name="dropdown">
         <div v-show="visibleAutoComplete" ref="popper"></div>
