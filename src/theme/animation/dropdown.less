@@ -1,0 +1,43 @@
+@transitionName: dropdown;
+
+.animation-common() {
+  animation-duration: @animation;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-play-state: running;
+}
+
+.@{transitionName}-enter-active,
+.@{transitionName}-apper {
+  animation-name: dropdownIn;
+  .animation-common();
+}
+
+.@{transitionName}-leave-active {
+  animation-name: dropdownOut;
+  .animation-common();
+}
+
+@keyframes dropdownIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7, 0.7);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes dropdownOut {
+  0% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.8, 0.8);
+  }
+}
