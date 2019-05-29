@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="inputWrapClasses">
     <template v-if="type !== 'textarea'">
       <div v-if="isVisiblePrepend">
       </div>
@@ -39,6 +39,8 @@ import { Component, Prop } from 'vue-property-decorator';
 import Pop from '../../lib/popper';
 import Icon from '../Icon';
 
+const prefixClass = 'dlz-input';
+
 enum Type {
   text = 'text',
   password = 'password',
@@ -64,7 +66,8 @@ enum Size {
 })
 export default class Input extends Vue {
   @Prop({ default: Type.text }) private type!: string;
-  @Prop({ default: Size.default }) private value!: string | number;
+  @Prop({ default: Size.default }) private size!: string;
+  @Prop({ default: '' }) private value!: string | number;
   @Prop({ default: '' }) private placeholder!: string;
   @Prop({ default: false }) private clearable!: boolean;
   @Prop({ default: false }) private disabled!: boolean;
@@ -109,6 +112,14 @@ export default class Input extends Vue {
       return true;
     }
     return false;
+  }
+
+  get inputWrapClasses(): object {
+    const wrapClass = {
+      [`${prefixClass}-wrapper`]: true,
+      [`${prefixClass}-wrapper-${this.size}`]: true,
+    };
+    return wrapClass;
   }
 
   private mounted(): void {
