@@ -3,7 +3,8 @@
     <template v-if="type !== 'textarea'">
       <div v-if="isVisiblePrepend">
       </div>
-      <span v-if="isVisiblePrefix">
+      <span v-if="isVisiblePrefix" :class="prefixClasses">
+        <slot name="prefix"></slot>
       </span>
       <input
         :type="type"
@@ -13,14 +14,16 @@
         @focus="handleFocus"
         @change="handleChange"
         @click="handleClick"
+        @input="handleInput"
       />
-      <span v-if="isVisibleClear">
+      <span v-if="isVisibleClear" :class="clearClasses">
         <Icon
           @click="handleClear"
           custom-class="dlz-icon-font-close-circle-fill"
         />
       </span>
-      <span v-if="isVisibleSuffix">
+      <span v-if="isVisibleSuffix" :class="suffixClasses">
+        <slot name="suffix"></slot>
       </span>
       <div v-if="isVisibleAppend">
       </div>
@@ -112,7 +115,7 @@ export default class Input extends Vue {
     if (this.clearable) {
       return true;
     }
-    return false;
+    return true;
   }
 
   get inputWrapClasses(): object {
@@ -131,6 +134,30 @@ export default class Input extends Vue {
       [`${prefixClass}-prefix`]: this.isVisiblePrefix,
     };
     return inputClass;
+  }
+
+  get prefixClasses(): object {
+    const prefixClas = {
+      [`${prefixClass}-icon`]: true,
+      [`${prefixClass}-icon-clear`]: true,
+    };
+    return prefixClas;
+  }
+
+  get suffixClasses(): object {
+    const suffixClass = {
+      [`${prefixClass}-icon`]: true,
+      [`${prefixClass}-icon-suffix`]: true,
+    };
+    return suffixClass;
+  }
+
+  get clearClasses(): object {
+    const clearClass = {
+      [`${prefixClass}-icon`]: true,
+      [`${prefixClass}-icon-clear`]: true,
+    };
+    return clearClass;
   }
 
   private mounted(): void {
@@ -159,7 +186,17 @@ export default class Input extends Vue {
   }
 
   private handleClear(e: Event): void {
-    this.$emit('clear', '');
+    this.$emit('input', '');
+    this.$emit('change', {
+      target: {
+        value: '',
+      },
+    });
+    this.$emit('clear');
+  }
+
+  private handleInput(e: Event): void {
+    this.$emit('input', (e.target as HTMLInputElement).value);
   }
 }
 </script>
