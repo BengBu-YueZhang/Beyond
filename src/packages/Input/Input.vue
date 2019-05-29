@@ -3,8 +3,8 @@
     <template v-if="type !== 'textarea'">
       <div v-if="isVisiblePrepend">
       </div>
-      <div v-if="isVisiblePrefix">
-      </div>
+      <span v-if="isVisiblePrefix">
+      </span>
       <input
         :type="type"
         ref="reference"
@@ -13,19 +13,22 @@
         @change="handleChange"
         @click="handleClick"
       />
-      <Icon
-        v-if="isVisibleClear"
-        @click="handleClear"
-        custom-class="iconfont icon-close-circle-fill"
-      />
-      <div v-if="isVisiblePrepend">
-      </div>
+      <span v-if="isVisibleClear">
+        <Icon
+          @click="handleClear"
+          custom-class="iconfont icon-close-circle-fill"
+        />
+      </span>
+      <span v-if="isVisibleSuffix">
+      </span>
       <div v-if="isVisibleAppend">
       </div>
       <!-- 自动完成下来框 -->
       <transition name="dropdown">
         <div v-show="isVisibleAutoComplete" ref="popper"></div>
       </transition>
+    </template>
+    <template v-else-if="type === 'textarea'">
     </template>
   </div>
 </template>
@@ -66,8 +69,6 @@ export default class Input extends Vue {
   @Prop({ default: false }) private clearable!: boolean;
   @Prop({ default: false }) private disabled!: boolean;
   @Prop() private maxlength!: number;
-  @Prop() private prefix!: string;
-  @Prop() private suffix!: string;
   @Prop({ default: false }) private autofocus!: boolean;
   // 设置自动完成的数据
   @Prop() private onSearch!: (queryString: string, cb: () => any) => any;
