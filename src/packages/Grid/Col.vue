@@ -21,7 +21,7 @@ export default class Col extends Vue {
 
   @Prop() private order!: number | string;
 
-  @Prop({ default: '' }) private 'custom-class'!: string;
+  @Prop({ default: '' }) private customClass!: string;
 
   private gutter: number = 0;
 
@@ -30,7 +30,8 @@ export default class Col extends Vue {
       [`${prefixClass}`]: true,
       [`${prefixClass}-span-${this.span}`]: !!this.span,
       [`${prefixClass}-offset-${this.offset}`]: !!this.offset,
-      [`${this['custom-class']}`]: !!this['custom-class'],
+      [`${prefixClass}-order-${this.order}`]: !!this.order,
+      [`${this.customClass}`]: !!this.customClass,
     };
     return classes;
   }
