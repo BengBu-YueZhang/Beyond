@@ -11,11 +11,24 @@
     .input-small();
   }
 
-  &-suffix {
+  &-include-suffix {
+    padding-left: @input-height-default;
   }
 
-  &-prefix {
+  &-include-prefix {
+    padding-right: @input-height-default;
   }
+
+  &-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    text-align: center;
+    color: @color-text-primary;
+  }
+
+  &-icon-clear {}
 
   &-wrapper {
     display: inline-block;
@@ -24,12 +37,42 @@
     vertical-align: middle;
   }
 
+  &-wrapper-default {
+    &-icon {
+      width: @input-height-default;
+      height: @input-height-default;
+      line-height: @input-height-default;
+      font-size: @font-icon-size-default;
+    }
+  }
+
   &-wrapper-large {
+    &-icon {
+      width: @input-height-large;
+      height: @input-height-large;
+      line-height: @input-height-large;
+      font-size: @font-icon-size-large;
+    }
   }
 
   &-wrapper-small {
+    &-icon {
+      width: @input-height-small;
+      height: @input-height-small;
+      line-height: @input-height-small;
+      font-size: @font-icon-size-small;
+    }
   }
 
-  &-wrapper-default {
+  &-icon-suffix {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &-icon-prefix {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }

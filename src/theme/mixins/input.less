@@ -3,7 +3,7 @@
 }
 
 .hover-error() {
-  border-color: @color-warning;
+  border-color: @color-danger;
 }
 
 .focus() {
@@ -12,7 +12,7 @@
 }
 
 .focus-error() {
-  border-color: @color-warning;
+  border-color: @color-danger;
   box-shadow: 0 0 0 2px fade(@color-primary, 20%);
 }
 
@@ -37,6 +37,19 @@
 
   &:focus {
     .focus();
+  }
+}
+
+.input-error() {
+
+  border-color: @color-danger;
+
+  &:hover {
+    .hover-error();
+  }
+
+  &:focus {
+    .focus-error();
   }
 }
 
