@@ -13,6 +13,7 @@
     <Input size="large"/>
     <Input size="small"/>
     <Input :disabled="true"/>
+    <Input placeholder="我爱你"/>
   </section>
 </template>
 

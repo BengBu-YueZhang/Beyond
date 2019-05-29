@@ -11,6 +11,7 @@
         :type="type"
         :class="inputClasses"
         :disabled="disabled"
+        :placeholder="placeholder"
         @blur="handleBlur"
         @focus="handleFocus"
         @change="handleChange"
