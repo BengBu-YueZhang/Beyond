@@ -1,4 +1,21 @@
-/* select, date */
+.hover() {
+  border-color: @color-primary;
+}
+
+.hover-error() {
+  border-color: @color-warning;
+}
+
+.focus() {
+  border-color: @color-primary;
+  box-shadow: 0 0 0 2px fade(@color-primary, 20%);
+}
+
+.focus-error() {
+  border-color: @color-warning;
+  box-shadow: 0 0 0 2px fade(@color-primary, 20%);
+}
+
 .input() {
   position: relative;
   display: inline-block;
@@ -8,15 +25,30 @@
   font-size: @font-size-small;
   color: @color-text-primary;
   background-color: @bg-color-white;
+  border-radius: @border-radius-default;
+  border: 1px solid @border-color-default;
   cursor: text;
+  padding: @input-padding-default @input-padding-horizontal;
+  transition: border @transition, background @transition, box-shadow @transition;
+
+  &:hover {
+    .hover();
+  }
+
+  &:focus {
+    .focus();
+  }
 }
 
 .input-large() {
   height: @input-height-large;
   line-height: @input-height-large;
+  padding: @input-padding-large @input-padding-horizontal;
 }
 
 .input-small() {
   height: @input-height-small;
   line-height: @input-height-small;
+  border-radius: @border-radius-small;
+  padding: @input-padding-small @input-padding-horizontal;
 }
