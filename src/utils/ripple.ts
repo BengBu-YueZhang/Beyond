@@ -7,11 +7,11 @@ export interface IRipple {
 }
 
 export default class Ripple {
-  private x: number;
-  private y: number;
-  private r: number;
-  private color: string;
-  private duration: number;
+  public x: number;
+  public y: number;
+  public r: number;
+  public color: string;
+  public duration: number;
 
   public rippleEle: any;
   public circleEle: any;
@@ -29,20 +29,18 @@ export default class Ripple {
 
   public initRipple() {
     // init svg
-    this.rippleEle = document.createElementNS('xmlns', 'svg');
+    this.rippleEle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     this.rippleEle.setAttribute('class', 'dlz-ripple');
 
     // init circle
-    this.circleEle = document.createElementNS('xmlns', 'circle');
+    this.circleEle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     this.circleEle.setAttribute('cx', this.x);
     this.circleEle.setAttribute('cy', this.y);
     this.circleEle.setAttribute('r', 0);
     this.circleEle.setAttribute('fill', this.color);
 
     // init animate
-    console.log(this.duration)
-    console.log(this.y)
-    this.animateEle = document.createElementNS('xmlns', 'animate');
+    this.animateEle = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
     this.animateEle.setAttribute('attributeName', 'r');
     this.animateEle.setAttribute('dur', `${this.duration}ms`);
     this.animateEle.setAttribute('fill', 'freeze');
@@ -50,7 +48,7 @@ export default class Ripple {
     this.animateEle.setAttribute('to', this.r);
 
     // init fadeoutAnimate
-    this.fadeoutAnimateEle = document.createElementNS('xmlns', 'animate');
+    this.fadeoutAnimateEle = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
     this.fadeoutAnimateEle.setAttribute('attributeName', 'opacity');
     this.fadeoutAnimateEle.setAttribute('dur', `${this.duration}ms`);
     this.fadeoutAnimateEle.setAttribute('fill', 'freeze');

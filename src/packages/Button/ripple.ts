@@ -1,47 +1,58 @@
 import Vue from 'vue';
 import Ripple, { IRipple } from './../../utils/ripple';
 
+let rippleBind: (el: any, binding: any) => void;
+
 Vue.directive('ripple', {
-  bind(el, value: any, oldvalue) {
-    let svg: IRipple;
-    let rippleColor: string = 'rgba(0, 0, 0, 0.3)';
-    let duration: number = 1000;
-    if (typeof value === 'string') {
-      rippleColor = value;
-    }
+  bind(el, binding) {
+    rippleBind = (ele, bind) => {
+      const { value } = bind;
+      ele.classList.add('dlz-ripple-button');
+      let color: string = 'rgba(0, 0, 0, 0.1)';
+      let duration: number = 800;
 
-    if (typeof value === 'object') {
-      duration = value.duration || duration
-    }
+      if (typeof value === 'string') {
+        color = value;
+      }
 
-    const initRipple = (event: any) => {
-      const { top, left, width, height } = el.getBoundingClientRect();
-      // console.log(top, left, width)
-      // console.log(event.clientX - left)
-      // console.log(event.clientY - top)
-      const cx = event.clientX - left;
-      const cy = event.clientY - top;
-      const cr = Math.ceil(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) / 2);
+      if (typeof value === 'object') {
+        duration = value.duration || duration;
+        color = value.color || color;
+      }
 
-      svg = new Ripple(cx, cy, cr, rippleColor, duration);
-      el.appendChild(svg.rippleEle);
+      const initRipple = (event: any) => {
+        const { top, left, width, height } = ele.getBoundingClientRect();
 
-      console.log('svg.animateEle', svg.animateEle)
-      svg.animateEle.beginElement();
+        const cx = event.clientX - left;
+        const cy = event.clientY - top;
+        const cr = Math.ceil(Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)));
 
-      el.addEventListener('mouseup', removeRipple);
-      el.addEventListener('mouseout', removeRipple);
-    };
+        const svg: IRipple = new Ripple(cx, cy, cr, color, duration);
+        ele.appendChild(svg.rippleEle);
 
-    const removeRipple = () => {
-      el.removeEventListener('mouseup', removeRipple);
-      el.removeEventListener('mouseout', removeRipple);
-      console.log('svg.fadeoutAnimateEle', svg.fadeoutAnimateEle)
-      svg.fadeoutAnimateEle.begin();
-      setTimeout(() => {
-        el.removeChild(svg.rippleEle);
-      }, duration);
-    };
-    el.addEventListener('mousedown', initRipple);
-  }
+        svg.animateEle.beginElement();
+
+        const removeRipple = () => {
+          ele.removeEventListener('mouseup', removeRipple);
+          ele.removeEventListener('mouseout', removeRipple);
+
+          svg.fadeoutAnimateEle.beginElement();
+          setTimeout(() => {
+            ele.removeChild(svg.rippleEle);
+          }, duration);
+        };
+
+        ele.addEventListener('mouseup', removeRipple);
+        ele.addEventListener('mouseout', removeRipple);
+      };
+
+      // 初始化
+      ele.addEventListener('mousedown', initRipple);
+    },
+    rippleBind(el, binding);
+  },
+
+  // update(el, binding) {
+  //   rippleBind(el, binding);
+  // },
 });
