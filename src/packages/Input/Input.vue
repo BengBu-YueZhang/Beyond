@@ -7,9 +7,10 @@
         <slot name="prefix"></slot>
       </span>
       <input
-        :type="type"
         ref="reference"
+        :type="type"
         :class="inputClasses"
+        :disabled="disabled"
         @blur="handleBlur"
         @focus="handleFocus"
         @change="handleChange"
@@ -27,7 +28,6 @@
       </span>
       <div v-if="isVisibleAppend">
       </div>
-      <!-- 自动完成下来框 -->
       <transition name="dropdown">
         <div v-show="isVisibleAutoComplete" ref="popper"></div>
       </transition>
@@ -115,7 +115,7 @@ export default class Input extends Vue {
     if (this.clearable) {
       return true;
     }
-    return true;
+    return false;
   }
 
   get inputWrapClasses(): object {
@@ -130,8 +130,9 @@ export default class Input extends Vue {
     const inputClass = {
       [`${prefixClass}`]: true,
       [`${prefixClass}-${this.size}`]: true,
-      [`${prefixClass}-suffix`]: this.isVisibleSuffix,
-      [`${prefixClass}-prefix`]: this.isVisiblePrefix,
+      [`${prefixClass}-include-suffix`]: this.isVisibleSuffix,
+      [`${prefixClass}-include-prefix`]: this.isVisiblePrefix,
+      [`${prefixClass}-disabled`]: this.disabled,
     };
     return inputClass;
   }
@@ -139,7 +140,7 @@ export default class Input extends Vue {
   get prefixClasses(): object {
     const prefixClas = {
       [`${prefixClass}-icon`]: true,
-      [`${prefixClass}-icon-clear`]: true,
+      [`${prefixClass}-icon-prefix`]: true,
     };
     return prefixClas;
   }

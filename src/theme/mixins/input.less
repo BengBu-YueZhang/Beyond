@@ -65,3 +65,11 @@
   border-radius: @border-radius-small;
   padding: @input-padding-small @input-padding-horizontal;
 }
+
+.input-disabled() {
+  background: @bg-color-disabled;
+  cursor: not-allowed;
+  &:hover {
+    border-color: @border-color-default;
+  }
+}
