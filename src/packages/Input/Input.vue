@@ -8,6 +8,7 @@
       <input
         :type="type"
         ref="reference"
+        :class="inputClasses"
         @blur="handleBlur"
         @focus="handleFocus"
         @change="handleChange"
@@ -120,6 +121,16 @@ export default class Input extends Vue {
       [`${prefixClass}-wrapper-${this.size}`]: true,
     };
     return wrapClass;
+  }
+
+  get inputClasses(): object {
+    const inputClass = {
+      [`${prefixClass}`]: true,
+      [`${prefixClass}-${this.size}`]: true,
+      [`${prefixClass}-suffix`]: this.isVisibleSuffix,
+      [`${prefixClass}-prefix`]: this.isVisiblePrefix,
+    };
+    return inputClass;
   }
 
   private mounted(): void {

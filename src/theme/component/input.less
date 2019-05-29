@@ -1,10 +1,27 @@
 @input-prefix: ~"@{css-prefix}input";
 
 .@{input-prefix} {
+  .input();
+
+  &-large {
+    .input-large();
+  }
+
+  &-small {
+    .input-small();
+  }
+
+  &-suffix {
+  }
+
+  &-prefix {
+  }
+
   &-wrapper {
     display: inline-block;
     width: 100%;
     position: relative;
+    vertical-align: middle;
   }
 
   &-wrapper-large {
