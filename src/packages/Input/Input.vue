@@ -16,7 +16,7 @@
       <span v-if="isVisibleClear">
         <Icon
           @click="handleClear"
-          custom-class="iconfont icon-close-circle-fill"
+          custom-class="dlz-icon-font-close-circle-fill"
         />
       </span>
       <span v-if="isVisibleSuffix">

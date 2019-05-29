@@ -35,9 +35,12 @@ export default class Icon extends Vue {
   }
 
   get classes(): object {
+    // dlz-icons 谷歌字体的格式
+    // dlz-icon-font ui库中自带的字体的格式
     const classes = {
+      'dlz-icon-font': !!this.customClass,
       [`${this.customClass}`]: !!this.customClass,
-      'dlz-icons': true,
+      'dlz-icons': !this.customClass,
     };
     return classes;
   }
