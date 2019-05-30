@@ -40,12 +40,15 @@
           ref="popper"
           class="dlz-dropdown"
         >
-          <ul class="dlz-dropdown-list">
+          <ul class="dlz-select-dropdown-list">
+            <!-- 这里可以优化, 在ul上进行监听 -->
             <Option
               v-for="(opt, index) in autoComplete"
               :label="opt.label"
               :value="opt.value"
               :key="index"
+              :selected="opt.value === value"
+              @select-option="handleSelectOption"
             />
           </ul>
         </div>
@@ -277,6 +280,17 @@ export default class Input extends Vue {
     if (is(Array, list)) {
       this.autoComplete = [...list];
     }
+  }
+
+  private handleSelectOption(select: IOption): void {
+    const { value } = select;
+    console.log(value);
+    this.$emit('change', {
+      target: {
+        value,
+      },
+    });
+    this.$emit('input', value);
   }
 }
 </script>

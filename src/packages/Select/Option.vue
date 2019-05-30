@@ -14,7 +14,7 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-const prefixClass = 'dlz-select-option';
+const prefixClass = 'dlz-select-item';
 
 @Component({
   name: 'Option',
