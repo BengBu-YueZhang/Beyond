@@ -39,6 +39,12 @@
           v-show="isVisibleAutoComplete"
           ref="popper"
         >
+          <Option
+            v-for="(opt, index) in autoComplete"
+            :label="opt.label"
+            :value="opt.value"
+            :key="index"
+          />
         </ul>
       </transition>
     </template>
@@ -103,6 +109,18 @@ export default class Input extends Vue {
   private popper!: Pop;
   private autoComplete: IOption[] = [];
   private isVisibleAutoComplete: boolean = false;
+  private focus: boolean = false;
+
+  private mounted(): void {
+    this.$nextTick(() => {
+      if (is(Function, this.onSearch)) {
+        this.popper = new Pop(
+          this.$refs.reference as Element,
+          this.$refs.popper as Element,
+        );
+      }
+    });
+  }
 
   get isVisiblePrefix(): boolean {
     if (this.$slots.prefix) {
@@ -206,20 +224,13 @@ export default class Input extends Vue {
     return `${current}/${total}`;
   }
 
-  private mounted(): void {
-    this.$nextTick(() => {
-      this.popper = new Pop(
-        this.$refs.reference as Element,
-        this.$refs.popper as Element,
-      );
-    });
-  }
-
   private handleBlur(e: Event): void {
+    this.focus = false;
     this.$emit('blur', e);
   }
 
   private handleFocus(e: Event): void {
+    this.focus = true;
     this.$emit('focus', e);
   }
 
@@ -258,7 +269,8 @@ export default class Input extends Vue {
 
   private handleOnSearchCallback(list: IOption[]): void {
     if (is(Array, list)) {
-      this.autoComplete = list;
+      this.autoComplete = [...list];
+      console.log('this.autoComplete', this.autoComplete)
     }
   }
 }
