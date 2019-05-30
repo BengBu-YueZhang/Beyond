@@ -1,5 +1,5 @@
 <template>
-  <ul :class="inputWrapClasses">
+  <div :class="inputWrapClasses">
     <template v-if="type !== 'textarea'">
       <div v-if="isVisiblePrepend">
       </div>
