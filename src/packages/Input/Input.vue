@@ -32,6 +32,7 @@
       <span v-if="isVisibleWordCount" :class="wordCountClasses">{{ wordCount }}</span>
       <div v-if="isVisibleAppend">
       </div>
+      <!-- 自动联想 -->
       <transition name="dropdown">
         <div v-show="isVisibleAutoComplete" ref="popper"></div>
       </transition>
@@ -46,6 +47,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import Pop from '../../lib/popper';
 import Icon from '../Icon';
+import is from '../../utils/is';
 
 const prefixClass = 'dlz-input';
 
@@ -88,7 +90,7 @@ export default class Input extends Vue {
   // 是否显示自数统计
   @Prop({ default: false }) private showWordCount!: boolean;
   // 设置自动完成的数据
-  @Prop() private onSearch!: (queryString: string, cb: () => any) => any;
+  @Prop() private onSearch!: (queryString: string, cb: (list: any) => any) => any;
 
   private popper!: Pop;
   private isVisibleAutoComplete: boolean = false;
@@ -231,7 +233,21 @@ export default class Input extends Vue {
   }
 
   private handleInput(e: Event): void {
-    this.$emit('input', (e.target as HTMLInputElement).value);
+    const value: string = (e.target as HTMLInputElement).value
+    this.handleOnSearch(value);
+    this.$emit('input', value);
+  }
+
+  private handleOnSearch(searchValue: string): void {
+    if (is(Function, this.onSearch)) {
+      this.onSearch(
+        searchValue,
+        this.handleOnSearchCallback
+      );
+    }
+  }
+
+  private handleOnSearchCallback(list: any): void {
   }
 }
 </script>
