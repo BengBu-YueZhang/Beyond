@@ -34,7 +34,12 @@
       </div>
       <!-- 自动联想 -->
       <transition name="dropdown">
-        <div v-show="isVisibleAutoComplete" ref="popper"></div>
+        <div
+          v-if="onSearch"
+          v-show="isVisibleAutoComplete"
+          ref="popper"
+        >
+        </div>
       </transition>
     </template>
     <template v-else-if="type === 'textarea'">
@@ -47,6 +52,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import Pop from '../../lib/popper';
 import Icon from '../Icon';
+import { OptionGroup, Option } from '../Select';
 import is from '../../utils/is';
 
 const prefixClass = 'dlz-input';
@@ -72,6 +78,8 @@ enum Size {
   name: 'Input',
   components: {
     Icon,
+    OptionGroup,
+    Option,
   },
   model: {
     prop: 'value',
@@ -90,9 +98,10 @@ export default class Input extends Vue {
   // 是否显示自数统计
   @Prop({ default: false }) private showWordCount!: boolean;
   // 设置自动完成的数据
-  @Prop() private onSearch!: (queryString: string, cb: (list: any) => any) => any;
+  @Prop() private onSearch!: (queryString: string, cb: (list: string[]) => any) => any;
 
   private popper!: Pop;
+  private autoComplete: string[] = [];
   private isVisibleAutoComplete: boolean = false;
 
   get isVisiblePrefix(): boolean {
@@ -233,7 +242,7 @@ export default class Input extends Vue {
   }
 
   private handleInput(e: Event): void {
-    const value: string = (e.target as HTMLInputElement).value
+    const value: string = (e.target as HTMLInputElement).value;
     this.handleOnSearch(value);
     this.$emit('input', value);
   }
@@ -242,12 +251,15 @@ export default class Input extends Vue {
     if (is(Function, this.onSearch)) {
       this.onSearch(
         searchValue,
-        this.handleOnSearchCallback
+        this.handleOnSearchCallback,
       );
     }
   }
 
-  private handleOnSearchCallback(list: any): void {
+  private handleOnSearchCallback(list: string[]): void {
+    if (is(Array, list)) {
+      this.autoComplete = list;
+    }
   }
 }
 </script>
