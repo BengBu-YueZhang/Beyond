@@ -16,6 +16,8 @@
     <Input placeholder="我爱你"/>
     <Input v-model="value1"/>
     <Input :value="value2" @input="handleInput"/>
+    <Input :maxlength="10"/>
+    <Input v-model="value3" :maxlength="300" :show-word-count="true" />
   </section>
 </template>
 
@@ -34,6 +36,7 @@ import Icon from '../packages/Icon';
 export default class InputView extends Vue {
   private value1: string = 'Hello World';
   private value2: string = 'I Love You';
+  private value3: string = 'Kiss';
 
   private handleInput(val: string): void {
     this.value2 = val;

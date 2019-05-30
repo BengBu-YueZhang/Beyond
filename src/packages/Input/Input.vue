@@ -13,6 +13,7 @@
         :class="inputClasses"
         :disabled="disabled"
         :placeholder="placeholder"
+        :maxlength="maxlength"
         @blur="handleBlur"
         @focus="handleFocus"
         @change="handleChange"
@@ -28,6 +29,7 @@
       <span v-if="isVisibleSuffix" :class="suffixClasses">
         <slot name="suffix"></slot>
       </span>
+      <span v-if="isVisibleWordCount" :class="wordCountClasses">{{ wordCount }}</span>
       <div v-if="isVisibleAppend">
       </div>
       <transition name="dropdown">
@@ -77,12 +79,14 @@ enum Size {
 export default class Input extends Vue {
   @Prop({ default: Type.text }) private type!: string;
   @Prop({ default: Size.default }) private size!: string;
-  @Prop({ default: '' }) private value!: string | number;
+  @Prop({ default: '' }) private value!: string;
   @Prop({ default: '' }) private placeholder!: string;
   @Prop({ default: false }) private clearable!: boolean;
   @Prop({ default: false }) private disabled!: boolean;
   @Prop() private maxlength!: number;
   @Prop({ default: false }) private autofocus!: boolean;
+  // 是否显示自数统计
+  @Prop({ default: false }) private showWordCount!: boolean;
   // 设置自动完成的数据
   @Prop() private onSearch!: (queryString: string, cb: () => any) => any;
 
@@ -119,6 +123,13 @@ export default class Input extends Vue {
 
   get isVisibleClear(): boolean {
     if (this.clearable) {
+      return true;
+    }
+    return false;
+  }
+
+  get isVisibleWordCount(): boolean {
+    if (this.showWordCount && !this.clearable && !this.$slots.suffix) {
       return true;
     }
     return false;
@@ -165,6 +176,23 @@ export default class Input extends Vue {
       [`${prefixClass}-icon-clear`]: true,
     };
     return clearClass;
+  }
+
+  get wordCountClasses(): object {
+    const wordCountClass = {
+      [`${prefixClass}-word-count`]: true,
+      [`${prefixClass}-icon-suffix`]: true,
+    };
+    return wordCountClass;
+  }
+
+  get wordCount(): string {
+    let total!: number;
+    const current = this.value.length;
+    if (typeof this.maxlength === 'number' && !isNaN(this.maxlength)) {
+      total = this.maxlength;
+    }
+    return `${current}/${total}`;
   }
 
   private mounted(): void {
