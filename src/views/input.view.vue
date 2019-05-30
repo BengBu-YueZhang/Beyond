@@ -14,6 +14,8 @@
     <Input size="small"/>
     <Input :disabled="true"/>
     <Input placeholder="我爱你"/>
+    <Input v-model="value1"/>
+    <Input :value="value2" @input="handleInput"/>
   </section>
 </template>
 
@@ -30,6 +32,12 @@ import Icon from '../packages/Icon';
   },
 })
 export default class InputView extends Vue {
+  private value1: string = 'Hello World';
+  private value2: string = 'I Love You';
+
+  private handleInput(val: string): void {
+    this.value2 = val;
+  }
 }
 </script>
 

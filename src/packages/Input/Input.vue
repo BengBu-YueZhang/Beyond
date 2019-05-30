@@ -8,6 +8,7 @@
       </span>
       <input
         ref="reference"
+        :value="value"
         :type="type"
         :class="inputClasses"
         :disabled="disabled"
@@ -67,6 +68,10 @@ enum Size {
   name: 'Input',
   components: {
     Icon,
+  },
+  model: {
+    prop: 'value',
+    event: 'input',
   },
 })
 export default class Input extends Vue {
