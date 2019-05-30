@@ -108,7 +108,6 @@ export default class Input extends Vue {
 
   private popper!: Pop;
   private autoComplete: IOption[] = [];
-  private isVisibleAutoComplete: boolean = false;
   private focus: boolean = false;
 
   private mounted(): void {
@@ -120,6 +119,10 @@ export default class Input extends Vue {
         );
       }
     });
+  }
+
+  get isVisibleAutoComplete(): boolean {
+    return this.focus;
   }
 
   get isVisiblePrefix(): boolean {
