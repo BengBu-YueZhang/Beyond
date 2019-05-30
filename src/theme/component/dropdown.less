@@ -1,0 +1,16 @@
+@dropdown-prefix: ~"@{css-prefix}dropdown";
+
+.@{dropdown-prefix} {
+  width: inherit;
+  max-height: 200px;
+  overflow: auto;
+  z-index: 1000;
+  background-color: @color-text-white;
+  padding: 5px 0;
+  border-radius: @border-radius-default;
+  box-shadow: 0 1px 6px fade(@color-black, 20%);
+
+  &-list {
+    min-width: 100%;
+  }
+}

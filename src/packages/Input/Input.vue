@@ -34,18 +34,21 @@
       </div>
       <!-- 自动联想 -->
       <transition name="dropdown">
-        <ul
+        <div
           v-if="onSearch"
           v-show="isVisibleAutoComplete"
           ref="popper"
+          class="dlz-dropdown"
         >
-          <Option
-            v-for="(opt, index) in autoComplete"
-            :label="opt.label"
-            :value="opt.value"
-            :key="index"
-          />
-        </ul>
+          <ul class="dlz-dropdown-list">
+            <Option
+              v-for="(opt, index) in autoComplete"
+              :label="opt.label"
+              :value="opt.value"
+              :key="index"
+            />
+          </ul>
+        </div>
       </transition>
     </template>
     <template v-else-if="type === 'textarea'">
@@ -122,7 +125,7 @@ export default class Input extends Vue {
   }
 
   get isVisibleAutoComplete(): boolean {
-    return this.focus;
+    return this.focus && this.autoComplete.length > 0;
   }
 
   get isVisiblePrefix(): boolean {
@@ -273,7 +276,6 @@ export default class Input extends Vue {
   private handleOnSearchCallback(list: IOption[]): void {
     if (is(Array, list)) {
       this.autoComplete = [...list];
-      console.log('this.autoComplete', this.autoComplete)
     }
   }
 }
