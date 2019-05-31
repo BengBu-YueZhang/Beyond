@@ -17,11 +17,11 @@
   }
 
   &-include-suffix {
-    padding-left: @input-height-default;
+    padding-right: @input-height-default;
   }
 
   &-include-prefix {
-    padding-right: @input-height-default;
+    padding-left: @input-height-default;
   }
 
   &-icon {
@@ -42,6 +42,11 @@
     padding: 0 6px;
     text-align: center;
     color: @color-text-primary;
+
+    > span {
+      background-color: @bg-color-white;
+      user-select: none;
+    }
   }
 
   &-wrapper {

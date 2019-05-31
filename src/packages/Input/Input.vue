@@ -29,7 +29,7 @@
       <span v-if="isVisibleSuffix" :class="suffixClasses">
         <slot name="suffix"></slot>
       </span>
-      <span v-if="isVisibleWordCount" :class="wordCountClasses">{{ wordCount }}</span>
+      <span v-if="isVisibleWordCount" :class="wordCountClasses"><span>{{ wordCount }}</span></span>
       <div v-if="isVisibleAppend">
       </div>
       <!-- 自动联想 -->
