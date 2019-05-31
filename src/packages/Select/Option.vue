@@ -36,7 +36,7 @@ export default class Option extends Vue {
     return optionClass;
   }
 
-  private dispatch!: (...params: any[]) => any
+  private dispatch!: (...params: any[]) => any;
 
   private handleClick(): void {
     if (this.disabled) {

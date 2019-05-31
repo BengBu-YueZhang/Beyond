@@ -1,24 +1,44 @@
 <template>
   <section class="input-view-wrapper">
-    <Input/>
-    <Input :clearable="true"/>
-    <Input>
-      <span slot="prefix">
-        <Icon custom-class="dlz-icon-font-close-circle-fill"/>
-      </span>
-      <span slot="suffix">
-        <Icon custom-class="dlz-icon-font-close-circle-fill"/>
-      </span>
-    </Input>
-    <Input size="large"/>
-    <Input size="small"/>
-    <Input :disabled="true"/>
-    <Input placeholder="我爱你"/>
-    <Input v-model="value1"/>
-    <Input :value="value2" @input="handleInput"/>
-    <Input :maxlength="10"/>
-    <Input v-model="value3" :maxlength="300" :show-word-count="true" />
-    <Input v-model="value4" :onSearch="handleSearch"/>
+    <div class="block"><Input/></div>
+    <div class="block"><Input :clearable="true"/></div>
+    <div class="block">
+      <Input>
+        <span slot="prefix">
+          <Icon custom-class="dlz-icon-font-close-circle-fill"/>
+        </span>
+        <span slot="suffix">
+          <Icon custom-class="dlz-icon-font-close-circle-fill"/>
+        </span>
+      </Input>
+    </div>
+    <div class="block">
+      <Input size="large"/>
+    </div>
+    <div class="block">
+      <Input size="small"/>
+    </div>
+    <div class="block">
+      <Input :disabled="true"/>
+    </div>
+    <div class="block">
+      <Input placeholder="我爱你"/>
+    </div>
+    <div class="block">
+      <Input v-model="value1"/>
+    </div>
+    <div class="block">
+      <Input :value="value2" @input="handleInput"/>
+    </div>
+    <div class="block">
+      <Input :maxlength="10"/>
+    </div>
+    <div class="block">
+      <Input v-model="value3" :maxlength="300" :show-word-count="true" />
+    </div>
+    <div class="block">
+      <Input v-model="value4" :onSearch="handleSearch"/>
+    </div>
   </section>
 </template>
 
@@ -62,5 +82,10 @@ export default class InputView extends Vue {
 <style lang="less" scoped>
 .input-view-wrapper {
   padding: 50px;
+}
+
+.block {
+  padding: 60px;
+  margin: 10px;
 }
 </style>

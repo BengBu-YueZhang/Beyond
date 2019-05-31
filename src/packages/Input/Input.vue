@@ -40,7 +40,11 @@
           ref="popper"
           class="dlz-dropdown"
         >
+          <div v-if="!autoComplete.length" class="dlz-select-dropdown-list">
+            <span>未搜索到相关数据</span>
+          </div>
           <ul
+            v-if="autoComplete.length"
             class="dlz-select-dropdown-list">
             <Option
               v-for="(opt, index) in autoComplete"
@@ -60,7 +64,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
+// 暂时不支持ts, 得想办法解决加一个d.ts
+// import * as vClickOutside from 'v-click-outside-x';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import Pop from '../../lib/popper';
 import Icon from '../Icon';
 import { Option } from '../Select';
@@ -231,6 +237,15 @@ export default class Input extends Vue {
       total = this.maxlength;
     }
     return `${current}/${total}`;
+  }
+
+  @Watch('isVisibleAutoComplete')
+  private onVisibleAutoCompleteChange(): void {
+    if (this.isVisibleAutoComplete) {
+      this.popper.active();
+    } else {
+      this.popper.destroy();
+    }
   }
 
   private handleBlur(e: Event): void {
