@@ -6,7 +6,7 @@ export interface IRipple {
   fadeoutAnimateEle: any;
 }
 
-export default class Ripple {
+export default class Ripple implements IRipple {
   public x: number;
   public y: number;
   public r: number;
