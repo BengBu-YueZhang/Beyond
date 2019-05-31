@@ -309,7 +309,7 @@ import Button from '../packages/Button';
   },
 })
 export default class ButtonView extends Vue {
-  private btnClick (): void {
+  private btnClick(): void {
     alert('btnClick');
   }
 }

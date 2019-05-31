@@ -1,0 +1,101 @@
+@input-prefix: ~"@{css-prefix}input";
+
+.@{input-prefix} {
+  .input();
+  .input-placeholder();
+
+  &-disabled {
+    .input-disabled();
+  }
+
+  &-large {
+    .input-large();
+  }
+
+  &-small {
+    .input-small();
+  }
+
+  &-include-suffix {
+    padding-left: @input-height-default;
+  }
+
+  &-include-prefix {
+    padding-right: @input-height-default;
+  }
+
+  &-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    text-align: center;
+    color: @color-text-primary;
+  }
+
+  &-icon-clear {}
+
+  &-word-count {
+    display: inline-block;
+    font-size: @font-size-small;
+    width: auto;
+    padding: 0 6px;
+    text-align: center;
+    color: @color-text-primary;
+  }
+
+  &-wrapper {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  &-wrapper-default &-icon {
+    width: @input-height-default;
+    height: @input-height-default;
+    line-height: @input-height-default;
+    font-size: @font-icon-size-default;
+  }
+
+  &-wrapper-default &-word-count {
+    height: @input-height-default;
+    line-height: @input-height-default;
+  }
+
+  &-wrapper-large &-icon {
+    width: @input-height-large;
+    height: @input-height-large;
+    line-height: @input-height-large;
+    font-size: @font-icon-size-large;
+  }
+
+  &-wrapper-large &-word-count {
+    height: @input-height-large;
+    line-height: @input-height-large;
+  }
+
+  &-wrapper-small &-icon {
+    width: @input-height-small;
+    height: @input-height-small;
+    line-height: @input-height-small;
+    font-size: @font-icon-size-small;
+  }
+
+  &-wrapper-small &-word-count {
+    height: @input-height-small;
+    line-height: @input-height-small;
+  }
+
+  &-icon-suffix {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &-icon-prefix {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
