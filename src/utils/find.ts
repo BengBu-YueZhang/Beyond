@@ -52,7 +52,7 @@ export function findChildsComponentByLevel(target: Component, name: string, leve
 /**
  * 查找第一层子组件
  */
-export function findChildsComponentByFirstLLevel(target: Component, name: string): Component[] {
+export function findChildsComponentByFirstLevel(target: Component, name: string): Component[] {
   return findChildsComponentByLevel(target, name, 1);
 }
 
