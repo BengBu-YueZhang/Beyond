@@ -1,3 +1,7 @@
+/**
+ * 水滴效果
+ */
+
 export interface IRipple {
   initRipple: () => void;
   rippleEle: any;

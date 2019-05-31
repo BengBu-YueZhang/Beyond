@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Ripple, { IRipple } from './../../utils/ripple';
+import Ripple, { IRipple } from '../utils/ripple';
 
 let rippleBind: (el: any, binding: any) => void;
 

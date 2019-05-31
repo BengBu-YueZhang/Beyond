@@ -3,7 +3,7 @@
           :disabled="disabled"
           @click="handleClick"
           :class="classes">
-    <i class="dlz-loading-icon dlz-icon iconfont icon-loading" v-if="loading"></i>
+    <i class="dlz-loading-icon dlz-icon-font-loading" v-if="loading"></i>
     <i class="dlz-icon" :class="icon" v-if="icon && !loading"></i>
     <span v-if="$slots.default"><slot></slot></span>
   </button>

@@ -267,31 +267,31 @@
       icon 信息
     </section>
     <section>
-      <Button icon="iconfont icon-loading" v-ripple>
+      <Button icon="dlz-icon-font-dianhua" v-ripple>
         默认按钮
       </Button>
 
-      <Button type="primary" plain icon="iconfont icon-loading" v-ripple>
+      <Button type="primary" plain icon="dlz-icon-font-weixin" v-ripple>
         主要按钮
       </Button>
 
-      <Button type="success" plain icon="iconfont icon-loading" v-ripple>
+      <Button type="success" plain icon="dlz-icon-font-location" v-ripple>
         成功按钮
       </Button>
 
-      <Button type="warning" plain icon="iconfont icon-loading" v-ripple>
+      <Button type="warning" plain icon="dlz-icon-font-calendar" v-ripple>
         警告按钮
       </Button>
 
-      <Button type="danger" plain icon="iconfont icon-loading" v-ripple>
+      <Button type="danger" plain icon="dlz-icon-font-arrawsalt" v-ripple>
         危险按钮
       </Button>
 
-      <Button type="info" icon="iconfont icon-loading" v-ripple>
+      <Button type="info" icon="dlz-icon-font-verticalright" v-ripple>
         信息按钮
       </Button>
 
-      <Button type="danger" icon="iconfont icon-loading" v-ripple style="width: 300px;">
+      <Button type="danger" icon="dlz-icon-font-right" v-ripple style="width: 300px;">
         危险按钮
       </Button>
     </section>
