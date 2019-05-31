@@ -82,12 +82,14 @@ export function findParentComponent(target: Component, name: string): Component 
     if (!currentTarget) {
       return;
     }
-    const parentComponent = currentTarget.$parent;
-    const parentName = parentComponent.$options.name;
-    if (parentName === name) {
-      parent = parentComponent;
-    } else {
-      find(parentComponent);
+    if (currentTarget.$parent) {
+      const parentComponent = currentTarget.$parent;
+      const parentName = parentComponent.$options.name;
+      if (parentName === name) {
+        parent = parentComponent;
+      } else {
+        find(parentComponent);
+      }
     }
   };
   find(target);
