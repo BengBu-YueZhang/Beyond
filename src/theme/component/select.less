@@ -1,0 +1,18 @@
+@select-prefix: ~"@{css-prefix}select";
+
+.@{select-prefix} {
+  &-item {
+    font-size: @font-size-small;
+    color: @color-text-primary;
+    padding: 7px 15px;
+
+    &:hover {
+      background-color: @bg-color-hover;
+    }
+
+    &-selected {
+      color: @color-primary;
+      background-color: @bg-color-hover;
+    }
+  }
+}
