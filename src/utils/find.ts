@@ -87,6 +87,7 @@ export function findParentComponent(target: Component, name: string): Component 
       const parentName = parentComponent.$options.name;
       if (parentName === name) {
         parent = parentComponent;
+        return;
       } else {
         find(parentComponent);
       }

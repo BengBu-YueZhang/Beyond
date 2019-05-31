@@ -40,15 +40,14 @@
           ref="popper"
           class="dlz-dropdown"
         >
-          <ul class="dlz-select-dropdown-list">
-            <!-- 这里可以优化, 在ul上进行监听 -->
+          <ul
+            class="dlz-select-dropdown-list">
             <Option
               v-for="(opt, index) in autoComplete"
+              target-component-name="Input"
               :label="opt.label"
               :value="opt.value"
               :key="index"
-              :selected="opt.value === value"
-              @select-option="handleSelectOption"
             />
           </ul>
         </div>
@@ -117,6 +116,7 @@ export default class Input extends Vue {
   private focus: boolean = false;
 
   private mounted(): void {
+    this.$on('select-option', this.handleSelectOption);
     this.$nextTick(() => {
       if (is(Function, this.onSearch)) {
         this.popper = new Pop(
@@ -284,7 +284,6 @@ export default class Input extends Vue {
 
   private handleSelectOption(select: IOption): void {
     const { value } = select;
-    console.log(value);
     this.$emit('change', {
       target: {
         value,
