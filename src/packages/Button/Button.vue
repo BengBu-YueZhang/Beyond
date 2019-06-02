@@ -3,8 +3,8 @@
           :disabled="disabled"
           @click="handleClick"
           :class="classes">
-    <i class="dlz-loading-icon dlz-icon iconfont icon-loading" v-if="loading"></i>
-    <i class="dlz-icon" :class="icon" v-if="icon && !loading"></i>
+    <i class="dlz-loading-icon dlz-icon-font-loading" :class="iconClasses"  v-if="loading"></i>
+    <i :class="[icon, iconClasses]" v-if="icon && !loading"></i>
     <span v-if="$slots.default"><slot></slot></span>
   </button>
 </template>
@@ -90,6 +90,13 @@ export default class Button extends Vue {
       [`${prefixClass}-${this.type}-plain`]: !!this.plain && !!this.type,
     };
     return classes;
+  }
+
+  get iconClasses(): object {
+    return {
+      [`dlz-icon`]: true,
+      [`dlz-icon-font`]: true,
+    };
   }
 }
 </script>

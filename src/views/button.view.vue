@@ -267,33 +267,75 @@
       icon 信息
     </section>
     <section>
-      <Button icon="iconfont icon-loading">
+      <Button icon="dlz-icon-font-dianhua" v-ripple>
         默认按钮
       </Button>
 
-      <Button type="primary" plain icon="iconfont icon-loading">
+      <Button type="primary" plain icon="dlz-icon-font-weixin" v-ripple>
         主要按钮
       </Button>
 
-      <Button type="success" plain icon="iconfont icon-loading">
+      <Button type="success" plain icon="dlz-icon-font-location" v-ripple>
         成功按钮
       </Button>
 
-      <Button type="warning" plain icon="iconfont icon-loading">
+      <Button type="warning" plain icon="dlz-icon-font-calendar" v-ripple>
         警告按钮
       </Button>
 
-      <Button type="danger" plain icon="iconfont icon-loading">
+      <Button type="danger" plain icon="dlz-icon-font-arrawsalt" v-ripple>
         危险按钮
       </Button>
 
-      <Button type="info" icon="iconfont icon-loading">
+      <Button type="info" icon="dlz-icon-font-verticalright" v-ripple>
         信息按钮
       </Button>
 
-      <Button type="danger" icon="iconfont icon-loading">
+      <Button type="danger" icon="dlz-icon-font-right" v-ripple style="width: 300px;">
         危险按钮
       </Button>
+    </section>
+
+    <section>
+      v-ripple 水滴波纹效果  默认 color: rgba(0,0,0,0.1)  duration: 800(ms)
+    </section>
+    <section>
+      自定义指令可以是值或者对象格式   为值的时候默认为颜色属性  对象的时候 需要有 color duration字段
+    </section>
+    <section>
+      默认效果
+    </section>
+    <section>
+      <Button type="primary" plain v-ripple>
+        主要按钮
+      </Button>
+      <Button type="primary" v-ripple>
+        主要按钮
+      </Button>
+      <Button type="danger" plain v-ripple>
+        危险按钮
+      </Button>
+      <Button type="danger" v-ripple>
+        危险按钮
+      </Button>
+      <Button type="success" plain v-ripple>
+        成功按钮
+      </Button>
+      <Button type="success" v-ripple>
+        成功按钮
+      </Button>
+
+    <section>
+      自定义颜色和时长
+    </section>
+    <section>
+      <Button type="primary" plain v-ripple="'rgba(255,255,255,0.4)'">
+        白色透明按钮
+      </Button>
+      <Button type="success" plain v-ripple="{color: 'rgba(41, 168, 253,0.6)', duration: 2000}">
+        2000 ms 蓝色透明
+      </Button>
+      </section>
     </section>
   </section>
 </template>
@@ -311,6 +353,13 @@ import Button from '../packages/Button';
 export default class ButtonView extends Vue {
   private btnClick(): void {
     alert('btnClick');
+  }
+
+  private startAnimate(e: any): void {
+    const ref: any = this.$refs.animate;
+    const ref1: any = this.$refs.animate1;
+    ref.beginElement();
+    ref1.beginElement();
   }
 }
 </script>
