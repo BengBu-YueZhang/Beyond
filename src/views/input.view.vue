@@ -40,7 +40,7 @@
       <Input v-model="value4" type="textarea" />
     </div>
     <div class="block">
-      <Input v-model="value5" type="textarea" :autosize="true" />
+      <Input v-model="value5" :max-rows="maxRows" type="textarea" :autosize="true" />
     </div>
   </section>
 </template>
@@ -64,6 +64,7 @@ export default class InputView extends Vue {
   private value3: string = 'Kiss';
   private value4: string = '';
   private value5: string = '';
+  private maxRows: number = 4;
 
   private handleInput(val: string): void {
     this.value2 = val;

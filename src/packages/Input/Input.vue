@@ -69,7 +69,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import Icon from '../Icon';
 import is from '../../utils/is';
 import autosize from 'autosize';
@@ -123,6 +123,16 @@ export default class Input extends Vue {
   @Prop({ default: 4 }) private maxRows!: number;
 
   private textareaStyles: object = {};
+
+  @Watch('maxRows')
+  private onMaxRowsChange(): void {
+    this.initTextAreaAutoSize();
+  }
+
+  @Watch('minRows')
+  private onMinRowsChange(): void {
+    this.initTextAreaAutoSize();
+  }
 
   private mounted(): void {
     this.initTextAreaAutoSize();
@@ -289,18 +299,18 @@ export default class Input extends Vue {
   private initTextAreaAutoSize(): void {
     // 很粗糙的实现autosize，借助autosize实现自动换行，使用maxheight，minheight实现maxRows，minRows的功能
     // 以后需要根据, https://github.com/andreypopp/react-textarea-autosize/, 重构
-    const textareaRef = this.$refs.textareaRef as HTMLElement;
-    const style = window.getComputedStyle(textareaRef);
-    const lineHeight = parseInt(style.getPropertyValue('line-height'), 10);
-    const paddingTop = parseInt(style.getPropertyValue('padding-top'), 10);
-    const paddingBottom = parseInt(style.getPropertyValue('padding-bottom'), 10);
-    const borderWidth = parseInt(style.getPropertyValue('border-width'), 10);
-    this.textareaStyles = {
-      'min-height': `${lineHeight * this.minRows + paddingTop + paddingBottom + borderWidth * 2}px`,
-      'max-height': `${lineHeight * this.maxRows + paddingTop + paddingBottom + borderWidth * 2}px`,
-      'resize': `vertical`,
-    };
     if (this.autosize) {
+      const textareaRef = this.$refs.textareaRef as HTMLElement;
+      const style = window.getComputedStyle(textareaRef);
+      const lineHeight = parseInt(style.getPropertyValue('line-height'), 10);
+      const paddingTop = parseInt(style.getPropertyValue('padding-top'), 10);
+      const paddingBottom = parseInt(style.getPropertyValue('padding-bottom'), 10);
+      const borderWidth = parseInt(style.getPropertyValue('border-width'), 10);
+      this.textareaStyles = {
+        'min-height': `${lineHeight * this.minRows + paddingTop + paddingBottom + borderWidth * 2}px`,
+        'max-height': `${lineHeight * this.maxRows + paddingTop + paddingBottom + borderWidth * 2}px`,
+        'resize': `vertical`,
+      };
       autosize(textareaRef);
     }
   }
