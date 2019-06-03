@@ -36,6 +36,9 @@
     <div class="block">
       <Input v-model="value3" :maxlength="300" :show-word-count="true" />
     </div>
+    <div class="block">
+      <Input type="textarea" />
+    </div>
   </section>
 </template>
 

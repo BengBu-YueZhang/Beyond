@@ -9,13 +9,15 @@
         <slot name="prefix"></slot>
       </span>
       <input
-        ref="reference"
+        ref="inputRef"
+        :name="name"
         :value="value"
         :type="type"
         :class="inputClasses"
         :disabled="disabled"
         :placeholder="placeholder"
         :maxlength="maxlength"
+        :autofocus="autofocus"
         @blur="handleBlur"
         @focus="handleFocus"
         @change="handleChange"
@@ -40,13 +42,33 @@
       </div>
     </template>
     <template v-else-if="type === 'textarea'">
+      <textarea
+        ref="textareaRef"
+        :name="name"
+        :autofocus="autofocus"
+        :rows="rows"
+        :spellcheck="spellcheck"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        :value="value"
+        :readonly="readonly"
+        :class="textareaClasses"
+        :maxlength="maxlength"
+        @blur="handleBlur"
+        @focus="handleFocus"
+        @input="handleInput"
+        @keyup="handleKeyUp"
+        @keypress="handleKeyPress"
+        @keydown="handleKeyDown"
+        @keyup.enter="handleEnter">
+      </textarea>
     </template>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop } from 'vue-property-decorator';
 import Icon from '../Icon';
 import is from '../../utils/is';
 
@@ -80,6 +102,7 @@ enum Size {
   },
 })
 export default class Input extends Vue {
+  @Prop() private name!: string;
   @Prop({ default: Type.text }) private type!: string;
   @Prop({ default: Size.default }) private size!: string;
   @Prop({ default: '' }) private value!: string;
@@ -90,6 +113,10 @@ export default class Input extends Vue {
   @Prop({ default: false }) private autofocus!: boolean;
   // 是否显示自数统计
   @Prop({ default: false }) private showWordCount!: boolean;
+
+  @Prop({ default: 2 }) private rows!: number;
+  @Prop({ default: false }) private spellcheck!: boolean;
+  @Prop({ default: false }) private readonly!: boolean;
 
   get isVisiblePrefix(): boolean {
     if (this.$slots.prefix) {
@@ -131,6 +158,12 @@ export default class Input extends Vue {
       return true;
     }
     return false;
+  }
+
+  get textareaClasses(): object {
+    const textareaClass = {
+    };
+    return textareaClass;
   }
 
   get inputWrapClasses(): object {
@@ -222,6 +255,22 @@ export default class Input extends Vue {
   private handleInput(e: Event): void {
     const value: string = (e.target as HTMLInputElement).value;
     this.$emit('input', value);
+  }
+
+  private handleKeyUp(e: Event): void {
+    this.$emit('keyup', e);
+  }
+
+  private handleKeyPress(e: Event): void {
+    this.$emit('keypress', e);
+  }
+
+  private handleKeyDown(e: Event): void {
+    this.$emit('keydown', e);
+  }
+
+  private handleEnter(e: Event): void {
+    this.$emit('enter', e);
   }
 }
 </script>
