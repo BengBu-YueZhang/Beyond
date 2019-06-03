@@ -119,7 +119,6 @@ export default class Input extends Vue {
   @Prop({ default: false }) private spellcheck!: boolean;
   @Prop({ default: false }) private readonly!: boolean;
   @Prop({ default: false }) private autosize!: boolean;
-  
   @Prop({ default: 2 }) private minRows!: number;
   @Prop({ default: 4 }) private maxRows!: number;
 
