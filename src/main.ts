@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import './theme/index.less';
-import './packages/Button/test/iconfont.css';
+import './directive';
 
 Vue.config.productionTip = false;
 

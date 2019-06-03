@@ -1,3 +1,5 @@
+@import './../mixins/button.less';
+
 @button-prefix: ~"@{css-prefix}button";
 
 @button-color-defalut-bg: #ffffff;
@@ -18,12 +20,12 @@
 @button-color-primary-bg: @color-primary;
 @button-color-primary-color: #ffffff;
 @button-color-primary-border: @color-primary;
-@button-color-primary-hover-bg: #66b1ff;
+@button-color-primary-hover-bg: #29a8fd;
 @button-color-primary-hover-color: #ffffff;
-@button-color-primary-hover-border: #66b1ff;
-@button-color-primary-active-bg: #3a8ee6;
+@button-color-primary-hover-border: #29a8fd;
+@button-color-primary-active-bg: #0092f3;
 @button-color-primary-active-color: #ffffff;
-@button-color-primary-active-border: #3a8ee6;
+@button-color-primary-active-border: #0092f3;
 @button-color-primary-disable-bg: #87bbf3;
 @button-color-primary-disable-color: #ffffff;
 @button-color-primary-disable-border: #87bbf3;
@@ -33,12 +35,12 @@
 @button-color-success-bg: @color-success;
 @button-color-success-color: #ffffff;
 @button-color-success-border: @color-success;
-@button-color-success-hover-bg: #40e0ab;
+@button-color-success-hover-bg: #3ce49e;
 @button-color-success-hover-color: #ffffff;
-@button-color-success-hover-border: #40e0ab;
-@button-color-success-active-bg: #0ccf8e;
+@button-color-success-hover-border: #3ce49e;
+@button-color-success-active-bg: #24c582;
 @button-color-success-active-color: #ffffff;
-@button-color-success-active-border: #0ccf8e;
+@button-color-success-active-border: #24c582;
 @button-color-success-disable-bg: #7ee4c2;
 @button-color-success-disable-color: #ffffff;
 @button-color-success-disable-border: #7ee4c2;
@@ -63,9 +65,9 @@
 @button-color-danger-bg: @color-danger;
 @button-color-danger-color: #ffffff;
 @button-color-danger-border: @color-danger;
-@button-color-danger-hover-bg: #f8647d;
+@button-color-danger-hover-bg: #fd7d93;
 @button-color-danger-hover-color: #ffffff;
-@button-color-danger-hover-border: #f8647d;
+@button-color-danger-hover-border: #fd7d93;
 @button-color-danger-active-bg: #ec526b;
 @button-color-danger-active-color: #ffffff;
 @button-color-danger-active-border: #ec526b;
@@ -78,9 +80,9 @@
 @button-color-info-bg: @color-info;
 @button-color-info-color: #ffffff;
 @button-color-info-border: @color-info;
-@button-color-info-hover-bg: #86969e;
+@button-color-info-hover-bg: #708690;
 @button-color-info-hover-color: #ffffff;
-@button-color-info-hover-border: #86969e;
+@button-color-info-hover-border: #708690;
 @button-color-info-active-bg: #5f676d;
 @button-color-info-active-color: #ffffff;
 @button-color-info-active-border: #5f676d;
@@ -89,169 +91,6 @@
 @button-color-info-disable-border: #9fabb1;
 @button-color-info-plain-bg: #f1f7fa;
 @button-color-info-plain-border: #cdd4d8;
-
-.buttonEventStyleNew (
-  @className,
-  @defaultBg,
-  @defaultColor,
-  @defaultBorder,
-  @hoverBg,
-  @hoverColor,
-  @hoverBorder,
-  @activeBg,
-  @activeColor,
-  @activeBorder,
-  @disableBg,
-  @disableColor,
-  @disableBorder,
-  @plainBg,
-  @plainBorder
-) {
-  &-@{className} {
-    background: @defaultBg;
-    color: @defaultColor;
-    border: 1px solid @defaultBorder;
-    &:hover, &:focus {
-      background: @hoverBg;
-      color: @hoverColor;
-      border: 1px solid @hoverBorder;
-    }
-    &:active {
-      background: @activeBg;
-      color: @activeColor;
-      border: 1px solid @activeBorder;
-    }
-
-    &.is-disabled {
-      cursor: not-allowed;
-      background: @disableBg;
-      border: 1px solid @disableBorder;
-      color: @disableColor;
-      &:hover, &:focus {
-        background: @disableBg;
-        border: 1px solid @disableBorder;
-        color: @disableColor;
-      }
-      &:active {
-        background: @disableBg;
-        border: 1px solid @disableBorder;
-        color: @disableColor;
-      }
-    }
-
-    &-plain {
-      background: @plainBg;
-      color: @hoverBg;
-      border: 1px solid @plainBorder;
-      &:hover, &:focus {
-        background: @defaultBg;
-        border: 1px solid @defaultBorder;
-        color: @defaultColor;
-      }
-      &:active {
-        background: @activeBg;
-        color: @activeColor;
-        border: 1px solid @activeBorder;
-      }
-
-      &.is-disabled {
-        cursor: not-allowed;
-        background: @plainBg;
-        color: @hoverBg;
-        border: 1px solid @plainBorder;
-        &:hover, &:focus {
-          background: @plainBg;
-          color: @hoverBg;
-          border: 1px solid @plainBorder;
-        }
-        &:active {
-          background: @plainBg;
-          color: @hoverBg;
-          border: 1px solid @plainBorder;
-        }
-      }
-    }
-  }
-}
-
-// 点击  hover  对应的交互颜色
-.buttonEventStyle (@className, @eventColor) {
-  &-@{className} {
-    background: @eventColor;
-    border: 1px solid @eventColor;
-    i, span {
-      color: @color-text-white;
-      // vertical-align: middle;
-    }
-
-    &:hover, &:focus {
-      background: lighten(@eventColor, 5%);
-      border: 1px solid lighten(@eventColor, 5%);
-    }
-
-    &:active {
-      background: darken(@eventColor, 5%);
-      border: 1px solid darken(@eventColor, 5%);
-    }
-
-    &.is-disabled {
-      cursor: not-allowed;
-      background: lighten(@eventColor, 15%);
-      border: 1px solid lighten(@eventColor, 15%);
-      i, span {
-        color: #fff;
-      }
-      &:hover, &:focus {
-        background: lighten(@eventColor, 15%);
-        border: 1px solid lighten(@eventColor, 15%);
-      }
-      &:active {
-        background: lighten(@eventColor, 15%);
-        border: 1px solid lighten(@eventColor, 15%);
-      }
-    }
-  }
-}
-
-// 按钮圆角
-.buttonRoundStyle (@roundSize) {
-  &.is-round {
-    border-radius: @roundSize;
-  }
-}
-
-// 按钮字体大小
-.buttonSizeStyle (@size) when (@size = big) {
-  &-@{size} {
-    padding: 11px 20px;
-    font-size: 14px;
-    border-radius: 4px;
-  }
-}
-
-.buttonSizeStyle (@size) when (@size = medium) {
-  &-@{size} {
-    padding: 9px 20px;
-    font-size: 14px;
-    border-radius: 4px;
-  }
-}
-
-.buttonSizeStyle (@size) when (@size = small) {
-  &-@{size} {
-    padding: 7px 15px;
-    font-size: 12px;
-    border-radius: 3px;
-  }
-}
-
-.buttonSizeStyle (@size) when (@size = mini) {
-  &-@{size} {
-    padding: 5px 13px;
-    font-size: 12px;
-    border-radius: 3px;
-  }
-}
 
 .@{button-prefix} {
   display: inline-block;
@@ -420,6 +259,19 @@
     display: inline-block;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
+  }
+}
+
+.dlz-ripple-button {
+  position: relative;
+  overflow: hidden;
+  .dlz-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    user-select: none;
   }
 }
 
