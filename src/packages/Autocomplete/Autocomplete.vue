@@ -25,11 +25,11 @@ import { directive as clickOutside } from 'v-click-outside-x';
 import { Option } from '../Select';
 import { IOption } from '../../interface';
 import Pop from '../../lib/popper';
+import is from '../../utils/is';
 
 export default class Autocomplete extends Vue {
   // 设置自动完成的数据
   @Prop() private onSearch!: (queryString: string, cb: (list: IOption[]) => any) => any;
-  
 
   private popper!: Pop;
   private autoComplete: IOption[] = [];
