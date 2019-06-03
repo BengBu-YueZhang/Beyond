@@ -1,8 +1,10 @@
 <template>
   <div :class="inputWrapClasses">
     <template v-if="type !== 'textarea'">
+      <!-- 前置组合组件 -->
       <div v-if="isVisiblePrepend">
       </div>
+      <!-- 前置icon -->
       <span v-if="isVisiblePrefix" :class="prefixClasses">
         <slot name="prefix"></slot>
       </span>
@@ -20,42 +22,22 @@
         @click="handleClick"
         @input="handleInput"
       />
+      <!-- clear icon -->
       <span v-if="isVisibleClear" :class="clearClasses">
         <Icon
           @click="handleClear"
           custom-class="dlz-icon-font-close-circle-fill"
         />
       </span>
+      <!-- 后置icon -->
       <span v-if="isVisibleSuffix" :class="suffixClasses">
         <slot name="suffix"></slot>
       </span>
+      <!-- 输入字数 -->
       <span v-if="isVisibleWordCount" :class="wordCountClasses"><span>{{ wordCount }}</span></span>
+      <!-- 后置组合组件 -->
       <div v-if="isVisibleAppend">
       </div>
-      <!-- 自动联想 -->
-      <transition name="dropdown">
-        <div
-          v-if="onSearch"
-          v-show="isVisibleAutoComplete"
-          ref="popper"
-          class="dlz-dropdown"
-        >
-          <div v-if="!autoComplete.length" class="dlz-select-dropdown-list">
-            <span>未搜索到相关数据</span>
-          </div>
-          <ul
-            v-if="autoComplete.length"
-            class="dlz-select-dropdown-list">
-            <Option
-              v-for="(opt, index) in autoComplete"
-              target-component-name="Input"
-              :label="opt.label"
-              :value="opt.value"
-              :key="index"
-            />
-          </ul>
-        </div>
-      </transition>
     </template>
     <template v-else-if="type === 'textarea'">
     </template>
@@ -64,14 +46,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-// 暂时不支持ts, 得想办法解决加一个d.ts
-// import * as vClickOutside from 'v-click-outside-x';
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import Pop from '../../lib/popper';
 import Icon from '../Icon';
-import { Option } from '../Select';
 import is from '../../utils/is';
-import { IOption } from '../../interface';
 
 const prefixClass = 'dlz-input';
 
@@ -96,7 +73,6 @@ enum Size {
   name: 'Input',
   components: {
     Icon,
-    Option,
   },
   model: {
     prop: 'value',
@@ -114,28 +90,6 @@ export default class Input extends Vue {
   @Prop({ default: false }) private autofocus!: boolean;
   // 是否显示自数统计
   @Prop({ default: false }) private showWordCount!: boolean;
-  // 设置自动完成的数据
-  @Prop() private onSearch!: (queryString: string, cb: (list: IOption[]) => any) => any;
-
-  private popper!: Pop;
-  private autoComplete: IOption[] = [];
-  private focus: boolean = false;
-
-  private mounted(): void {
-    this.$on('select-option', this.handleSelectOption);
-    this.$nextTick(() => {
-      if (is(Function, this.onSearch)) {
-        this.popper = new Pop(
-          this.$refs.reference as Element,
-          this.$refs.popper as Element,
-        );
-      }
-    });
-  }
-
-  get isVisibleAutoComplete(): boolean {
-    return this.focus && this.autoComplete.length > 0;
-  }
 
   get isVisiblePrefix(): boolean {
     if (this.$slots.prefix) {
@@ -239,22 +193,11 @@ export default class Input extends Vue {
     return `${current}/${total}`;
   }
 
-  @Watch('isVisibleAutoComplete')
-  private onVisibleAutoCompleteChange(): void {
-    if (this.isVisibleAutoComplete) {
-      this.popper.active();
-    } else {
-      this.popper.destroy();
-    }
-  }
-
   private handleBlur(e: Event): void {
-    this.focus = false;
     this.$emit('blur', e);
   }
 
   private handleFocus(e: Event): void {
-    this.focus = true;
     this.$emit('focus', e);
   }
 
@@ -278,32 +221,6 @@ export default class Input extends Vue {
 
   private handleInput(e: Event): void {
     const value: string = (e.target as HTMLInputElement).value;
-    this.handleOnSearch(value);
-    this.$emit('input', value);
-  }
-
-  private handleOnSearch(searchValue: string): void {
-    if (is(Function, this.onSearch)) {
-      this.onSearch(
-        searchValue,
-        this.handleOnSearchCallback,
-      );
-    }
-  }
-
-  private handleOnSearchCallback(list: IOption[]): void {
-    if (is(Array, list)) {
-      this.autoComplete = [...list];
-    }
-  }
-
-  private handleSelectOption(select: IOption): void {
-    const { value } = select;
-    this.$emit('change', {
-      target: {
-        value,
-      },
-    });
     this.$emit('input', value);
   }
 }

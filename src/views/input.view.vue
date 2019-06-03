@@ -36,9 +36,6 @@
     <div class="block">
       <Input v-model="value3" :maxlength="300" :show-word-count="true" />
     </div>
-    <div class="block">
-      <Input v-model="value4" :onSearch="handleSearch"/>
-    </div>
   </section>
 </template>
 
