@@ -9,6 +9,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@types/autosize": "^3.0.6",
+    "autosize": "^4.0.2",
     "core-js": "^2.6.5",
     "popper.js": "^1.15.0",
     "v-click-outside-x": "git+https://github.com/nirvanadlz/v-click-outside-x.git#master",

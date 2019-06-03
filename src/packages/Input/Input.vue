@@ -52,6 +52,7 @@
         :placeholder="placeholder"
         :value="value"
         :readonly="readonly"
+        :style="textareaStyles"
         :class="textareaClasses"
         :maxlength="maxlength"
         @blur="handleBlur"
@@ -71,6 +72,7 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import Icon from '../Icon';
 import is from '../../utils/is';
+import autosize from 'autosize';
 
 const prefixClass = 'dlz-input';
 
@@ -113,10 +115,19 @@ export default class Input extends Vue {
   @Prop({ default: false }) private autofocus!: boolean;
   // 是否显示自数统计
   @Prop({ default: false }) private showWordCount!: boolean;
-
   @Prop({ default: 2 }) private rows!: number;
   @Prop({ default: false }) private spellcheck!: boolean;
   @Prop({ default: false }) private readonly!: boolean;
+  @Prop({ default: false }) private autosize!: boolean;
+  
+  @Prop({ default: 2 }) private minRows!: number;
+  @Prop({ default: 4 }) private maxRows!: number;
+
+  private textareaStyles: object = {};
+
+  private mounted(): void {
+    this.initTextAreaAutoSize();
+  }
 
   get isVisiblePrefix(): boolean {
     if (this.$slots.prefix) {
@@ -158,12 +169,6 @@ export default class Input extends Vue {
       return true;
     }
     return false;
-  }
-
-  get textareaClasses(): object {
-    const textareaClass = {
-    };
-    return textareaClass;
   }
 
   get inputWrapClasses(): object {
@@ -215,6 +220,15 @@ export default class Input extends Vue {
       [`${prefixClass}-icon-suffix`]: true,
     };
     return wordCountClass;
+  }
+
+  get textareaClasses(): object {
+    const textareaClass = {
+      [`${prefixClass}`]: true,
+      [`${prefixClass}-textarea`]: true,
+      [`${prefixClass}-disabled`]: this.disabled,
+    };
+    return textareaClass;
   }
 
   get wordCount(): string {
@@ -271,6 +285,25 @@ export default class Input extends Vue {
 
   private handleEnter(e: Event): void {
     this.$emit('enter', e);
+  }
+
+  private initTextAreaAutoSize(): void {
+    // 很粗糙的实现autosize，借助autosize实现自动换行，使用maxheight，minheight实现maxRows，minRows的功能
+    // 以后需要根据, https://github.com/andreypopp/react-textarea-autosize/, 重构
+    const textareaRef = this.$refs.textareaRef as HTMLElement;
+    const style = window.getComputedStyle(textareaRef);
+    const lineHeight = parseInt(style.getPropertyValue('line-height'), 10);
+    const paddingTop = parseInt(style.getPropertyValue('padding-top'), 10);
+    const paddingBottom = parseInt(style.getPropertyValue('padding-bottom'), 10);
+    const borderWidth = parseInt(style.getPropertyValue('border-width'), 10);
+    this.textareaStyles = {
+      'min-height': `${lineHeight * this.minRows + paddingTop + paddingBottom + borderWidth * 2}px`,
+      'max-height': `${lineHeight * this.maxRows + paddingTop + paddingBottom + borderWidth * 2}px`,
+      'resize': `vertical`,
+    };
+    if (this.autosize) {
+      autosize(textareaRef);
+    }
   }
 }
 </script>
