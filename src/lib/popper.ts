@@ -12,6 +12,25 @@ class Pop {
     this.crated();
   }
 
+  public active(): void {
+    if (!this.pop) {
+      this.crated();
+    } else {
+      this.update();
+    }
+  }
+
+  public destroy(): void {
+    if (this.pop) {
+      setTimeout(() => {
+        if (this.pop) {
+          this.pop.destroy();
+          this.pop = null;
+        }
+      }, 300);
+    }
+  }
+
   private crated(): void {
     this.pop = new Popper(
       this.reference,
@@ -40,25 +59,6 @@ class Pop {
       } else {
         this.pop.update();
       }
-    }
-  }
-
-  private active(): void {
-    if (!this.pop) {
-      this.crated();
-    } else {
-      this.update();
-    }
-  }
-
-  private destroy(): void {
-    if (this.pop) {
-      setTimeout(() => {
-        if (this.pop) {
-          this.pop.destroy();
-          this.pop = null;
-        }
-      }, 300);
     }
   }
 }
