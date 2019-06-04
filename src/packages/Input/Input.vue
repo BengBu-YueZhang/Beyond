@@ -11,7 +11,7 @@
       <input
         ref="inputRef"
         :name="name"
-        :value="value"
+        :value="currentValue"
         :type="type"
         :class="inputClasses"
         :disabled="disabled"
@@ -50,7 +50,7 @@
         :spellcheck="spellcheck"
         :disabled="disabled"
         :placeholder="placeholder"
-        :value="value"
+        :value="currentValue"
         :readonly="readonly"
         :style="textareaStyles"
         :class="textareaClasses"
@@ -122,7 +122,9 @@ export default class Input extends Vue {
   @Prop({ default: 2 }) private minRows!: number;
   @Prop({ default: 4 }) private maxRows!: number;
 
+  // textarea的样式
   private textareaStyles: object = {};
+  private currentValue: string = this.value;
 
   @Watch('maxRows')
   private onMaxRowsChange(): void {
@@ -132,6 +134,11 @@ export default class Input extends Vue {
   @Watch('minRows')
   private onMinRowsChange(): void {
     this.initTextAreaAutoSize();
+  }
+
+  @Watch('value')
+  private onValueChange(newValue: string): void {
+    this.setCurrentValue(newValue);
   }
 
   private mounted(): void {
@@ -266,6 +273,7 @@ export default class Input extends Vue {
   }
 
   private handleClear(e: Event): void {
+    this.setCurrentValue('');
     this.$emit('input', '');
     this.$emit('change', {
       target: {
@@ -277,6 +285,7 @@ export default class Input extends Vue {
 
   private handleInput(e: Event): void {
     const value: string = (e.target as HTMLInputElement).value;
+    this.setCurrentValue(value);
     this.$emit('input', value);
   }
 
@@ -299,7 +308,7 @@ export default class Input extends Vue {
   private initTextAreaAutoSize(): void {
     // 很粗糙的实现autosize，借助autosize实现自动换行，使用maxheight，minheight实现maxRows，minRows的功能
     // 以后需要根据, https://github.com/andreypopp/react-textarea-autosize/, 重构
-    if (this.autosize) {
+    if (this.autosize && this.type === 'textarea') {
       const textareaRef = this.$refs.textareaRef as HTMLElement;
       const style = window.getComputedStyle(textareaRef);
       const lineHeight = parseInt(style.getPropertyValue('line-height'), 10);
@@ -313,6 +322,16 @@ export default class Input extends Vue {
       };
       autosize(textareaRef);
     }
+  }
+
+  private setCurrentValue(newValue: string): void {
+    if (newValue === this.currentValue) {
+      return;
+    }
+    this.$nextTick(() => {
+      this.initTextAreaAutoSize();
+    });
+    this.currentValue = newValue;
   }
 }
 </script>
