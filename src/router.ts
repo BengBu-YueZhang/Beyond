@@ -10,12 +10,12 @@ const router = new Router({
     {
       path: '/icon',
       name: 'IconView',
-      component: () => import(/* webpackChunkName: 'about' */ './views/icon.view.vue'),
+      component: () => import('./views/icon.view.vue'),
     },
     {
       path: '/grid',
       name: 'GridView',
-      component: () => import(/* webpackChunkName: 'about' */ './views/grid.view.vue'),
+      component: () => import('./views/grid.view.vue'),
     },
     {
       path: '/button',
@@ -26,6 +26,11 @@ const router = new Router({
       path: '/input',
       name: 'InputView',
       component: () => import('./views/input.view.vue'),
+    },
+    {
+      path: '/switch',
+      name: 'SwitchView',
+      component: () => import('./views/switch.view.vue'),
     },
   ],
 });
