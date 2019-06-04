@@ -6,7 +6,6 @@
   width: 40px;
   height: 20px;
   cursor: pointer;
-  border-width: 1px;
   border: 1px solid @border-color-default;
   border-radius: 20px;
   transition: all @transition ease-in-out;
@@ -24,16 +23,6 @@
     transition: left @transition ease-in-out;
   }
 
-  &-disabled {
-    cursor: not-allowed;
-    background-color: fade(@border-color-default, 20%);
-    border-color: fade(@border-color-default, 20%);
-  }
-  &-disabled&-active {
-    background-color: fade(@color-primary, 20%);
-    border-color: fade(@color-primary, 20%);
-  }
-
   &-active {
     background-color: @color-primary;
     border-color: @color-primary;
@@ -44,5 +33,16 @@
 
   &-inactive {
     background-color: @border-color-default;
+  }
+
+  &-disabled {
+    cursor: not-allowed;
+    background-color: fade(@border-color-default, 50%);
+    border-color: fade(@border-color-default, 50%);
+  }
+
+  &-disabled&-active {
+    background-color: fade(@color-primary, 50%);
+    border-color: fade(@color-primary, 50%);
   }
 }
