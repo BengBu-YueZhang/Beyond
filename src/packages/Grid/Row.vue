@@ -7,7 +7,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import { findChildsComponentByFirstLLevel } from '../../utils/find';
+import { findChildsComponentByFirstLevel } from '../../utils/find';
 
 const prefixClass = 'dlz-row';
 
@@ -78,7 +78,7 @@ export default class Row extends Vue {
   }
 
   private handleGutterChange(gutter: number) {
-    const cols = findChildsComponentByFirstLLevel(this, 'Col');
+    const cols = findChildsComponentByFirstLevel(this, 'Col');
     if (cols.length) {
       cols.forEach((col) => {
         col.gutter = this.gutter;

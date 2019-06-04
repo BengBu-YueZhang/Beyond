@@ -52,7 +52,7 @@ export function findChildsComponentByLevel(target: Component, name: string, leve
 /**
  * 查找第一层子组件
  */
-export function findChildsComponentByFirstLLevel(target: Component, name: string): Component[] {
+export function findChildsComponentByFirstLevel(target: Component, name: string): Component[] {
   return findChildsComponentByLevel(target, name, 1);
 }
 
@@ -82,12 +82,15 @@ export function findParentComponent(target: Component, name: string): Component 
     if (!currentTarget) {
       return;
     }
-    const parentComponent = currentTarget.$parent;
-    const parentName = parentComponent.$options.name;
-    if (parentName === name) {
-      parent = parentComponent;
-    } else {
-      find(parentComponent);
+    if (currentTarget.$parent) {
+      const parentComponent = currentTarget.$parent;
+      const parentName = parentComponent.$options.name;
+      if (parentName === name) {
+        parent = parentComponent;
+        return;
+      } else {
+        find(parentComponent);
+      }
     }
   };
   find(target);

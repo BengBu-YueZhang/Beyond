@@ -1,72 +1,78 @@
 <template>
   <div :class="inputWrapClasses">
     <template v-if="type !== 'textarea'">
+      <!-- 前置组合组件 -->
       <div v-if="isVisiblePrepend">
       </div>
+      <!-- 前置icon -->
       <span v-if="isVisiblePrefix" :class="prefixClasses">
         <slot name="prefix"></slot>
       </span>
       <input
-        ref="reference"
+        ref="inputRef"
+        :name="name"
         :value="value"
         :type="type"
         :class="inputClasses"
         :disabled="disabled"
         :placeholder="placeholder"
         :maxlength="maxlength"
+        :autofocus="autofocus"
         @blur="handleBlur"
         @focus="handleFocus"
         @change="handleChange"
         @click="handleClick"
         @input="handleInput"
       />
+      <!-- clear icon -->
       <span v-if="isVisibleClear" :class="clearClasses">
         <Icon
           @click="handleClear"
           custom-class="dlz-icon-font-close-circle-fill"
         />
       </span>
+      <!-- 后置icon -->
       <span v-if="isVisibleSuffix" :class="suffixClasses">
         <slot name="suffix"></slot>
       </span>
-      <span v-if="isVisibleWordCount" :class="wordCountClasses">{{ wordCount }}</span>
+      <!-- 输入字数 -->
+      <span v-if="isVisibleWordCount" :class="wordCountClasses"><span>{{ wordCount }}</span></span>
+      <!-- 后置组合组件 -->
       <div v-if="isVisibleAppend">
       </div>
-      <!-- 自动联想 -->
-      <transition name="dropdown">
-        <div
-          v-if="onSearch"
-          v-show="isVisibleAutoComplete"
-          ref="popper"
-          class="dlz-dropdown"
-        >
-          <ul class="dlz-select-dropdown-list">
-            <!-- 这里可以优化, 在ul上进行监听 -->
-            <Option
-              v-for="(opt, index) in autoComplete"
-              :label="opt.label"
-              :value="opt.value"
-              :key="index"
-              :selected="opt.value === value"
-              @select-option="handleSelectOption"
-            />
-          </ul>
-        </div>
-      </transition>
     </template>
     <template v-else-if="type === 'textarea'">
+      <textarea
+        ref="textareaRef"
+        :name="name"
+        :autofocus="autofocus"
+        :rows="rows"
+        :spellcheck="spellcheck"
+        :disabled="disabled"
+        :placeholder="placeholder"
+        :value="value"
+        :readonly="readonly"
+        :style="textareaStyles"
+        :class="textareaClasses"
+        :maxlength="maxlength"
+        @blur="handleBlur"
+        @focus="handleFocus"
+        @input="handleInput"
+        @keyup="handleKeyUp"
+        @keypress="handleKeyPress"
+        @keydown="handleKeyDown"
+        @keyup.enter="handleEnter">
+      </textarea>
     </template>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
-import Pop from '../../lib/popper';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import Icon from '../Icon';
-import { Option } from '../Select';
 import is from '../../utils/is';
-import { IOption } from '../../interface';
+import autosize from 'autosize';
 
 const prefixClass = 'dlz-input';
 
@@ -91,7 +97,6 @@ enum Size {
   name: 'Input',
   components: {
     Icon,
-    Option,
   },
   model: {
     prop: 'value',
@@ -99,6 +104,7 @@ enum Size {
   },
 })
 export default class Input extends Vue {
+  @Prop() private name!: string;
   @Prop({ default: Type.text }) private type!: string;
   @Prop({ default: Size.default }) private size!: string;
   @Prop({ default: '' }) private value!: string;
@@ -109,26 +115,27 @@ export default class Input extends Vue {
   @Prop({ default: false }) private autofocus!: boolean;
   // 是否显示自数统计
   @Prop({ default: false }) private showWordCount!: boolean;
-  // 设置自动完成的数据
-  @Prop() private onSearch!: (queryString: string, cb: (list: IOption[]) => any) => any;
+  @Prop({ default: 2 }) private rows!: number;
+  @Prop({ default: false }) private spellcheck!: boolean;
+  @Prop({ default: false }) private readonly!: boolean;
+  @Prop({ default: false }) private autosize!: boolean;
+  @Prop({ default: 2 }) private minRows!: number;
+  @Prop({ default: 4 }) private maxRows!: number;
 
-  private popper!: Pop;
-  private autoComplete: IOption[] = [];
-  private focus: boolean = false;
+  private textareaStyles: object = {};
 
-  private mounted(): void {
-    this.$nextTick(() => {
-      if (is(Function, this.onSearch)) {
-        this.popper = new Pop(
-          this.$refs.reference as Element,
-          this.$refs.popper as Element,
-        );
-      }
-    });
+  @Watch('maxRows')
+  private onMaxRowsChange(): void {
+    this.initTextAreaAutoSize();
   }
 
-  get isVisibleAutoComplete(): boolean {
-    return this.focus && this.autoComplete.length > 0;
+  @Watch('minRows')
+  private onMinRowsChange(): void {
+    this.initTextAreaAutoSize();
+  }
+
+  private mounted(): void {
+    this.initTextAreaAutoSize();
   }
 
   get isVisiblePrefix(): boolean {
@@ -224,6 +231,15 @@ export default class Input extends Vue {
     return wordCountClass;
   }
 
+  get textareaClasses(): object {
+    const textareaClass = {
+      [`${prefixClass}`]: true,
+      [`${prefixClass}-textarea`]: true,
+      [`${prefixClass}-disabled`]: this.disabled,
+    };
+    return textareaClass;
+  }
+
   get wordCount(): string {
     let total!: number;
     const current = this.value.length;
@@ -234,12 +250,10 @@ export default class Input extends Vue {
   }
 
   private handleBlur(e: Event): void {
-    this.focus = false;
     this.$emit('blur', e);
   }
 
   private handleFocus(e: Event): void {
-    this.focus = true;
     this.$emit('focus', e);
   }
 
@@ -263,34 +277,42 @@ export default class Input extends Vue {
 
   private handleInput(e: Event): void {
     const value: string = (e.target as HTMLInputElement).value;
-    this.handleOnSearch(value);
     this.$emit('input', value);
   }
 
-  private handleOnSearch(searchValue: string): void {
-    if (is(Function, this.onSearch)) {
-      this.onSearch(
-        searchValue,
-        this.handleOnSearchCallback,
-      );
-    }
+  private handleKeyUp(e: Event): void {
+    this.$emit('keyup', e);
   }
 
-  private handleOnSearchCallback(list: IOption[]): void {
-    if (is(Array, list)) {
-      this.autoComplete = [...list];
-    }
+  private handleKeyPress(e: Event): void {
+    this.$emit('keypress', e);
   }
 
-  private handleSelectOption(select: IOption): void {
-    const { value } = select;
-    console.log(value);
-    this.$emit('change', {
-      target: {
-        value,
-      },
-    });
-    this.$emit('input', value);
+  private handleKeyDown(e: Event): void {
+    this.$emit('keydown', e);
+  }
+
+  private handleEnter(e: Event): void {
+    this.$emit('enter', e);
+  }
+
+  private initTextAreaAutoSize(): void {
+    // 很粗糙的实现autosize，借助autosize实现自动换行，使用maxheight，minheight实现maxRows，minRows的功能
+    // 以后需要根据, https://github.com/andreypopp/react-textarea-autosize/, 重构
+    if (this.autosize) {
+      const textareaRef = this.$refs.textareaRef as HTMLElement;
+      const style = window.getComputedStyle(textareaRef);
+      const lineHeight = parseInt(style.getPropertyValue('line-height'), 10);
+      const paddingTop = parseInt(style.getPropertyValue('padding-top'), 10);
+      const paddingBottom = parseInt(style.getPropertyValue('padding-bottom'), 10);
+      const borderWidth = parseInt(style.getPropertyValue('border-width'), 10);
+      this.textareaStyles = {
+        'min-height': `${lineHeight * this.minRows + paddingTop + paddingBottom + borderWidth * 2}px`,
+        'max-height': `${lineHeight * this.maxRows + paddingTop + paddingBottom + borderWidth * 2}px`,
+        'resize': `vertical`,
+      };
+      autosize(textareaRef);
+    }
   }
 }
 </script>
