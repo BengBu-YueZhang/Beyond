@@ -1,24 +1,48 @@
 @switch-prefix: ~"@{css-prefix}switch";
 
 .@{switch-prefix} {
+  position: relative;
+  display: inline-block;
   width: 40px;
   height: 20px;
   cursor: pointer;
+  border-width: 1px;
   border: 1px solid @border-color-default;
+  border-radius: 20px;
+  transition: all @transition ease-in-out;
 
   &:after {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    cursor: pointer;
+    background-color: @bg-color-white;
+    transition: left @transition ease-in-out;
   }
 
   &-disabled {
+    cursor: not-allowed;
+    background-color: fade(@border-color-default, 20%);
+    border-color: fade(@border-color-default, 20%);
+  }
+  &-disabled&-active {
+    background-color: fade(@color-primary, 20%);
+    border-color: fade(@color-primary, 20%);
   }
 
   &-active {
     background-color: @color-primary;
+    border-color: @color-primary;
     &:after {
+      left: 21px;
     }
   }
 
   &-inactive {
-    background-color: @bg-color-white;
+    background-color: @border-color-default;
   }
 }
