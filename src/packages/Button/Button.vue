@@ -31,7 +31,9 @@ import { Component, Prop } from 'vue-property-decorator';
 
 const prefixClass = 'dlz-button';
 
-@Component
+@Component({
+  name: 'Button',
+})
 export default class Button extends Vue {
   private name: string = 'dlz-button';
 
