@@ -3,6 +3,7 @@ import VueComponentNotice from './Notice.vue';
 import { INoticeOptions } from '../../interface';
 import { noop, uuid } from '../../utils/utils';
 import zIndex from '../../utils/zIndex';
+import is from '../../utils/is';
 
 const NoticeConstructor = Vue.extend(VueComponentNotice);
 
@@ -47,7 +48,7 @@ Notice.processQueue = function (): void {
     notice.dom = notice.$el;
     notice.dom.style.zIndex = zIndex.nextZIndex();
     for (let i = 0; i < showQueue.length; i++) {
-      offset = showQueue[i].dom.offsetHeight + 20;
+      offset += showQueue[i].dom.offsetHeight + 20;
     }
     notice.offset = offset;
     notice.visible = true;
@@ -55,14 +56,36 @@ Notice.processQueue = function (): void {
   }
 };
 
-Notice.remove = function(id: string, userOnClose: () => any): void {};
+Notice.remove = function(id: string, userOnClose: () => any): void {
+  let index: number = -1;
+  let notice!: NoticeConstructor;
+  showQueue.forEach((not, i) => {
+    if (not.id && not.id === id) {
+      index = i;
+      notice = not;
+    }
+  })
+  if (notice) {
+    if (is(Function, userOnClose)) {
+      userOnClose();
+    }
+    showQueue.splice(index, 1);
+    for (let i = 0; i < showQueue.length; i++) {
+    }
+    Notice.processQueue();
+  }
+};
 
-Notice.len = 10;
+Notice.clear = function(): void {
+  for (let i = 0; i < showQueue.length; i++) {
+    showQueue[i].close();
+  }
+};
+
+Notice.len = 3;
 
 Notice.setLen = function(len: number = 10): void {
   this.len = len;
 };
-
-Notice.clear = function(): void {};
 
 export default Notice;
