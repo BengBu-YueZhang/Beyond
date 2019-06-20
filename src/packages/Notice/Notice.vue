@@ -13,18 +13,25 @@ import is from '../../utils/is';
   name: 'Notice',
 })
 export default class Notice extends Vue {
-  private id!: string;
+  public visible: boolean = false;
+  public offset: number = 0;
+  public id!: string;
+  public onClose!: () => any;
   private title!: string;
   private content!: string | VNode;
   private type!: string;
   private icon!: string;
   private duration!: number;
-  private onClose!: () => any;
   private onOpen!: () => any;
   private showClose!: () => any;
-  private visible: boolean = false;
-  private offset: number = 0;
   private timer: number | null = null;
+
+  public close(): void {
+    if (is(Function, this.onClose)) {
+      this.onClose();
+    }
+    this.visible = false;
+  }
 
   private mounted(): void {
     if (this.duration > 0) {
@@ -42,13 +49,6 @@ export default class Notice extends Vue {
 
   private handleClose(): void {
     this.destroy();
-  }
-
-  private close(): void {
-    if (is(Function, this.onClose)) {
-      this.onClose();
-    }
-    this.visible = false;
   }
 
   private destroy(): void {

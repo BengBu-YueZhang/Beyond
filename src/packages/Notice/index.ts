@@ -1,14 +1,18 @@
 import Vue from 'vue';
-import VueComponentNotice from './Notice.vue';
+import Notice from './Notice.vue';
 import { INoticeOptions } from '../../interface';
 import { noop, uuid } from '../../utils/utils';
 import zIndex from '../../utils/zIndex';
 import is from '../../utils/is';
 
-const NoticeConstructor = Vue.extend(VueComponentNotice);
+const NoticeConstructor = Vue.extend(Notice);
 
 let queue: NoticeConstructor[] = [];
 let showQueue: NoticeConstructor[] = [];
+
+export interface INotice {
+  new (options: INoticeOptions): NoticeConstructor;
+}
 
 const defaultOptions: INoticeOptions = {
   id: uuid(),
@@ -26,24 +30,25 @@ const defaultOptions: INoticeOptions = {
   timer: null,
 };
 
-const Notice = function (options: INoticeOptions = defaultOptions): NoticeConstructor {
+const $Notice = function(options: INoticeOptions = defaultOptions): NoticeConstructor {
   options = Object.assign(options, defaultOptions);
   const id = options.id;
   const userOnClose = options.onClose;
-  options.onClose = function () {
+  options.onClose = function() {
     Notice.remove(id, userOnClose);
-  }
+  };
   const notice = new NoticeConstructor({
-    data: options,
+    data: options
   });
   queue.push(notice);
   Notice.processQueue();
-}
+  return notice;
+};
 
-Notice.processQueue = function (): void {
+$Notice.processQueue = function (): void {
   if (queue.length && showQueue.length < Notice.len) {
-    const notice = queue.shift();
-    let offset = 0
+    const notice = (queue.shift() as NoticeConstructor);
+    let offset = 0;
     document.body.appendChild(notice.$mount().$el);
     notice.dom = notice.$el;
     notice.dom.style.zIndex = zIndex.nextZIndex();
@@ -56,7 +61,7 @@ Notice.processQueue = function (): void {
   }
 };
 
-Notice.remove = function(id: string, userOnClose: () => any): void {
+$Notice.remove = function(id: string, userOnClose: () => any): void {
   let index: number = -1;
   let notice!: NoticeConstructor;
   showQueue.forEach((not, i) => {
@@ -70,22 +75,22 @@ Notice.remove = function(id: string, userOnClose: () => any): void {
       userOnClose();
     }
     showQueue.splice(index, 1);
-    for (let i = 0; i < showQueue.length; i++) {
-    }
+    // for (let i = 0; i < showQueue.length; i++) {
+    // }
     Notice.processQueue();
   }
 };
 
-Notice.clear = function(): void {
+$Notice.clear = function(): void {
   for (let i = 0; i < showQueue.length; i++) {
     showQueue[i].close();
   }
 };
 
-Notice.len = 3;
+$Notice.len = 3;
 
-Notice.setLen = function(len: number = 10): void {
+$Notice.setLen = function(len: number = 10): void {
   this.len = len;
 };
 
-export default Notice;
+export default $Notice;
