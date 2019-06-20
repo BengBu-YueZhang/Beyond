@@ -1,1 +1,42 @@
 @transitionName: notice;
+
+.animation-common() {
+  animation-duration: @animation;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-play-state: running;
+  transform-origin: left top;
+}
+
+.@{transitionName}-enter-active,
+.@{transitionName}-apper {
+  animation-name: noticeIn;
+  .animation-common();
+}
+
+.@{transitionName}-leave-active {
+  animation-name: noticeOut;
+  .animation-common();
+}
+
+@keyframes noticeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes noticeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
