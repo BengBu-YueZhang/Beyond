@@ -5,9 +5,9 @@ class ZIndex {
     this.zIndex = 3000;
   }
 
-  public nextZIndex(): number {
+  public nextZIndex(): string {
     this.zIndex += 1;
-    return this.zIndex;
+    return this.zIndex + '';
   }
 }
 

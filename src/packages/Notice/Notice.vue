@@ -1,5 +1,5 @@
 <template>
-  <transition @after-enter="handleOpen" @after-leave="handleClose" name="notice">
+  <transition @after-enter="handleOpen" @after-leave="handleClose" name="fade">
     <div v-show="visible">123</div>
   </transition>
 </template>
@@ -8,23 +8,25 @@
 import Vue, { VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import is from '../../utils/is';
+import { INotice } from './index';
 
 @Component({
   name: 'Notice',
 })
-export default class Notice extends Vue {
+export default class Notice extends Vue implements INotice {
   public visible: boolean = false;
   public offset: number = 0;
   public id!: string;
   public onClose!: () => any;
-  private title!: string;
-  private content!: string | VNode;
-  private type!: string;
-  private icon!: string;
-  private duration!: number;
-  private onOpen!: () => any;
-  private showClose!: () => any;
-  private timer: number | null = null;
+  public title!: string;
+  public content!: string | VNode;
+  public type!: string;
+  public icon!: string;
+  public duration!: number;
+  public onOpen!: () => any;
+  public showClose!: boolean;
+  public timer: number | null = null;
+  public dom!: HTMLElement | null;
 
   public close(): void {
     if (is(Function, this.onClose)) {
