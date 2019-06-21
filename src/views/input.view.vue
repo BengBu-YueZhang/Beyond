@@ -50,7 +50,6 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import Input from '../packages/Input';
 import Icon from '../packages/Icon';
-import { IOption } from '../interface';
 
 @Component({
   components: {
@@ -68,18 +67,6 @@ export default class InputView extends Vue {
 
   private handleInput(val: string): void {
     this.value2 = val;
-  }
-
-  private handleSearch(queryString: string, cb: (list: IOption[]) => any): void {
-    // 测试
-    const list = [];
-    for (let i = 0; i < 3; i++) {
-      list.push({
-        label: `${queryString}-${i}`,
-        value: `${queryString}-${i}`,
-      });
-    }
-    cb(list);
   }
 }
 </script>
