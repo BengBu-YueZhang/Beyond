@@ -1,5 +1,5 @@
 <template>
-  <transition @after-enter="handleOpen" @after-leave="handleClose" name="notice">
+  <transition @after-enter="handleOpen" name="notice">
     <div v-show="visible" :class="noticeClasses" :style="noticeStyles">
       <div></div>
       <div></div>
@@ -54,6 +54,7 @@ export default class Notice extends Vue implements INotice {
 
   public close(): void {
     this.visible = false;
+    this.$el.addEventListener('transitionend', this.destroy);
     if (is(Function, this.onClose)) {
       this.onClose();
     }
@@ -73,11 +74,8 @@ export default class Notice extends Vue implements INotice {
     }
   }
 
-  private handleClose(): void {
-    this.destroy();
-  }
-
   private destroy(): void {
+    this.$el.removeEventListener('transitionend', this.destroy);
     this.$destroy();
     if (this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el);

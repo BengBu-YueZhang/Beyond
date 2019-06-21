@@ -24,12 +24,12 @@ export interface INotice extends Vue {
 }
 
 const defaultOptions = {
-  id: uuid(),
+  id: '',
   title: '',
   content: '',
   type: 'default',
   icon: '',
-  duration: 7000,
+  duration: 2000,
   onClose: noop,
   onOpen: noop,
   showClose: true,
@@ -44,7 +44,7 @@ let showQueue: INotice[] = [];
 
 const $Notice = function (options = defaultOptions): INotice {
   options = Object.assign({}, options, defaultOptions);
-  const id = options.id;
+  const id = options.id = uuid();
   const userOnClose = options.onClose;
   options.onClose = function() {
     $Notice.remove(id, userOnClose);
@@ -88,12 +88,12 @@ $Notice.remove = function(id: string, userOnClose: () => any): void {
       userOnClose();
     }
     showQueue.splice(index, 1);
-    // let removeNoticeHeigth = (notice.dom as HTMLElement).offsetHeight;
-    // for (let i = 0; i < showQueue.length; i++) {
-    //   showQueue[i].dom.style.top = `${showQueue[i].offset - removeNoticeHeigth}px`;
-    //   console.log(showQueue[i].dom.style.top)
-    // }
-    // console.log('--------')
+    if (showQueue.length) {
+      let removeNoticeHeigth = (notice.dom as HTMLElement).offsetHeight;
+      for (let i = 0; i < showQueue.length; i++) {
+        (showQueue[i].dom as HTMLElement).style.top = `${parseInt((showQueue[i].dom as HTMLElement).style.top as string) - removeNoticeHeigth - 15}px`;
+      }
+    }
     $Notice.processQueue();
   }
 };
@@ -104,9 +104,9 @@ $Notice.clear = function(): void {
   }
 };
 
-$Notice.len = 10;
+$Notice.len = 3;
 
-$Notice.setLen = function(len: number = 10): void {
+$Notice.setLen = function(len: number = 3): void {
   this.len = len;
 };
 
