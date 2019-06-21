@@ -1,8 +1,10 @@
 <template>
   <transition @after-enter="handleOpen" name="notice">
     <div v-show="visible" :class="noticeClasses" :style="noticeStyles">
-      <div></div>
-      <div></div>
+      <div v-if="showClose">
+      </div>
+      <div>
+      </div>
       <span></span>
     </div>
   </transition>
@@ -50,6 +52,25 @@ export default class Notice extends Vue implements INotice {
       top: `${this.offset + 15}px`,
     };
     return noticeStyle;
+  }
+
+  get noticeIconClasses(): string {
+    let iconClass = ''
+    switch(this.type) {
+      case 'success':
+        this.type = '';
+        break;
+      case 'warning':
+        this.type = '';
+        break;
+      case 'error':
+        this.type = '';
+        break;
+      case 'info':
+      default:
+        this.type = '';
+    }
+    return iconClass;
   }
 
   public close(): void {
