@@ -20,6 +20,7 @@ export interface INotice extends Vue {
   offset: number;
   timer: number | null;
   dom: HTMLElement | null;
+  close: () => any;
 }
 
 const defaultOptions = {
@@ -28,7 +29,7 @@ const defaultOptions = {
   content: '',
   type: 'default',
   icon: '',
-  duration: 0,
+  duration: 7000,
   onClose: noop,
   onOpen: noop,
   showClose: true,
@@ -51,10 +52,9 @@ const $Notice = function (options = defaultOptions): INotice {
   const notice = new NoticeConstructor({
     data: options
   });
-  console.log(notice.visible)
-  queue.push(notice);
+  queue.push(notice as INotice);
   $Notice.processQueue();
-  return notice;
+  return notice as INotice;
 };
 
 $Notice.processQueue = function (): void {
@@ -65,10 +65,8 @@ $Notice.processQueue = function (): void {
     notice.dom = notice.$el as HTMLElement;
     notice.dom.style.zIndex = zIndex.nextZIndex();
     for (let i = 0; i < showQueue.length; i++) {
-      if (showQueue[i].dom) {
-        let dom = showQueue[i].dom as HTMLElement;
-        offset += dom.offsetHeight + 20;
-      }
+      let dom = showQueue[i].dom as HTMLElement;
+      offset += dom.offsetHeight + 15;
     }
     notice.offset = offset;
     notice.visible = true;
@@ -90,9 +88,13 @@ $Notice.remove = function(id: string, userOnClose: () => any): void {
       userOnClose();
     }
     showQueue.splice(index, 1);
+    // let removeNoticeHeigth = (notice.dom as HTMLElement).offsetHeight;
     // for (let i = 0; i < showQueue.length; i++) {
+    //   showQueue[i].dom.style.top = `${showQueue[i].offset - removeNoticeHeigth}px`;
+    //   console.log(showQueue[i].dom.style.top)
     // }
-    Notice.processQueue();
+    // console.log('--------')
+    $Notice.processQueue();
   }
 };
 
@@ -102,7 +104,7 @@ $Notice.clear = function(): void {
   }
 };
 
-$Notice.len = 3;
+$Notice.len = 10;
 
 $Notice.setLen = function(len: number = 10): void {
   this.len = len;

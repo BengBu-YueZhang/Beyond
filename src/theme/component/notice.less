@@ -1,0 +1,17 @@
+@notice-prefix: ~"@{css-prefix}notice";
+
+.@{notice-prefix} {
+  display: flex;
+  width: 320px;
+  min-height: 100px;
+  padding: 14px 26px 14px 13px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ebeef5;
+  position: fixed;
+  top: 15px;
+  right: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  transition: opacity @animation, transform @animation, left @transition, right @transition, top @transition, bottom, @transition;
+}

@@ -1,6 +1,10 @@
 <template>
-  <transition @after-enter="handleOpen" @after-leave="handleClose" name="fade">
-    <div v-show="visible">123</div>
+  <transition @after-enter="handleOpen" @after-leave="handleClose" name="notice">
+    <div v-show="visible" :class="noticeClasses" :style="noticeStyles">
+      <div></div>
+      <div></div>
+      <span></span>
+    </div>
   </transition>
 </template>
 
@@ -9,9 +13,15 @@ import Vue, { VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import is from '../../utils/is';
 import { INotice } from './index';
+import Icon from '../Icon';
+
+const prefixClass = 'dlz-notice';
 
 @Component({
   name: 'Notice',
+  components: {
+    Icon,
+  },
 })
 export default class Notice extends Vue implements INotice {
   public visible: boolean = false;
@@ -28,11 +38,25 @@ export default class Notice extends Vue implements INotice {
   public timer: number | null = null;
   public dom!: HTMLElement | null;
 
+  get noticeClasses(): object {
+    const noticeClass = {
+      [`${prefixClass}`]: true
+    };
+    return noticeClass;
+  }
+
+  get noticeStyles(): object {
+    const noticeStyle = {
+      top: `${this.offset + 15}px`,
+    };
+    return noticeStyle;
+  }
+
   public close(): void {
+    this.visible = false;
     if (is(Function, this.onClose)) {
       this.onClose();
     }
-    this.visible = false;
   }
 
   private mounted(): void {
