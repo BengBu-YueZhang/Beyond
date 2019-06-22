@@ -1,7 +1,10 @@
+// TODO: 样式需要优化
 @notice-prefix: ~"@{css-prefix}notice";
 
 .@{notice-prefix} {
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 320px;
   min-height: 100px;
   padding: 10px 15px;
@@ -14,4 +17,60 @@
   background-color: #fff;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
   transition: opacity @animation, transform @animation, left @transition, right @transition, top @transition, bottom, @transition;
+
+  &-title {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    color: @color-black;
+  }
+
+  &-content {
+    font-size: 14px;
+    text-align: justify;
+    color: @color-text-primary;
+    line-height: 18px;
+  }
+
+  &-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: @color-default;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &-icon-wrap {
+    padding-top: 10px;
+    padding-right: 10px;
+
+    &-success {
+      color: @color-success;
+    }
+
+    &-warning {
+      color: @color-warning;
+    }
+
+    &-error {
+      color: @color-danger;
+    }
+
+    &-info, &-default {
+      color: @color-info;
+    }
+  }
+
+  &-content-wrap {
+    flex: 1;
+    word-break: break-all;
+  }
 }

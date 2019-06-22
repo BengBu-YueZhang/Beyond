@@ -1,16 +1,24 @@
 <template>
   <transition @after-enter="handleOpen" name="notice">
     <div v-show="visible" :class="noticeClasses" :style="noticeStyles">
-      <div v-if="showClose">
+      <span v-if="showClose" :class="noticeIconWrapClasses">
+        <Icon size="24" :custom-class="noticeIconClasses"/>
+      </span>
+      <div :class="noticeContentWrapClasses">
+        <span :class="noticeTitleClasses">{{ this.title }}</span>
+        <slot>
+          <div :class="noticeContentClasses">{{ this.content }}</div>
+        </slot>
       </div>
-      <div>
-      </div>
-      <span></span>
+      <span :class="noticeCloseClasses">
+        <Icon custom-class="dlz-icon-font-close-circle"/>
+      </span>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
+// TODO: 样式需要优化
 import Vue, { VNode } from 'vue';
 import { Component } from 'vue-property-decorator';
 import is from '../../utils/is';
@@ -56,21 +64,58 @@ export default class Notice extends Vue implements INotice {
 
   get noticeIconClasses(): string {
     let iconClass = ''
+    console.log(this.type);
     switch(this.type) {
       case 'success':
-        this.type = '';
+        iconClass = 'dlz-icon-font-check-circle';
         break;
       case 'warning':
-        this.type = '';
+        iconClass = 'dlz-icon-font-warning-circle';
         break;
       case 'error':
-        this.type = '';
+        iconClass = 'dlz-icon-font-close-circle';
         break;
       case 'info':
       default:
-        this.type = '';
+        iconClass = 'dlz-icon-font-info-circle-fill';
     }
     return iconClass;
+  }
+
+  get noticeIconWrapClasses(): object {
+    const noticeIconClass = {
+      [`${prefixClass}-icon-wrap`]: true,
+      [`${prefixClass}-icon-wrap-${this.type}`]: true,
+    };
+    return noticeIconClass;
+  }
+
+  get noticeContentClasses(): object {
+    const noticeContentClass = {
+      [`${prefixClass}-content`]: true,
+    };
+    return noticeContentClass;
+  }
+
+  get noticeCloseClasses(): object {
+    const noticeCloseClass = {
+      [`${prefixClass}-close`]: true,
+    };
+    return noticeCloseClass;
+  }
+
+  get noticeTitleClasses(): object {
+    const noticeTitleClass = {
+      [`${prefixClass}-title`]: true,
+    };
+    return noticeTitleClass;
+  }
+
+  get noticeContentWrapClasses(): object {
+    const noticeContentWrapClass = {
+      [`${prefixClass}-content-wrap`]: true,
+    };
+    return noticeContentWrapClass;
   }
 
   public close(): void {

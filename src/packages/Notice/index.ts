@@ -29,7 +29,7 @@ const defaultOptions = {
   content: '',
   type: 'default',
   icon: '',
-  duration: 2000,
+  duration: 0,
   onClose: noop,
   onOpen: noop,
   showClose: true,
@@ -39,42 +39,42 @@ const defaultOptions = {
   dom: null,
 };
 
-let queue: INotice[] = [];
-let showQueue: INotice[] = [];
+const queue: INotice[] = [];
+const showQueue: INotice[] = [];
 
-const $Notice = function (options = defaultOptions): INotice {
+const $Notice = (options = defaultOptions): INotice => {
   options = Object.assign({}, options, defaultOptions);
   const id = options.id = uuid();
   const userOnClose = options.onClose;
-  options.onClose = function() {
+  options.onClose = () => {
     $Notice.remove(id, userOnClose);
   };
   const notice = new NoticeConstructor({
-    data: options
+    data: options,
   });
   queue.push(notice as INotice);
   $Notice.processQueue();
   return notice as INotice;
 };
 
-$Notice.processQueue = function (): void {
+$Notice.processQueue = (): void => {
   if (queue.length && showQueue.length < $Notice.len) {
     const notice = queue.shift() as INotice;
     let offset = 0;
     document.body.appendChild(notice.$mount().$el);
     notice.dom = notice.$el as HTMLElement;
     notice.dom.style.zIndex = zIndex.nextZIndex();
-    for (let i = 0; i < showQueue.length; i++) {
-      let dom = showQueue[i].dom as HTMLElement;
+    showQueue.forEach((not) => {
+      const dom = not.dom as HTMLElement;
       offset += dom.offsetHeight + 15;
-    }
+    });
     notice.offset = offset;
     notice.visible = true;
     showQueue.push(notice);
   }
 };
 
-$Notice.remove = function(id: string, userOnClose: () => any): void {
+$Notice.remove = (id: string, userOnClose: () => any): void => {
   let index: number = -1;
   let notice!: INotice;
   showQueue.forEach((not, i) => {
@@ -89,19 +89,21 @@ $Notice.remove = function(id: string, userOnClose: () => any): void {
     }
     showQueue.splice(index, 1);
     if (showQueue.length) {
-      let removeNoticeHeigth = (notice.dom as HTMLElement).offsetHeight;
-      for (let i = 0; i < showQueue.length; i++) {
-        (showQueue[i].dom as HTMLElement).style.top = `${parseInt((showQueue[i].dom as HTMLElement).style.top as string) - removeNoticeHeigth - 15}px`;
-      }
+      const removeNoticeHeigth = (notice.dom as HTMLElement).offsetHeight;
+      showQueue.forEach((not) => {
+        (not.dom as HTMLElement).style.top = `
+          ${parseInt((not.dom as HTMLElement).style.top as string, 10) - removeNoticeHeigth - 15}px
+        `;
+      });
     }
     $Notice.processQueue();
   }
 };
 
-$Notice.clear = function(): void {
-  for (let i = 0; i < showQueue.length; i++) {
-    showQueue[i].close();
-  }
+$Notice.clear = (): void => {
+  showQueue.forEach((not) => {
+    not.close();
+  });
 };
 
 $Notice.len = 3;
