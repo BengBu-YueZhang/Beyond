@@ -6,6 +6,17 @@ import is from '../../utils/is';
 
 const NoticeConstructor = Vue.extend(Notice);
 
+export interface INoticeOptions {
+  title?: string;
+  content?: string | VNode;
+  type?: string;
+  icon?: string;
+  duration?: number;
+  onClose?: () => any;
+  onOpen?: () => any;
+  showClose?: boolean;
+}
+
 export interface INotice extends Vue {
   id: string;
   title: string;
@@ -42,15 +53,18 @@ const defaultOptions = {
 const queue: INotice[] = [];
 const showQueue: INotice[] = [];
 
-const $Notice = (options = defaultOptions): INotice => {
-  options = Object.assign({}, options, defaultOptions);
-  const id = options.id = uuid();
+const $Notice = (options: INoticeOptions): INotice => {
+  options = Object.assign({}, defaultOptions, options);
+  const id = uuid();
   const userOnClose = options.onClose;
   options.onClose = () => {
     $Notice.remove(id, userOnClose);
   };
   const notice = new NoticeConstructor({
-    data: options,
+    data: {
+      ...options,
+      id,
+    },
   });
   queue.push(notice as INotice);
   $Notice.processQueue();
@@ -74,7 +88,7 @@ $Notice.processQueue = (): void => {
   }
 };
 
-$Notice.remove = (id: string, userOnClose: () => any): void => {
+$Notice.remove = (id: string, userOnClose: () => any | null): void => {
   let index: number = -1;
   let notice!: INotice;
   showQueue.forEach((not, i) => {
@@ -106,9 +120,9 @@ $Notice.clear = (): void => {
   });
 };
 
-$Notice.len = 3;
+$Notice.len = 8;
 
-$Notice.setLen = function(len: number = 3): void {
+$Notice.setLen = function(len: number = 8): void {
   this.len = len;
 };
 

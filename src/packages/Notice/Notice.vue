@@ -10,7 +10,7 @@
           <div :class="noticeContentClasses">{{ this.content }}</div>
         </slot>
       </div>
-      <span :class="noticeCloseClasses">
+      <span :class="noticeCloseClasses" @click="handleCloseClick">
         <Icon custom-class="dlz-icon-font-close-circle"/>
       </span>
     </div>
@@ -148,6 +148,10 @@ export default class Notice extends Vue implements INotice {
     } else {
       document.body.removeChild(this.$el);
     }
+  }
+
+  private handleCloseClick(): void {
+    this.close();
   }
 }
 </script>

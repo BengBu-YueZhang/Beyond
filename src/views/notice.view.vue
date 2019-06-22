@@ -17,7 +17,9 @@ import Notice from '../packages/Notice';
 })
 export default class NoticeView extends Vue {
   private handleClick(): void {
-    Notice();
+    Notice({
+      duration: 3000,
+    });
   }
 }
 </script>
