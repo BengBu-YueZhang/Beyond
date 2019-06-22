@@ -1,4 +1,4 @@
-@transitionName: dropdown;
+@dropdownTransitionName: dropdown;
 
 .animation-common() {
   animation-duration: @animation;
@@ -8,13 +8,13 @@
   transform-origin: left top;
 }
 
-.@{transitionName}-enter-active,
-.@{transitionName}-apper {
+.@{dropdownTransitionName}-enter-active,
+.@{dropdownTransitionName}-apper {
   animation-name: dropdownIn;
   .animation-common();
 }
 
-.@{transitionName}-leave-active {
+.@{dropdownTransitionName}-leave-active {
   animation-name: dropdownOut;
   .animation-common();
 }

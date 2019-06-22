@@ -32,6 +32,11 @@ const router = new Router({
       name: 'SwitchView',
       component: () => import('./views/switch.view.vue'),
     },
+    {
+      path: '/notice',
+      name: 'NoticeView',
+      component: () => import('./views/notice.view.vue'),
+    }
   ],
 });
 
