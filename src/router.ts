@@ -27,6 +27,11 @@ const router = new Router({
       name: 'InputView',
       component: () => import('./views/input.view.vue'),
     },
+    {
+      path: '/radio',
+      name: 'RadioView',
+      component: () => import('./views/radio.view.vue'),
+    },
   ],
 });
 
