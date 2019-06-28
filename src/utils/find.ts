@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-interface Component extends Vue {
+export interface IComponent extends Vue {
   [key: string]: any;
 }
 
@@ -8,9 +8,9 @@ interface Component extends Vue {
  * 查找子组件(包含嵌套的子组件)
  * @param {String} name 组件名
  */
-export function findChildsComponent(target: Component, name: string): Component[] {
-  const children: Component[] = [];
-  const find = (currentTarget: Component): void => {
+export function findChildsComponent(target: IComponent, name: string): IComponent[] {
+  const children: IComponent[] = [];
+  const find = (currentTarget: IComponent): void => {
     const childrens = currentTarget.$children;
     for (const child of childrens) {
       const childName = child.$options.name;
@@ -29,9 +29,9 @@ export function findChildsComponent(target: Component, name: string): Component[
  * 按照层级查找子组件
  * @param {String} name 组件名
  */
-export function findChildsComponentByLevel(target: Component, name: string, level: number): Component[] {
-  const children: Component[] = [];
-  const find = (currentTarget: Component, currentLevel: number): void => {
+export function findChildsComponentByLevel(target: IComponent, name: string, level: number): IComponent[] {
+  const children: IComponent[] = [];
+  const find = (currentTarget: IComponent, currentLevel: number): void => {
     if (currentLevel > level) {
       return;
     }
@@ -52,7 +52,7 @@ export function findChildsComponentByLevel(target: Component, name: string, leve
 /**
  * 查找第一层子组件
  */
-export function findChildsComponentByFirstLevel(target: Component, name: string): Component[] {
+export function findChildsComponentByFirstLevel(target: IComponent, name: string): IComponent[] {
   return findChildsComponentByLevel(target, name, 1);
 }
 
@@ -61,12 +61,12 @@ export function findChildsComponentByFirstLevel(target: Component, name: string)
  * @param {String} name 组件名
  * @param {Boolean} includeMe 是否包含自身
  */
-export function findBrothersComponent(target: Component, name: string, includeMe: boolean = true): Component[] {
-  const children: Component[] = target.$parent.$children.filter((child: Component) => {
+export function findBrothersComponent(target: IComponent, name: string, includeMe: boolean = true): IComponent[] {
+  const children: IComponent[] = target.$parent.$children.filter((child: IComponent) => {
     return child.$options.name === name;
   });
   if (!includeMe) {
-    return children.filter((child: Component) => {
+    return children.filter((child: IComponent) => {
       return child !== target;
     });
   }
@@ -76,9 +76,9 @@ export function findBrothersComponent(target: Component, name: string, includeMe
 /**
  * 查找父组件
  */
-export function findParentComponent(target: Component, name: string): Component {
-  let parent!: Component;
-  const find = (currentTarget: Component) => {
+export function findParentComponent(target: IComponent, name: string): IComponent {
+  let parent!: IComponent;
+  const find = (currentTarget: IComponent) => {
     if (!currentTarget) {
       return;
     }
