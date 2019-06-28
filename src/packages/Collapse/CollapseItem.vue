@@ -5,7 +5,12 @@
         @click="handleCollapseItemClick"
         :class="collapseItemHeaderClasses">
         <slot name="title">{{ title }}</slot>
-        <Icon :custom-class="collapseItemHeaderIconClasses"/>
+        <span :class="collapseItemHeaderIconClasses">
+          <Icon
+            color="#909399"
+            custom-class="dlz-icon-font-right"
+          />
+        </span>
       </div>
     </div>
     <transition>
@@ -63,7 +68,9 @@ export default class CollapseItem extends Vue {
   }
 
   get collapseItemHeaderIconClasses(): string {
-    const collapseItemHeaderIconClass = this.isActive ? `${prefixClass}-header-icon-active` : `${prefixClass}-header-icon`;
+    const collapseItemHeaderIconClass = this.isActive ?
+      `${prefixClass}-header-icon-active` :
+      `${prefixClass}-header-icon`;
     return collapseItemHeaderIconClass;
   }
 

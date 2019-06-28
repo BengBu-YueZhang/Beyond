@@ -1,0 +1,48 @@
+@collapse-prefix: ~"@{css-prefix}collapse";
+
+.@{collapse-prefix} {
+  border-top: 1px solid @border-color-default;
+  border-bottom: 1px solid @border-color-default;
+
+  &-item {
+
+    margin-bottom: -1px;
+    
+    &-header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      height: 48px;
+      line-height: 48px;
+      user-select: none;
+      cursor: pointer;
+      font-size: @font-size-base;
+      color: @color-black;
+      border-bottom: 1px solid @border-color-default;
+
+      &-icon {
+        margin-right: 12px;
+        &-active {
+          margin-right: 12px;
+          transform: rotate(90deg);
+        }
+      }
+
+      &-active {
+        border-bottom-color: transparent;
+      }
+    }
+    
+    &-disabled {
+      cursor: not-allowed;
+    }
+
+    &-content {
+      font-size: @font-size-small;
+      line-height: 1;
+      color: @color-default;
+      min-height: 48px;
+      border-bottom: 1px solid @border-color-default;
+    }
+  }
+}
