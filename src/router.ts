@@ -36,7 +36,12 @@ const router = new Router({
       path: '/notice',
       name: 'NoticeView',
       component: () => import('./views/notice.view.vue'),
-    }
+    },
+    {
+      path: '/collapse',
+      name: 'CollapseView'
+      component: () => import('./views/collapse.view.vue'),
+    },
   ],
 });
 
