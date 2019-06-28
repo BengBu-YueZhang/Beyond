@@ -45,10 +45,6 @@ export default class CollapseItem extends Vue {
 
   @Inject('collapse') private collapse: Collapse;
 
-  get isActive(): boolean {
-    return this.collapse.currentValue.indexOf(this.name) > -1;
-  }
-
   get collapseItemClasses(): object {
     const collapseItemClass = {
       [`${prefixClass}`]: true,
@@ -86,12 +82,22 @@ export default class CollapseItem extends Vue {
     return collapseItemContentClass;
   }
 
+  private created(): void {
+    this.$on('collapse-active-update', this.handleCollapseActiveUpdate);
+  }
+
+  private isActive: boolean = this.collapse.currentValue.indexOf(this.name) > -1;
+
   private dispatch!: (targetName: string, eventName: string, params: any) => void;
 
   private handleCollapseItemClick(): void {
     if (!this.disabled) {
-      this.dispatch('XesCollapse', 'collapse-item-click', this.name);
+      this.dispatch('Collapse', 'collapse-item-click', this.name);
     }
+  }
+
+  private handleCollapseActiveUpdate(actives: string[]): void {
+    this.isActive = actives.indexOf(this.name) > -1;
   }
 }
 </script>

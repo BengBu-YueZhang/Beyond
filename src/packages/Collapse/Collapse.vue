@@ -7,11 +7,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch, Provide } from 'vue-property-decorator';
+import { EmitterMixin } from '../../mixins';
 
 const prefixClass = 'dlz-collapse';
 
 @Component({
   name: 'Collapse',
+  mixins: [EmitterMixin],
   model: {
     event: 'change',
     prop: 'value',
@@ -32,7 +34,7 @@ export default class Collapse extends Vue {
   }
 
   @Provide('collapse')
-  private collapse: Collapse = this;
+  public collapse: Collapse = this;
 
   get collapseClasses(): object {
     const collapseClass = {
@@ -47,6 +49,8 @@ export default class Collapse extends Vue {
   private created(): void {
     this.$on('collapse-item-click', this.handleCollapseItemClick);
   }
+
+  private broadcast!: (targetName: string, eventName: string, params: any) => void;
 
   private handleCollapseItemClick(collapseItemName: string): void {
     if (this.accordion) {
@@ -74,6 +78,7 @@ export default class Collapse extends Vue {
     } else {
       this.currentValue = [].concat(value);
     }
+    this.broadcast('CollapseItem', 'collapse-active-update', this.currentValue);
   }
 }
 </script>
